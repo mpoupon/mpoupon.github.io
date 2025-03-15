@@ -98,27 +98,6 @@ p {
   margin-bottom: 1rem;
 }
 
-ol {
-  list-style: none;
-  counter-reset: my-counter;
-}
-
-ol li {
-  counter-increment: my-counter;
-  position: relative;
-  padding-left: 2rem;
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-}
-
-ol li::before {
-  content: counter(my-counter) ".";
-  font-weight: bold;
-  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  position: absolute;
-  left: 0;
-}
-
-
 #About {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
