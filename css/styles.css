@@ -88,6 +88,13 @@ h5, .h5 {
   font-size: 1.25rem;
 }
 
+ol li::before {
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  position: absolute;
+  left: 0;
+}
+
 h6, .h6 {
   font-size: 1rem;
 }
