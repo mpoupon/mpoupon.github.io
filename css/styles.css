@@ -99,7 +99,7 @@ p {
 }
 
 .justified {
-  text-align: justify;
+  text-align: justify !important;
   text-justify: inter-word;
 }
 .justified::after {
