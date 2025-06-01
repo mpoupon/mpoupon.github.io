@@ -98,6 +98,17 @@ p {
   margin-bottom: 1rem;
 }
 
+.justified {
+  text-align: justify;
+  text-justify: inter-word;
+}
+.justified::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+}
+
+
 #About {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
