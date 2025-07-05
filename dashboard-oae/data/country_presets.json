@@ -1,0 +1,7 @@
+{
+  "US": { "gasPrice": 0.044, "fuelPrice": 0.096, "elecPrice": 0.147, "elecCIntensity": 369.5 },
+  "FR": { "gasPrice": 0.139, "fuelPrice": 0.178, "elecPrice": 0.190, "elecCIntensity": 56.04 },
+  "CN": { "gasPrice": 0.047, "fuelPrice": 0.099, "elecPrice": 0.092, "elecCIntensity": 582.3 },
+  "IN": { "gasPrice": 0.056, "fuelPrice": 0.105, "elecPrice": 0.127, "elecCIntensity": 713.4 },
+  "BR": { "gasPrice": 0.213, "fuelPrice": 0.098, "elecPrice": 0.129, "elecCIntensity": 98.3 }
+}

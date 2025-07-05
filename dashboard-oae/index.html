@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OAE Dashboard</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,600;1,600&family=Lato:wght@400&display=swap" rel="stylesheet" />
+  
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            exo: ['"Exo 2"', 'sans-serif'],
+            lato: ['Lato', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- JS for the 3D globe -->
+  <script src="https://cdn.jsdelivr.net/npm/chroma-js@2.4.2/chroma.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+  <script src="https://unpkg.com/dat.gui/build/dat.gui.min.js"></script>
+  <script type="module" src="./main.js"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      overflow: hidden; /* empêche tout scroll global */
+    }
+
+    body {
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .scrollbar-style::-webkit-scrollbar {
+    width: 8px;
+    }
+    .scrollbar-style::-webkit-scrollbar-track {
+      background: #000; /* extérieur noir */
+    }
+    .scrollbar-style::-webkit-scrollbar-thumb {
+      background-color: #374151; /* le slider, gris */
+      border-radius: 4px;
+    }
+    /* Pour Firefox */
+    .scrollbar-style {
+      scrollbar-color: #374151 #000; /* thumb + track */
+      scrollbar-width: thin;
+    }
+
+    #canvas-container {
+      overflow: hidden;
+    }
+
+    #canvas-container canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  .btn-active {
+    @apply bg-blue-600 text-white;
+  }
+  </style>
+</head>
+
+<body class="h-screen w-screen bg-black text-white">
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-black/80 px-6 py-4 flex justify-between items-center">
+    <div class="font-exo text-xl font-bold">Mathieu Poupon</div>
+    <nav class="hidden md:flex gap-6">
+      <a href="https://mpoupon.github.io/" class="hover:text-blue-400 font-lato">About</a>
+      <a href="https://github.com/mpoupon/" class="hover:text-blue-400 font-lato">GitHub</a>
+    </nav>
+    <button id="mobileMenuButton" class="md:hidden">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
+           viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round"
+           d="M4 6h16M4 12h16M4 18h16" /></svg>
+    </button>
+  </header>
+
+  <!-- MOBILE MENU -->
+
+    <div id="mobileMenu"
+        class="fixed top-16 right-0 w-auto bg-black/50 text-white px-6 py-4 opacity-0 scale-y-0 origin-top-right pointer-events-none 
+        transition-all duration-200 ease-out md:hidden z-40 text-right rounded-lg shadow-lg">
+        <a href="https://mpoupon.github.io/" class="block py-2 hover:text-blue-400">About</a>
+        <a href="https://github.com/mpoupon/" class="block py-2 hover:text-blue-400">GitHub</a>
+    </div>
+    
+  <!-- MAIN CONTENT -->
+
+   <div id="mainContent" class="flex h-screen pt-16 bg-black overflow-hidden">
+
+        <!-- LEFT COLUMN -->
+        <div id="sidebar"
+          class="transform transition-transform duration-100 ease-in-out w-[30%] max-w-[500px] min-w-[300px] flex flex-col px-8 overflow-y-auto scrollbar-style"
+          style="max-height: calc(100vh - 4rem);">
+
+            <!-- Titre fixe -->
+            <div id="sidebarHeader" class="shrink-0 pt-20">
+              <h1 class="text-white text-4xl mb-4 font-exo leading-none">Ocean Alkalinity Enhancement Dashboard</h1>
+              <p class="text-gray-400 font-lato">This dashboard displays the Ocean Alkalinity Enhancement cost and efficiency over the globe.</p>
+            </div>
+
+            <!-- Contenu scrollable -->
+            <div id="sidebarContent" class="flex-1 pr-1 mt-6 font-lato">
+
+                <!-- Model section ------------------------------------------------------------------------------------------------- --> 
+                <hr class="border-t border-gray-700 my-6">
+                <!-- Title: Model -->
+                <div id="modelToggleHeader" class="flex items-center justify-between cursor-pointer mb-4 select-none"
+                    onclick="toggleModelSection()">
+                  <h2 class="text-2xl text-white font-exo">Model</h2>
+                  <svg id="modelToggleArrow" class="w-5 h-5 text-white transition-transform duration-300" fill="none"
+                      stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+
+
+                <!-- Model parameters -->
+                <div id="modelSection">
+                    <div class="space-y-2 font-lato">
+                    <h3 class="text-xl text-white font-exo">Land Production</h2>
+                      <!-- Dropdown: Country -->
+                      <div>
+                        <label for="country" class="block text-sm text-gray-400 mb-1">Country</label>
+                        <select id="country" name="country"
+                                class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                          <option value="CUSTOM">Custom</option>
+-                          <option value="US">🇺🇸 United States</option>
+                          <option value="FR">🇫🇷 France</option>
+                          <option value="CN">🇨🇳 China</option>
+                          <option value="IN">🇮🇳 India</option>
+                          <option value="BR">🇧🇷 Brazil</option>
+                        </select>
+                      </div>
+
+                      <!-- Inline inputs: Gas and Fuel Price -->
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Gas Price -->
+                        <div>
+                          <label for="gasPrice" class="block text-sm text-gray-400 mb-1">
+                            Gas Price
+                          </label>
+                          <input type="number" id="gasPrice" name="gasPrice" placeholder="($/kWh)"
+                                class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        </div>
+
+                        <!-- Fuel Price -->
+                        <div>
+                          <label for="fuelPrice" class="block text-sm text-gray-400 mb-1">
+                            Fuel Price
+                          </label>
+                          <input type="number" id="fuelPrice" name="fuelPrice" placeholder="($/kWh)"
+                            class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        </div>
+
+                        <!-- Electricity Price -->
+                        <div>
+                          <label for="elecPrice" class="block text-sm text-gray-400 mb-1">
+                            Electricity Price
+                          </label>
+                          <input type="number" id="elecPrice" name="elecPrice" placeholder="($/kWh)"
+                            class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        </div>
+
+                        <!-- Electricity Carbon Intensity -->
+                        <div>
+                          <label for="elecCIntensity" class="block text-sm text-gray-400 mb-1">
+                            Electricity C intensity 
+                          </label>
+                          <input type="number" id="elecCIntensity" name="elecCIntensity" placeholder="(gCO2/kWh)"
+                          class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="space-y-2 font-lato pt-6">
+                    <h3 class="text-xl text-white font-exo">Sea Distribution</h2>
+
+                      <!-- Slider: Ship Speed -->
+                      <div>
+                        <label for="shipSpeed" class="block text-sm text-gray-400 mb-1">Ship Speed (knots)</label>
+                        <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                          <span>10</span>
+                          <span>Value: <span id="shipSpeedValue">15</span> knots</span>
+                          <span>20</span>
+                        </div>
+                        <input type="range" id="shipSpeed" name="shipSpeed" min="10" max="20" step="1"
+                              class="w-full accent-blue-500">
+                      </div>
+
+                      <div>
+                        <label for="shipSize" class="block text-sm text-gray-400 mb-1">Ship DWT (t)</label>
+                        <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                          <span>10K</span>
+                          <span>Value: <span id="shipSizeValue">80K</span> tons</span>
+                          <span>150K</span>
+                        </div>
+                        <input type="range" id="shipSize" name="shipSize" min="10000" max="150000" step="10000"
+                              class="w-full accent-blue-500">
+                      </div>
+
+                      <div>
+                        <label for="f_capacity" class="block text-sm text-gray-400 mb-1">Transport Capacity</label>
+                        <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                          <span>5%</span>
+                          <span>Value: <span id="f_capacityValue">85</span> %</span>
+                          <span>90%</span>
+                        </div>
+                        <input type="range" id="f_capacity" name="f_capacity" min="5" max="90" step="5"
+                              class="w-full accent-blue-500">
+                      </div>
+
+                      
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> 
+                      <div>
+                          <label for="hfoPrice" class="block text-sm text-gray-400 mb-1">
+                            HFO Price
+                          </label>
+                          <input type="number" id="hfoPrice" name="hfoPrice" placeholder="(default: 620 $/t)"
+                            class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                      </div>
+
+                      
+
+                      <div>
+                          <label for="omegaArag" class="block text-sm text-gray-400 mb-1">
+                            Ω arag
+                          </label>
+                          <input type="number" id="omegaArag" name="omegaArag" placeholder="(default: 7)"
+                            class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                      </div>
+
+                      <div>
+                          <label for="dissEff" class="block text-sm text-gray-400 mb-1">
+                            Dissolution efficiency
+                          </label>
+                          <input type="number" id="dissEff" name="dissEff" placeholder="(default: 100%)"
+                            class="w-full px-3 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                      </div>
+
+                      </div>
+
+                      <!-- Submit button -->
+                      <div class="mt-6 pt-2">
+                      <button id="runModel" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-full transition">
+                        Run Model
+                      </button>
+                      </div>
+
+                      <div class="mt-6 pt-2"> 
+                      <div id="modelOutput" class="hidden"> 
+                        <div id="modelLoader" class="flex items-center space-x-2 hidden">
+                          <div class="border-4 border-gray-700 border-t-white rounded-full h-6 w-6 animate-spin"></div>
+                          <span></span>
+                        </div>
+                        <div id="modelResult" class="hidden"></div>
+                      </div>
+                      </div>
+
+
+                  </div>
+                </div>
+              
+
+                <!-- Visualization Section ------------------------------------------------------------------------------------------------- -->
+                  <hr class="border-t border-gray-700 my-6">
+
+                  <!-- Title: Visualization -->
+                  <div id="visualizationToggleHeader" class="flex items-center justify-between cursor-pointer mb-4 select-none"
+                      onclick="visualizationModelSection()">
+                      <h2 class="text-2xl text-white font-exo">Visualization</h2>
+                      <svg id="visualizationToggleArrow" class="w-5 h-5 text-white transition-transform duration-300" fill="none"
+                        stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+
+                <!-- Model parameters -->
+                  <div id="visualizationSection">
+                      <div class="space-y-6 font-lato">
+                        <p class="text-gray-400 mb-4">Select the variable to display:</p>
+
+                         <!-- CONTENEUR QUI ACCUEILLERA NOS BOUTONS -->
+                        <div id="layer-controls" class="flex flex-wrap gap-2"></div>
+
+                        <!-- Choix de la colormap -->
+                        <div class="mb-2 flex items-center text-sm text-gray-300">
+                          <label for="colormapSelect" class="mr-2">Colormap:</label>
+                          <select id="colormapSelect"
+                                  class="bg-gray-800 text-gray-200 rounded px-2 py-2 focus:outline-none">
+                            <option value="viridis" selected>Viridis</option>
+                            <option value="plasma">Plasma</option>
+                            <option value="inferno">Inferno</option>
+                            <option value="magma">Magma</option>
+                            <option value="cividis">Cividis</option>
+                          </select>
+
+                          <!-- Bouton Reverse -->
+                          <button id="reverseColormapBtn" class="ml-3 px-2 py-1 rounded bg-gray-800 text-white text-sm hover:bg-gray-700">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.0" stroke="currentColor" class="size-6">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 48.678 48.678 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 48.656 48.656 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" />
+                            </svg>
+
+                          </button>
+                        </div>
+
+                        
+                        
+                        <!-- Unité de la variable active -->
+                        <div id="unitLabel" class="text-center text-xs text-gray-400 font-lato leading-none"></div>
+                        <!-- Échelle dynamique -->
+                         
+                        <div id="colorScale"
+                            class="flex items-center justify-between text-xs text-gray-400 mb-0 -mt-0.5 font-lato">
+                          <span id="scaleMin">0.00</span>
+                          <div id="scaleBar" class="h-3 flex-1 mx-2 rounded"></div>
+                          <span id="scaleMax">1.00</span>
+                        </div>
+                          
+                       
+                      </div>
+
+                  </div>
+
+                <!-- Rotation  -->
+                  <hr class="border-t border-gray-700 my-6">
+                  <div class="mt-8">
+                    <label class="relative inline-flex items-center mb-5 cursor-pointer">
+                      <input type="checkbox" id="toggleRotation" class="sr-only peer" checked>
+                      <div class="relative w-11 h-6 bg-gray-200 
+                              rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white 
+                              after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full 
+                              after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+                      <span class="ms-3 text-sm font-medium text-gray-400 dark:text-gray-400 font-lato">Rotation</span>
+                    </label>
+                  </div>
+
+            </div>
+        </div>
+
+        <!-- Globe -->
+        <div class="relative flex-1 min-w-0 h-full border-l border-gray-800 overflow-hidden transition-all duration-0 ease-in-out" id = "canvas-container">
+           
+            <!-- Toggle Sidebar Button -->
+            
+            <button id="toggleSidebarButton"
+        class="
+          absolute top-4 left-4 z-20
+          p-3 rounded-full
+          bg-gray-800 bg-opacity-75
+          hover:bg-opacity-100
+          focus:outline-none
+          transform transition
+          duration-200 ease-in-out
+          hover:scale-110
+        ">
+        
+        <!-- Chevron pour ouvrir/fermer -->
+          <svg xmlns="http://www.w3.org/2000/svg"
+              id="sidebarToggleArrow"
+              class="h-6 w-6 text-white transform transition-transform duration-300"
+              fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+          
+            <canvas></canvas>
+        </div>
+    </div> 
+
+
+    <!-- JS NAVBAR -->
+    <script>
+        const menu = document.getElementById('mobileMenu');
+        const btn = document.getElementById('mobileMenuButton');
+        let isOpen = false;
+
+        btn.addEventListener('click', () => {
+            isOpen = !isOpen;
+
+            if (isOpen) {
+            menu.classList.remove('opacity-0', 'scale-y-0', 'pointer-events-none');
+            menu.classList.add('opacity-100', 'scale-y-100');
+            } else {
+            menu.classList.add('opacity-0', 'scale-y-0', 'pointer-events-none');
+            menu.classList.remove('opacity-100', 'scale-y-100');
+            }
+        });
+    </script>
+
+
+    <!-- JS Model -->
+    <script>
+      function toggleModelSection() {
+        const section = document.getElementById('modelSection');
+        const arrow = document.getElementById('modelToggleArrow');
+
+        section.classList.toggle('hidden');
+        arrow.classList.toggle('rotate-180');
+      }
+    </script>
+
+    <script>
+      function visualizationModelSection() {
+        const section = document.getElementById('visualizationSection');
+        const arrow = document.getElementById('visualizationToggleArrow');
+
+        section.classList.toggle('hidden');
+        arrow.classList.toggle('rotate-180');
+      }
+    </script>
+
+
+    <script>
+      const shipSpeedSlider = document.getElementById("shipSpeed");
+      const shipSpeedValue = document.getElementById("shipSpeedValue");
+
+      // Init value
+      shipSpeedValue.textContent = shipSpeedSlider.value;
+
+      // Update on input
+      shipSpeedSlider.addEventListener("input", () => {
+        shipSpeedValue.textContent = shipSpeedSlider.value;
+      });
+    </script>
+
+    <script>
+      const shipSizeSlider = document.getElementById("shipSize");
+      const shipSizeValue = document.getElementById("shipSizeValue");
+
+      // Init value
+      shipSizeValue.textContent = shipSizeSlider.value;
+
+      // Update on input
+      shipSizeSlider.addEventListener("input", () => {
+        shipSizeValue.textContent = shipSizeSlider.value;
+      });
+    </script>
+
+    <script>
+      const f_capacitySlider = document.getElementById("f_capacity");
+      const f_capacityValue = document.getElementById("f_capacityValue");
+
+      // Init value
+      f_capacityValue.textContent = f_capacitySlider.value;
+
+      // Update on input
+      f_capacitySlider.addEventListener("input", () => {
+        f_capacityValue.textContent = f_capacitySlider.value;
+      });
+    </script>
+
+    <!-- JS Toggle Sidebar -->
+    <script>
+      const toggleBtn = document.getElementById('toggleSidebarButton');
+      const sidebar   = document.getElementById('sidebar');
+      const arrow     = document.getElementById('sidebarToggleArrow');
+
+      toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('absolute');
+        sidebar.classList.toggle('top-0');
+        sidebar.classList.toggle('left-0');
+        sidebar.classList.toggle('-translate-x-full');
+        arrow.classList.toggle('rotate-180');
+      });
+
+    </script>
+</body>
+
+</html>
