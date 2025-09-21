@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Flipbook PDF</title>
 
-  <!-- StPageFlip CSS -->
+  <!-- StPageFlip CSS (CDN; tu peux l'auto-héberger si CSP stricte) -->
   <link rel="stylesheet" href="https://unpkg.com/page-flip/dist/css/page-flip.css">
+
   <style>
     :root{--bg:#0f1115;--ink:#eaeaea;--muted:#8a8f98;--card:#0b0d11;--border:#2a2f39}
     *{box-sizing:border-box}
@@ -68,20 +69,23 @@
     <p class="hint">Astuce : clique sur le coin de la page, ou utilise ←/→ au clavier.</p>
   </div>
 
-  <!-- PDF.js local (REMPLACE les balises cdnjs actuelles) -->
+  <!-- PDF.js local (AUCUN async/defer — DOIT être avant ton script flipbook) -->
   <script src="vendor/pdfjs/pdf.min.js"></script>
   <script>
     // Certaines builds exposent pdfjsLib sous 'pdfjs-dist/build/pdf'
     window.pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
     if (!window.pdfjsLib) {
+      // Si tu vois cette erreur: chemin faux, 404 servi comme HTML, ou mauvais dossier.
       throw new Error("PDF.js n'a pas été chargé (chemin local ?)");
     }
     pdfjsLib.GlobalWorkerOptions.workerSrc = "vendor/pdfjs/pdf.worker.min.js";
+    console.log("[flipbook] PDF.js OK:", !!window.pdfjsLib);
   </script>
 
-  <!-- StPageFlip -->
+  <!-- StPageFlip JS (CDN) -->
   <script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.min.js"></script>
 
+  <!-- Script flipbook -->
   <script>
   (function(){
     // --------- Constantes & DOM ----------
@@ -111,31 +115,19 @@
     function setBusy(txt){ if(status) status.textContent = txt || ""; if(loader) loader.textContent = txt || ""; }
     function clearBook(){ if (flip) { try { flip.destroy(); } catch(e){} } bookEl.innerHTML = "<div class='loader' id='loader'>Chargement…</div>"; }
     function setButtons(on){ btnP.disabled = !on; btnN.disabled = !on; }
+    function setLinks(path){ const pdfPath = ensurePath(path); linkDl.href = pdfPath; linkRaw.href = pdfPath; }
 
-    function setLinks(path){
-      const pdfPath = ensurePath(path);
-      linkDl.href  = pdfPath;
-      linkRaw.href = pdfPath;
-    }
-
-    // --------- Manifest -> items {file,title} ----------
+    // --------- Manifest -> items {file,title,meta} ----------
     function normalizeItems(raw){
-      const basename = p => (p||"").split("/").pop();
-      const niceLabel = f => basename(f).replace(/_/g," ").replace(/\.pdf$/i,"");
       if (!Array.isArray(raw) || raw.length===0) throw new Error("Manifest vide");
       return raw.map(entry => {
         if (typeof entry === "string") {
-          return { file: entry, title: niceLabel(entry) };
+          return { file: entry, title: niceLabel(entry), meta: null };
         }
         return {
           file: entry.file,
           title: entry.title || entry.title_short || niceLabel(entry.file),
-          // on garde tes métadonnées si tu veux t’en servir plus tard :
-          meta: {
-            doi: entry.doi,
-            state: entry.state,
-            title_long: entry.title_long
-          }
+          meta: { doi: entry.doi, state: entry.state, title_long: entry.title_long ?? null }
         };
       });
     }
@@ -150,6 +142,7 @@
       setBusy("Chargement du PDF…");
 
       try {
+        if (!window.pdfjsLib || !pdfjsLib.getDocument) throw new Error("pdfjsLib indisponible");
         const pdf = await pdfjsLib.getDocument({ url }).promise;
         const total = pdf.numPages;
         pageTot.textContent = String(total);
@@ -185,7 +178,7 @@
       } catch (err) {
         console.error(err);
         setButtons(false);
-        bookEl.innerHTML = `<div class="loader err">❌ Impossible de charger “${url}”. Vérifie le chemin et CORS.</div>`;
+        bookEl.innerHTML = `<div class="loader err">❌ Impossible de charger “${url}”. Vérifie le chemin, la casse, et CORS.</div>`;
         setBusy("");
       }
     }
@@ -200,7 +193,6 @@
         const r = await fetch(MANIFEST, { cache:"no-store" });
         if(!r.ok) throw new Error(`HTTP ${r.status}`);
         const raw = await r.json();
-        if(!Array.isArray(raw) || raw.length===0) throw new Error("Manifest vide");
         items = normalizeItems(raw);
       } catch(e){
         console.error(e);
@@ -239,7 +231,6 @@
 
       // listeners
       sel.addEventListener("change", () => {
-        // met à jour l’URL (basename) et relance le rendu
         try {
           const b = basename(sel.value);
           const url = new URL(location.href);
