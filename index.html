@@ -184,16 +184,14 @@
         <section class="page-section" id="Papers">
             <div class="container" style="padding-bottom: 0rem;">
                 
-                <h2 class="section-heading text-uppercase text-center">Papers</h2>
-                <br>
-                <h3 class="section-subheading text-muted text-center">In preparation</h3>
-                <ol id="papers-inprep" class="list-unstyled" reversed></ol>
+                <h2 class="section-subheading text-muted text-center">In preparation</h2>
+                <ol id="papers-inprep" reversed></ol>
                 
-                <h3 class="section-subheading text-muted text-center">Submitted</h3>
-                <ol id="papers-submitted" class="list-unstyled" reversed></ol>
+                <h2 class="section-subheading text-muted text-center">Submitted</h2>
+                <ol id="papers-submitted" reversed></ol>
                 
-                <h3 class="section-subheading text-muted text-center">Published</h3>
-                <ol id="papers-published" class="list-unstyled" reversed></ol>
+                <h2 class="section-subheading text-muted text-center">Published</h2>
+                <ol id="papers-published" reversed></ol>
                 
             </div>
         </section>
@@ -531,15 +529,24 @@
     if (buckets[targetId]) buckets[targetId].push(buildItem(entry));
   }
 
-  Object.entries(buckets).forEach(([id, items]) => {
-    const ol = document.getElementById(id);
-    if (!ol) return;
-    if (items.length === 0) {
-      // Si vide, on laisse la section sans éléments
-      return;
-    }
-    for (const li of items) ol.appendChild(li);
-  });
+ function mountList(id, items) {
+  const ol = document.getElementById(id);
+  if (!ol) return;
+
+  ol.innerHTML = '';
+  for (const li of items) ol.appendChild(li);
+
+  // numérotation décroissante, le plus grand numéro en haut
+  if (items.length > 0) {
+    ol.setAttribute('reversed', '');
+    ol.setAttribute('start', String(items.length));
+  } else {
+    ol.removeAttribute('start');
+  }
+}
+
+// Appel
+Object.entries(buckets).forEach(([id, items]) => mountList(id, items));
 
   // (Re)initialise Altmetric après insertion
   try { window._altmetric_embed_init && window._altmetric_embed_init(); } catch(e){}
