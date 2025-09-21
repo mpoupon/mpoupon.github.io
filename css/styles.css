@@ -18,6 +18,37 @@
   }
 }
 
+.navbar {
+  width: 100% !important;  
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.navbar .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 575.98px) {
+  .navbar .container,
+  .navbar .container-fluid {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .navbar-collapse {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .navbar-toggler { margin-right: 0; }
+  .navbar-nav    { margin-right: 0; }
+}
+
+
+
+html, body { overflow-x: hidden; }
+
 html { scrollbar-width: none; }                
 html::-webkit-scrollbar { display: none; } 
 
