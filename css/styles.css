@@ -10968,9 +10968,16 @@ ol#papers-submitted,
 ol#papers-published {
   list-style: decimal !important;
   font-family: inherit;
-  /* list-style-position: outside; */
-  /* padding-left: 1.25rem; */
+  list-style-position: outside;
+  padding-left: 2rem;
 }
+
+.paper-cite.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+
 ol#papers-inprep li::marker,
 ol#papers-submitted li::marker,
 ol#papers-published li::marker {
@@ -10980,6 +10987,19 @@ ol#papers-published li::marker {
   font-variant-numeric: tabular-nums;
 }
 
+.paper-cite .altmetric-embed,
+.paper-cite .__dimensions_badge_embed__ {
+  display: block;
+  margin: 0 auto;        
+}
+
+@media (max-width: 575.98px) {
+  .paper-cite [class*="col-"] { text-align: center; }
+  .paper-cite .altmetric-embed,
+  .paper-cite .__dimensions_badge_embed__ {
+    display: inline-block;
+  }
+}
 
 /* Research section */ 
 
