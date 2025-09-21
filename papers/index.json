@@ -1,3 +1,4 @@
 [
-   { "file": "Lee2025.pdf", "title": "Lee et al. (2025)" }
+   { "file": "Lee2025.pdf", "title_short": "Lee et al. (2025)",  "doi":"10.5194/bg-22-4743-2025", "state":"published",
+      "title_long": "Lee, J. A., Vineis, J. H., Poupon, M. A., Resplandy, L., & Ward, B. B. 2025: Phytoplankton community succession and biogeochemistry in a bloom simulation experiment at an estuary-ocean interface. Biogeosciences."},
 ]
