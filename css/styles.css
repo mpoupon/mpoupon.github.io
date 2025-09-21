@@ -19,15 +19,13 @@
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
-  #mainNav:not(.navbar-shrink) {
+  #mainNav {
     background: transparent !important;
     border-bottom: 0 !important;
     box-shadow: none !important;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateZ(0); /* évite artefacts iOS */
   }
-  #mainNav.navbar-shrink { opacity: 1; pointer-events: auto; }
+  /* Quand on scrolle: garder le fond sombre */
+  #mainNav.navbar-shrink { background-color: #212529 !important; }
 }
 
 .navbar {
