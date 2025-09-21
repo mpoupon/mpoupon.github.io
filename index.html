@@ -465,6 +465,18 @@
       'col-lg-8 col-md-12 col-sm-12 col-xs-12',
       `<div style="margin-bottom:1rem;">${titleHTML}</div>`
     );
+
+    function buildItemTitleOnly(entry) {
+      const li = document.createElement('li');
+      // Juste le titre (HTML autorisé pour <strong> sur ton nom)
+      const titleHTML = (entry.title_long || entry.title_short || '')
+        .trim()
+        .replace(/\s+/g, ' ');
+      li.className = 'paper-item paper-inprep';
+      li.innerHTML = titleHTML;
+      return li;
+    };
+      
     row.appendChild(colTitle);
 
     // Liens PDF / online
@@ -526,10 +538,17 @@
   };
 
   for (const entry of data) {
-    const keyRaw = (entry.state || '').toLowerCase().trim();
-    const targetId = TARGETS[keyRaw] || 'papers-published'; // fallback raisonnable
-    if (buckets[targetId]) buckets[targetId].push(buildItem(entry));
+  const keyRaw = (entry.state || '').toLowerCase().trim();
+  const targetId = TARGETS[keyRaw] || 'papers-published';
+
+  if (!buckets[targetId]) continue;
+
+  if (targetId === 'papers-inprep') {
+    buckets[targetId].push(buildItemTitleOnly(entry));
+  } else {
+    buckets[targetId].push(buildItem(entry));
   }
+}
 
  function mountList(id, items) {
   const ol = document.getElementById(id);
