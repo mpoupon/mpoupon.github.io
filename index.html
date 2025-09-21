@@ -16,11 +16,8 @@
         <!-- PDF.js local -->
         <script src="vendor/pdfjs/pdf.min.js"></script>
         <script>
-          // Certaines builds exposent pdfjsLib sous 'pdfjs-dist/build/pdf'
           window.pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
-          if (!window.pdfjsLib) {
-            throw new Error("PDF.js n'a pas été chargé (chemin local ?)");
-          }
+          if (!window.pdfjsLib) throw new Error("PDF.js n'a pas été chargé (chemin local ?)");
           pdfjsLib.GlobalWorkerOptions.workerSrc = "vendor/pdfjs/pdf.worker.min.js";
         </script>
                 
