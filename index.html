@@ -13,8 +13,21 @@
         }
         </style>
 
-
-          <!-- Altmetric -->
+        <!-- 1) PDF.js (lib) -->
+        <script src="https://unpkg.com/pdfjs-dist@4.5.136/build/pdf.min.js"></script>
+        
+        <!-- 2) Initialisation du worker -->
+        <script>
+          // Certaines builds exposent pdfjsLib directement, d'autres via 'pdfjs-dist/build/pdf'
+          window.pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
+          if (!window.pdfjsLib) {
+            throw new Error("PDF.js n'a pas été chargé. Vérifie l'URL du script.");
+          }
+          pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "https://unpkg.com/pdfjs-dist@4.5.136/build/pdf.worker.min.js";
+        </script>
+        
+        <!-- Altmetric -->
         <script type="text/javascript" async="" src="https://www.googletagmanager.com/gtag/js?id=G-NBZZLWYMF0&amp;cx=c&amp;_slc=1"></script>
          <!-- <script id="altmetric-embed-js" src="https://d1bxh8uas1mnw7.cloudfront.net/assets/altmetric_badges-4b75721c66722d87e7882ff5b18f12d295f4ac71b1a804b2c06ae36a76542439.js"></script>-->
         <script defer src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
