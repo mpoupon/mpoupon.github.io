@@ -1,12 +1,37 @@
 [
-    {"file": "Poupon_et_al_Carbon.pdf", "title_short": "Poupon et al. (under revision)",  "doi":"10.5194/bg-22-4743-2025", "state":"submitted",
-    "title_long": "Poupon, M. A., Resplandy, L., & Luo, J. Y. under revision: Unifying framework reveals importance of dissolved fluxes in ocean biological carbon pump"},
-    {"file": "Lee2025.pdf", "title_short": "Lee et al. (2025)",  "doi":"10.5194/bg-22-4743-2025", "state":"published",
-    "title_long": "Lee, J. A., Vineis, J. H., Poupon, M. A., Resplandy, L., & Ward, B. B. 2025: Phytoplankton community succession and biogeochemistry in a bloom simulation experiment at an estuary-ocean interface. Biogeosciences."},
-    {"file": "Poupon2025.pdf", "title_short": "Poupon et al. (2025)",  "doi":"10.5194/os-21-851-2025", "state":"published",
-    "title_long": "Poupon, M. A., Resplandy, L., Garwood, J., Stock C., Zadeh, N. & Luo, J., 2025: Chlorophyll shading reduces zooplankton diel migration depth in a high-resolution physical–biogeochemical model. Ocean Science."},
-    {"file": "Poupon2023.pdf", "title_short": "Poupon et al. (2023)",  "doi":"10.1029/2022GL102123", "state":"published",
-    "title_long": "Poupon, M. A., Resplandy, L., Lévy, M., & Bopp, L., 2023: Pacific decadal oscillation influences tropical oxygen minimum zone extent and obscures anthropogenic changes. Geophysical Research Letters."},
-    {"file": "Pearson2022.pdf", "title_short": "Pearson et al. (2022)",  "doi":"10.1029/2021GB007192", "state":"published",
-    "title_long": "Pearson, J., Resplandy, L., & Poupon, M., 2022: Coastlines at Risk of Hypoxia From Natural Variability in the Northern Indian Ocean. Global Biogeochemical Cycles."},
+  {
+    "file": "Poupon_et_al_Carbon.pdf",
+    "title_short": "Poupon et al. (under revision)",
+    "doi": "10.5194/bg-22-4743-2025",
+    "state": "submitted",
+    "title_long": "Poupon, M. A., Resplandy, L., & Luo, J. Y. under revision: Unifying framework reveals importance of dissolved fluxes in ocean biological carbon pump"
+  },
+  {
+    "file": "Lee2025.pdf",
+    "title_short": "Lee et al. (2025)",
+    "doi": "10.5194/bg-22-4743-2025",
+    "state": "published",
+    "title_long": "Lee, J. A., Vineis, J. H., Poupon, M. A., Resplandy, L., & Ward, B. B. 2025: Phytoplankton community succession and biogeochemistry in a bloom simulation experiment at an estuary-ocean interface. Biogeosciences."
+  },
+  {
+    "file": "Poupon2025.pdf",
+    "title_short": "Poupon et al. (2025)",
+    "doi": "10.5194/os-21-851-2025",
+    "state": "published",
+    "title_long": "Poupon, M. A., Resplandy, L., Garwood, J., Stock C., Zadeh, N. & Luo, J., 2025: Chlorophyll shading reduces zooplankton diel migration depth in a high-resolution physical–biogeochemical model. Ocean Science."
+  },
+  {
+    "file": "Poupon2023.pdf",
+    "title_short": "Poupon et al. (2023)",
+    "doi": "10.1029/2022GL102123",
+    "state": "published",
+    "title_long": "Poupon, M. A., Resplandy, L., Lévy, M., & Bopp, L., 2023: Pacific decadal oscillation influences tropical oxygen minimum zone extent and obscures anthropogenic changes. Geophysical Research Letters."
+  },
+  {
+    "file": "Pearson2022.pdf",
+    "title_short": "Pearson et al. (2022)",
+    "doi": "10.1029/2021GB007192",
+    "state": "published",
+    "title_long": "Pearson, J., Resplandy, L., & Poupon, M., 2022: Coastlines at Risk of Hypoxia From Natural Variability in the Northern Indian Ocean. Global Biogeochemical Cycles."
+  }
 ]
