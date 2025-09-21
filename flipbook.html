@@ -112,9 +112,23 @@
 
     // --------- Manifest -> items {file,title} ----------
     function normalizeItems(raw){
+      const basename = p => (p||"").split("/").pop();
+      const niceLabel = f => basename(f).replace(/_/g," ").replace(/\.pdf$/i,"");
+      if (!Array.isArray(raw) || raw.length===0) throw new Error("Manifest vide");
       return raw.map(entry => {
-        if (typeof entry === "string") return { file: entry, title: niceLabel(entry) };
-        return { file: entry.file, title: entry.title || niceLabel(entry.file) };
+        if (typeof entry === "string") {
+          return { file: entry, title: niceLabel(entry) };
+        }
+        return {
+          file: entry.file,
+          title: entry.title || entry.title_short || niceLabel(entry.file),
+          // on garde tes métadonnées si tu veux t’en servir plus tard :
+          meta: {
+            doi: entry.doi,
+            state: entry.state,
+            title_long: entry.title_long
+          }
+        };
       });
     }
 
