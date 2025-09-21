@@ -10959,6 +10959,25 @@ header.masthead .masthead-heading {
   }
 }
 
+/*Papers*/
+ol#papers-inprep,
+ol#papers-submitted,
+ol#papers-published {
+  list-style: decimal !important;
+  font-family: inherit;
+  /* list-style-position: outside; */
+  /* padding-left: 1.25rem; */
+}
+ol#papers-inprep li::marker,
+ol#papers-submitted li::marker,
+ol#papers-published li::marker {
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+
 /* Research section */ 
 
 #Research .portfolio-item {
