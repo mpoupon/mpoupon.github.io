@@ -4,27 +4,54 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Flipbook PDF</title>
+
+  <!-- StPageFlip CSS -->
   <link rel="stylesheet" href="https://unpkg.com/page-flip/dist/css/page-flip.css">
   <style>
     :root{--bg:#0f1115;--ink:#eaeaea;--muted:#8a8f98;--card:#0b0d11;--border:#2a2f39}
+    *{box-sizing:border-box}
     body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     .wrap{max-width:1100px;margin:24px auto;padding:0 16px}
-    .toolbar{display:flex;gap:10px;align-items:center;position:sticky;top:0;padding:10px;border-radius:12px;background:rgba(15,17,21,.7);backdrop-filter:blur(8px)}
-    .toolbar button{border:1px solid var(--border);background:#1a1f27;color:var(--ink);padding:8px 12px;border-radius:10px;font-weight:600;cursor:pointer}
-    .toolbar button:hover{background:#232a35}
+    h1{font-size:20px;margin:0 0 12px}
+    .toolbar{
+      display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+      position:sticky;top:0;padding:10px;border-radius:12px;
+      background:rgba(15,17,21,.7);backdrop-filter:blur(8px)
+    }
+    select,button{
+      border:1px solid var(--border);background:#1a1f27;color:var(--ink);
+      padding:8px 12px;border-radius:10px;font-weight:600;cursor:pointer
+    }
     .spacer{flex:1}
     .page-count{color:var(--muted);font-variant-numeric:tabular-nums}
-    .book{width:100%;height:min(80vh,800px);border-radius:16px;overflow:hidden;background:var(--card);box-shadow:0 10px 30px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}
+    .links{display:flex;gap:12px;align-items:center;color:var(--muted);margin:8px 0 0}
+    .links a{color:#bcd;text-decoration:none}
+    .links a:hover{text-decoration:underline}
+    .book{
+      width:100%;height:min(80vh,800px);
+      border-radius:16px;overflow:hidden;background:var(--card);
+      box-shadow:0 10px 30px rgba(0,0,0,.45);
+      display:flex;align-items:center;justify-content:center;margin-top:12px
+    }
     .hint{color:var(--muted);font-size:14px;margin:8px 0 0}
     .loader{color:var(--muted);font-size:14px}
+    .err{color:#ff9b9b}
   </style>
 </head>
 <body>
   <div class="wrap">
+    <h1>Lecteur PDF avec effet livre</h1>
+
     <div class="toolbar" role="group" aria-label="Contrôles flipbook">
-      <button id="prev">← Précédent</button>
-      <button id="next">Suivant →</button>
+      <label for="pdfSelect" style="font-weight:700;">Document :</label>
+      <select id="pdfSelect" aria-label="Choisir un PDF"></select>
+
+      <button id="reload" title="Recharger le document">Recharger</button>
       <div class="spacer"></div>
+
+      <button id="prev" disabled>← Précédent</button>
+      <button id="next" disabled>Suivant →</button>
+
       <span class="page-count"><span id="pageNow">—</span> / <span id="pageTotal">—</span></span>
     </div>
 
@@ -32,7 +59,13 @@
       <div class="loader" id="loader">Chargement…</div>
     </div>
 
-    <p class="hint">Astuce : clique le coin ou ←/→.</p>
+    <p class="links">
+      <a id="downloadLink" href="#" download>💾 Télécharger le PDF</a>
+      <a id="openRaw" href="#" target="_blank" rel="noopener">↗ Ouvrir le PDF brut</a>
+      <span id="status"></span>
+    </p>
+
+    <p class="hint">Astuce : clique sur le coin de la page, ou utilise ←/→ au clavier.</p>
   </div>
 
   <!-- PDF.js -->
@@ -42,63 +75,169 @@
   <script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.min.js"></script>
 
   <script>
-  (async function () {
-    const qs = new URLSearchParams(location.search);
-    const pdfParam = qs.get("pdf");                         // ex: papers/mon.pdf OU mon.pdf
-    const PDF_URL = pdfParam ? (pdfParam.startsWith("papers/")? pdfParam : "papers/"+pdfParam) : null;
+  (function(){
+    // --------- Constantes & DOM ----------
+    const MANIFEST = "papers/index.json";
+    const RENDER_SCALE = 2.0;   // qualité (1.5–2.0 conseillé)
+    const JPEG_QUALITY = 0.92;
 
-    const bookEl = document.getElementById("book");
+    const sel   = document.getElementById("pdfSelect");
+    const btnR  = document.getElementById("reload");
+    const btnP  = document.getElementById("prev");
+    const btnN  = document.getElementById("next");
     const pageNow = document.getElementById("pageNow");
     const pageTot = document.getElementById("pageTotal");
-    const btnP = document.getElementById("prev");
-    const btnN = document.getElementById("next");
-    const loader = document.getElementById("loader");
+    const bookEl  = document.getElementById("book");
+    const loader  = document.getElementById("loader");
+    const status  = document.getElementById("status");
+    const linkDl  = document.getElementById("downloadLink");
+    const linkRaw = document.getElementById("openRaw");
 
-    if (!PDF_URL) {
-      bookEl.innerHTML = "<div class='loader'>Aucun PDF. Ajoute ?pdf=mon.pdf</div>";
-      return;
+    let flip = null;
+
+    // --------- Utils ----------
+    const qs = new URLSearchParams(location.search);
+    const basename = p => (p||"").split("/").pop();
+    const ensurePath = f => f.startsWith("papers/") ? f : `papers/${f}`;
+    const niceLabel = f => basename(f).replace(/_/g," ").replace(/\.pdf$/i,"");
+    function setBusy(txt){ if(status) status.textContent = txt || ""; if(loader) loader.textContent = txt || ""; }
+    function clearBook(){ if (flip) { try { flip.destroy(); } catch(e){} } bookEl.innerHTML = "<div class='loader' id='loader'>Chargement…</div>"; }
+    function setButtons(on){ btnP.disabled = !on; btnN.disabled = !on; }
+
+    function setLinks(path){
+      const pdfPath = ensurePath(path);
+      linkDl.href  = pdfPath;
+      linkRaw.href = pdfPath;
     }
 
-    try {
-      const pdf = await pdfjsLib.getDocument({ url: PDF_URL }).promise;
-      const total = pdf.numPages;
-      pageTot.textContent = String(total);
+    // --------- Manifest -> items {file,title} ----------
+    function normalizeItems(raw){
+      return raw.map(entry => {
+        if (typeof entry === "string") return { file: entry, title: niceLabel(entry) };
+        return { file: entry.file, title: entry.title || niceLabel(entry.file) };
+      });
+    }
 
-      const images = [];
-      const SCALE = 2.0, Q = 0.92;
-      for (let p = 1; p <= total; p++) {
-        loader.textContent = `Rendu des pages… (${p}/${total})`;
-        const page = await pdf.getPage(p);
-        const viewport = page.getViewport({ scale: SCALE });
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = Math.floor(viewport.width);
-        canvas.height = Math.floor(viewport.height);
-        await page.render({ canvasContext: ctx, viewport }).promise;
-        images.push(canvas.toDataURL("image/jpeg", Q));
+    // --------- Rendu d’un PDF ----------
+    async function renderPDF(filePath){
+      const url = ensurePath(filePath);
+      localStorage.setItem("flip:last", filePath);
+      setLinks(filePath);
+      setButtons(false);
+      clearBook();
+      setBusy("Chargement du PDF…");
+
+      try {
+        const pdf = await pdfjsLib.getDocument({ url }).promise;
+        const total = pdf.numPages;
+        pageTot.textContent = String(total);
+        pageNow.textContent = "—";
+
+        const images = [];
+        for (let p=1; p<=total; p++){
+          setBusy(`Rendu des pages… (${p}/${total})`);
+          const page = await pdf.getPage(p);
+          const viewport = page.getViewport({ scale: RENDER_SCALE });
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          canvas.width = Math.floor(viewport.width);
+          canvas.height = Math.floor(viewport.height);
+          await page.render({ canvasContext: ctx, viewport }).promise;
+          images.push(canvas.toDataURL("image/jpeg", JPEG_QUALITY));
+        }
+
+        bookEl.innerHTML = "";
+        flip = new St.PageFlip(bookEl, {
+          width: 680, height: 960, size: "stretch", showCover: true,
+          maxShadowOpacity:.25, mobileScrollSupport:true, usePortrait:true, swipeDistance:30,
+        });
+        flip.loadFromImages(images);
+
+        flip.on("flip", (e) => { pageNow.textContent = String(e.data + 1); });
+        flip.on("init", () => {
+          pageNow.textContent = String(flip.getCurrentPageIndex() + 1);
+          setButtons(true);
+          setBusy(`Prêt – ${total} page${total>1?"s":""}`);
+        });
+
+      } catch (err) {
+        console.error(err);
+        setButtons(false);
+        bookEl.innerHTML = `<div class="loader err">❌ Impossible de charger “${url}”. Vérifie le chemin et CORS.</div>`;
+        setBusy("");
+      }
+    }
+
+    // --------- Boot ----------
+    (async function boot(){
+      setBusy("Chargement de la liste…");
+
+      // charge manifest
+      let items = [];
+      try{
+        const r = await fetch(MANIFEST, { cache:"no-store" });
+        if(!r.ok) throw new Error(`HTTP ${r.status}`);
+        const raw = await r.json();
+        if(!Array.isArray(raw) || raw.length===0) throw new Error("Manifest vide");
+        items = normalizeItems(raw);
+      } catch(e){
+        console.error(e);
+        setBusy(`❌ Impossible de charger ${MANIFEST}.`);
+        return;
       }
 
-      bookEl.innerHTML = "";
-      const flip = new St.PageFlip(bookEl, {
-        width: 680, height: 960, size: "stretch", showCover: true,
-        maxShadowOpacity:.25, mobileScrollSupport:true, usePortrait:true, swipeDistance:30
+      // peuple <select>
+      sel.innerHTML = "";
+      for (const it of items){
+        const opt = document.createElement("option");
+        opt.value = it.file;    // file (avec ou sans "papers/")
+        opt.textContent = it.title;
+        sel.appendChild(opt);
+      }
+
+      // choix initial: ?pdf=… > localStorage > 1er
+      const fromQS = qs.get("pdf");    // ex: "mon.pdf" ou "papers/mon.pdf"
+      const last   = localStorage.getItem("flip:last");
+      if (fromQS) {
+        const hit = items.find(it => basename(it.file) === basename(fromQS));
+        sel.value = hit ? hit.file : items[0].file;
+      } else if (last && items.some(it => it.file === last)) {
+        sel.value = last;
+      } else {
+        sel.value = items[0].file;
+      }
+
+      // maj URL (deep-linking propre)
+      try {
+        const b = basename(sel.value);
+        const url = new URL(location.href);
+        url.searchParams.set("pdf", b);
+        history.replaceState(null, "", url.toString());
+      } catch(e){}
+
+      // listeners
+      sel.addEventListener("change", () => {
+        // met à jour l’URL (basename) et relance le rendu
+        try {
+          const b = basename(sel.value);
+          const url = new URL(location.href);
+          url.searchParams.set("pdf", b);
+          history.replaceState(null, "", url.toString());
+        } catch(e){}
+        renderPDF(sel.value);
       });
-      flip.loadFromImages(images);
-
-      flip.on("flip", e => { pageNow.textContent = String(e.data + 1); });
-      flip.on("init", () => { pageNow.textContent = String(flip.getCurrentPageIndex() + 1); });
-
-      btnP.addEventListener("click", () => flip.flipPrev());
-      btnN.addEventListener("click", () => flip.flipNext());
+      btnR.addEventListener("click", () => renderPDF(sel.value));
+      btnP.addEventListener("click", () => flip && flip.flipPrev());
+      btnN.addEventListener("click", () => flip && flip.flipNext());
       document.addEventListener("keydown", (e) => {
+        if (!flip) return;
         if (e.key === "ArrowLeft")  flip.flipPrev();
         if (e.key === "ArrowRight") flip.flipNext();
       });
 
-    } catch (err) {
-      console.error(err);
-      bookEl.innerHTML = `<div class="loader">❌ Impossible de charger “${PDF_URL}”. (CORS / chemin ?)</div>`;
-    }
+      // lance le rendu initial
+      renderPDF(sel.value);
+    })();
   })();
   </script>
 </body>
