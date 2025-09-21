@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Flipbook PDF</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Flipbook PDF (Turn.js)</title>
 
   <style>
     :root{--bg:#0f1115;--ink:#eaeaea;--muted:#8a8f98;--card:#0b0d11;--border:#2a2f39}
@@ -11,90 +11,85 @@
     body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     .wrap{max-width:1100px;margin:24px auto;padding:0 16px}
     h1{font-size:20px;margin:0 0 12px}
-    .toolbar{
-      display:flex;gap:10px;align-items:center;flex-wrap:wrap;
-      position:sticky;top:0;padding:10px;border-radius:12px;
-      background:rgba(15,17,21,.7);backdrop-filter:blur(8px)
-    }
-    select,button{
-      border:1px solid var(--border);background:#1a1f27;color:var(--ink);
-      padding:8px 12px;border-radius:10px;font-weight:600;cursor:pointer
-    }
+    .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;position:sticky;top:0;padding:10px;border-radius:12px;background:rgba(15,17,21,.7);backdrop-filter:blur(8px)}
+    select,button{border:1px solid var(--border);background:#1a1f27;color:var(--ink);padding:8px 12px;border-radius:10px;font-weight:600;cursor:pointer}
     .spacer{flex:1}
     .page-count{color:var(--muted);font-variant-numeric:tabular-nums}
     .links{display:flex;gap:12px;align-items:center;color:var(--muted);margin:8px 0 0;flex-wrap:wrap}
     .links a{color:#bcd;text-decoration:none}
     .links a:hover{text-decoration:underline}
-    .book{
-      width:100%;height:min(80vh,800px);
-      border-radius:16px;overflow:hidden;background:var(--card);
-      box-shadow:0 10px 30px rgba(0,0,0,.45);
-      display:flex;align-items:center;justify-content:center;margin-top:12px
-    }
-    .hint{color:var(--muted);font-size:14px;margin:8px 0 0}
+    .book-shell{width:100%;height:min(80vh,800px);border-radius:16px;overflow:hidden;background:var(--card);box-shadow:0 10px 30px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;margin-top:12px}
+    #book{width:960px;height:640px} /* ratio paysager par défaut, Turn.js s'adapte au container */
+    .page{background:#fff;overflow:hidden}
+    .page img{display:block;width:100%;height:100%;object-fit:contain;background:#fff}
     .loader{color:var(--muted);font-size:14px;text-align:center;padding:8px 12px}
     .err{color:#ff9b9b}
-    code.small{font-size:12px;opacity:.8}
+    @media (max-width:900px){ #book{width:100%;height:100%} }
   </style>
 
-  <!-- Chargeurs robustes (PDF.js & StPageFlip) -->
   <script>
-    // --- utilitaire pour charger un <script> et attendre qu'il soit prêt
-    function loadScript(src){return new Promise((resolve,reject)=>{const s=document.createElement("script");s.src=src;s.async=false;s.onload=()=>resolve(src);s.onerror=()=>reject(new Error("load fail: "+src));document.head.appendChild(s);});}
+    // util: charger un script synchronement (sans async/defer) + attendre qu'il soit prêt
+    function loadScript(src){
+      return new Promise((resolve,reject)=>{
+        const s=document.createElement("script");
+        s.src=src; s.async=false;
+        s.onload=()=>resolve(src);
+        s.onerror=()=>reject(new Error("load fail: "+src));
+        document.head.appendChild(s);
+      });
+    }
 
-    // --- charge PDF.js (legacy/UMD) avec fallback CDN → local
+    // Loader robuste: PDF.js (legacy/UMD) — CDN → CDN → GitHub → LOCAL
     (function(){
-      const PDF_CANDIDATES = [
+      const PDF_BASES = [
         "https://unpkg.com/pdfjs-dist@4.5.136/legacy/build/",
         "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.5.136/legacy/build/",
         "https://cdn.jsdelivr.net/gh/mozilla/pdfjs-dist@v4.5.136/legacy/build/",
-        // local (optionnel) — fonctionne si tu ajoutes vendor/pdfjs/pdf*.js à ton repo
-        "vendor/pdfjs/"
+        "vendor/pdfjs/" // fallback local si présent dans le repo
       ];
       window.__pdfjsReady = (async ()=>{
-        let baseUsed=null,lastErr=null;
-        for(const base of PDF_CANDIDATES){
+        let base=null,lastErr=null;
+        for(const b of PDF_BASES){
           try{
-            await loadScript(base+"pdf.min.js");
-            // v4 legacy expose pdfjsLib en global (ou sous 'pdfjs-dist/build/pdf')
+            await loadScript(b+"pdf.min.js");
             window.pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
             if (window.pdfjsLib && typeof pdfjsLib.getDocument==="function"){
-              pdfjsLib.GlobalWorkerOptions.workerSrc = base+"pdf.worker.min.js";
-              console.log("[flipbook] PDF.js via", base);
-              baseUsed=base;break;
+              pdfjsLib.GlobalWorkerOptions.workerSrc = b+"pdf.worker.min.js";
+              console.log("[flipbook] PDF.js via", b);
+              base=b; break;
             }
           }catch(e){ lastErr=e; }
         }
-        if(!baseUsed){ throw new Error("Impossible de charger PDF.js (réseau/CSP ?). Dernière erreur: "+(lastErr?.message||lastErr)); }
+        if(!base) throw new Error("PDF.js introuvable (réseau/CSP) — ajoute vendor/pdfjs/ en local.");
       })();
     })();
 
-    // --- charge StPageFlip avec fallback
+    // Loader robuste: Turn.js — unpkg → jsDelivr
     (function(){
-      const PF_CANDIDATES = [
-        "https://unpkg.com/page-flip/dist/js/page-flip.browser.min.js",
-        "https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"
+      const TURN_JS = [
+        "https://unpkg.com/turn.js@4/turn.min.js",
+        "https://cdn.jsdelivr.net/npm/turn.js@4/turn.min.js"
       ];
-      window.__pageflipReady = (async ()=>{
+      window.__turnReady = (async ()=>{
         let ok=false,lastErr=null;
-        for(const src of PF_CANDIDATES){
-          try{ await loadScript(src); if (window.St && St.PageFlip){ ok=true; console.log("[flipbook] PageFlip via", src); break; } }
+        for (const src of TURN_JS){
+          try{ await loadScript(src); if (typeof window.jQuery==="undefined"){ await loadScript("https://code.jquery.com/jquery-3.6.0.min.js"); } ok=typeof jQuery!=="undefined" && typeof jQuery.fn.turn==="function"; if(ok){ console.log("[flipbook] Turn.js via", src); break; } }
           catch(e){ lastErr=e; }
         }
-        if(!ok){ throw new Error("Impossible de charger StPageFlip. Dernière erreur: "+(lastErr?.message||lastErr)); }
+        if(!ok) throw new Error("Turn.js introuvable — réseau/CSP.");
       })();
     })();
   </script>
 </head>
 <body>
   <div class="wrap">
-    <h1>Lecteur PDF avec effet livre</h1>
+    <h1>Lecteur PDF (Turn.js)</h1>
 
     <div class="toolbar" role="group" aria-label="Contrôles flipbook">
       <label for="pdfSelect" style="font-weight:700;">Document :</label>
       <select id="pdfSelect" aria-label="Choisir un PDF"></select>
 
-      <button id="reload" title="Recharger le document">Recharger</button>
+      <button id="reload" title="Recharger">Recharger</button>
       <div class="spacer"></div>
 
       <button id="prev" disabled>← Précédent</button>
@@ -103,8 +98,8 @@
       <span class="page-count"><span id="pageNow">—</span> / <span id="pageTotal">—</span></span>
     </div>
 
-    <div id="book" class="book" aria-label="Flipbook PDF">
-      <div class="loader" id="loader">Chargement…</div>
+    <div class="book-shell">
+      <div id="book"><div class="loader" id="loader">Chargement…</div></div>
     </div>
 
     <p class="links">
@@ -113,184 +108,183 @@
       <span id="status"></span>
     </p>
 
-    <p class="hint">Astuce : clique sur le coin de la page, ou utilise ←/→ au clavier.<br>
-      <code class="small">Si ton réseau bloque les CDNs, ajoute en option <b>vendor/pdfjs/pdf.min.js</b> & <b>pdf.worker.min.js</b> : le chargeur basculera automatiquement en local.</code>
+    <p class="loader">
+      Astuce : pincer/drag pour tourner la page, ou ←/→ au clavier.<br/>
+      <small>Si les CDN sont bloqués, ajoute en option <code>vendor/pdfjs/pdf.min.js</code> et <code>pdf.worker.min.js</code> ; le chargeur basculera tout seul dessus.</small>
     </p>
   </div>
 
-  <!-- Script principal -->
   <script>
   (function(){
-    // --------- Constantes & DOM ----------
+    // ---- DOM & constantes
     const MANIFEST = "papers/index.json";
-    const RENDER_SCALE = 2.0;   // 1.5–2.0 = bon compromis
-    const JPEG_QUALITY = 0.92;
+    const RENDER_SCALE = 1.8; // Turn.js préfère des images pas trop lourdes
+    const JPEG_QUALITY = 0.90;
 
-    const sel   = document.getElementById("pdfSelect");
-    const btnR  = document.getElementById("reload");
-    const btnP  = document.getElementById("prev");
-    const btnN  = document.getElementById("next");
+    const sel = document.getElementById("pdfSelect");
+    const btnR= document.getElementById("reload");
+    const btnP= document.getElementById("prev");
+    const btnN= document.getElementById("next");
     const pageNow = document.getElementById("pageNow");
     const pageTot = document.getElementById("pageTotal");
     const bookEl  = document.getElementById("book");
-    const loader  = document.getElementById("loader");
     const status  = document.getElementById("status");
     const linkDl  = document.getElementById("downloadLink");
     const linkRaw = document.getElementById("openRaw");
 
-    let flip = null;
+    let bookInited=false;
 
-    // --------- Utils ----------
     const qs = new URLSearchParams(location.search);
     const basename = p => (p||"").split("/").pop();
     const ensurePath = f => f.startsWith("papers/") ? f : `papers/${f}`;
     const niceLabel = f => basename(f).replace(/_/g," ").replace(/\.pdf$/i,"");
-    function setBusy(txt){ if(status) status.textContent = txt || ""; if(loader) loader.textContent = txt || ""; }
-    function clearBook(){ if (flip) { try { flip.destroy(); } catch(e){} } bookEl.innerHTML = "<div class='loader' id='loader'>Chargement…</div>"; }
-    function setButtons(on){ btnP.disabled = !on; btnN.disabled = !on; }
-    function setLinks(path){ const pdfPath = ensurePath(path); linkDl.href = pdfPath; linkRaw.href = pdfPath; }
+    const setBusy = t => status.textContent = t || "";
+    function setLinks(path){ const p=ensurePath(path); linkDl.href=p; linkRaw.href=p; }
+    function setButtons(on){ btnP.disabled=!on; btnN.disabled=!on; }
 
-    // --------- Manifest -> items {file,title,meta} ----------
     function normalizeItems(raw){
-      if (!Array.isArray(raw) || raw.length===0) throw new Error("Manifest vide");
-      return raw.map(entry => {
-        if (typeof entry === "string") {
-          return { file: entry, title: niceLabel(entry), meta: null };
-        }
-        return {
-          file: entry.file,
-          title: entry.title || entry.title_short || niceLabel(entry.file),
-          meta: { doi: entry.doi, state: entry.state, title_long: entry.title_long ?? null }
-        };
+      if (!Array.isArray(raw)||raw.length===0) throw new Error("Manifest vide");
+      return raw.map(e=>{
+        if (typeof e==="string") return { file:e, title:niceLabel(e) };
+        return { file:e.file, title:e.title||e.title_short||niceLabel(e.file) };
       });
     }
 
-    // --------- Rendu d’un PDF ----------
-    async function renderPDF(filePath){
-      const url = ensurePath(filePath);
-      localStorage.setItem("flip:last", filePath);
-      setLinks(filePath);
-      setButtons(false);
-      clearBook();
-      setBusy("Chargement du PDF…");
+    async function rasterizeToImages(pdfUrl){
+      await window.__pdfjsReady;
+      const pdf = await pdfjsLib.getDocument({ url: pdfUrl }).promise;
+      const total = pdf.numPages;
+      pageTot.textContent = String(total);
+      pageNow.textContent = "—";
 
-      try {
-        // s’assurer que les bibliothèques sont prêtes
-        if (window.__pdfjsReady) { await window.__pdfjsReady; }
-        if (window.__pageflipReady) { await window.__pageflipReady; }
-        if (!window.pdfjsLib || typeof pdfjsLib.getDocument !== "function"){
-          throw new Error("pdfjsLib indisponible");
+      const images = [];
+      for (let p=1; p<=total; p++){
+        setBusy(`Rendu des pages… (${p}/${total})`);
+        const page = await pdf.getPage(p);
+        const viewport = page.getViewport({ scale: RENDER_SCALE });
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = Math.floor(viewport.width);
+        canvas.height = Math.floor(viewport.height);
+        await page.render({ canvasContext: ctx, viewport }).promise;
+        images.push(canvas.toDataURL("image/jpeg", JPEG_QUALITY));
+      }
+      return images;
+    }
+
+    async function renderTurn(images){
+      await window.__turnReady;
+
+      // reset
+      bookEl.innerHTML = "";
+      const $book = jQuery("<div/>", { class:"magazine" }).appendTo(bookEl);
+
+      // pages: chaque image -> <div class="page"><img/></div>
+      images.forEach(src=>{
+        const $p = jQuery("<div/>", { class:"page" }).appendTo($book);
+        jQuery("<img/>", { src, alt:"page" }).appendTo($p);
+      });
+
+      // init Turn.js
+      $book.turn({
+        width: 960,
+        height: 640,
+        autoCenter: true,
+        gradients: true,
+        elevation: 50,
+        when: {
+          turning: (e, page)=> { pageNow.textContent = String(page); },
+          turned:  (e, page)=> { pageNow.textContent = String(page); }
         }
+      });
 
-        const pdf = await pdfjsLib.getDocument({ url }).promise;
-        const total = pdf.numPages;
-        pageTot.textContent = String(total);
-        pageNow.textContent = "—";
+      // boutons
+      btnP.onclick = ()=> $book.turn("previous");
+      btnN.onclick = ()=> $book.turn("next");
+      document.addEventListener("keydown", (e)=>{
+        if (e.key==="ArrowLeft") $book.turn("previous");
+        if (e.key==="ArrowRight") $book.turn("next");
+      });
 
-        const images = [];
-        for (let p=1; p<=total; p++){
-          setBusy(`Rendu des pages… (${p}/${total})`);
-          const page = await pdf.getPage(p);
-          const viewport = page.getViewport({ scale: RENDER_SCALE });
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-          canvas.width = Math.floor(viewport.width);
-          canvas.height = Math.floor(viewport.height);
-          await page.render({ canvasContext: ctx, viewport }).promise;
-          images.push(canvas.toDataURL("image/jpeg", JPEG_QUALITY));
-        }
+      bookInited=true;
+      setButtons(true);
+      setBusy(`Prêt – ${images.length} page${images.length>1?"s":""}`);
+    }
 
-        bookEl.innerHTML = "";
-        flip = new St.PageFlip(bookEl, {
-          width: 680, height: 960, size: "stretch", showCover: true,
-          maxShadowOpacity:.25, mobileScrollSupport:true, usePortrait:true, swipeDistance:30,
-        });
-        flip.loadFromImages(images);
+    async function loadAndRender(filePath){
+      try{
+        setButtons(false);
+        bookInited=false;
+        bookEl.innerHTML = '<div class="loader">Chargement…</div>';
 
-        flip.on("flip", (e) => { pageNow.textContent = String(e.data + 1); });
-        flip.on("init", () => {
-          pageNow.textContent = String(flip.getCurrentPageIndex() + 1);
-          setButtons(true);
-          setBusy(`Prêt – ${total} page${total>1?"s":""}`);
-        });
+        const url = ensurePath(filePath);
+        localStorage.setItem("flip:last", filePath);
+        setLinks(filePath);
 
-      } catch (err) {
+        const imgs = await rasterizeToImages(url);
+        await renderTurn(imgs);
+      }catch(err){
         console.error(err);
         setButtons(false);
-        bookEl.innerHTML =
-          `<div class="loader err">❌ Impossible de charger “${url}”.<br>` +
-          `<small>${(err && err.message) ? err.message : err}</small></div>`;
+        bookEl.innerHTML = `<div class="loader err">❌ Échec : ${(err && err.message) ? err.message : err}</div>`;
         setBusy("");
       }
     }
 
-    // --------- Boot ----------
+    // boot
     (async function boot(){
       setBusy("Chargement de la liste…");
-
       // charge manifest
-      let items = [];
+      let items=[];
       try{
-        const r = await fetch(MANIFEST, { cache:"no-store" });
+        const r = await fetch(MANIFEST, {cache:"no-store"});
         if(!r.ok) throw new Error(`HTTP ${r.status}`);
-        const raw = await r.json();
-        items = normalizeItems(raw);
-      } catch(e){
-        console.error(e);
-        setBusy(`❌ Impossible de charger ${MANIFEST}. Vérifie le chemin et le JSON.`);
+        items = normalizeItems(await r.json());
+      }catch(e){
+        bookEl.innerHTML = `<div class="loader err">❌ Impossible de charger ${MANIFEST}</div>`;
+        setBusy("");
         return;
       }
 
-      // peuple <select>
-      sel.innerHTML = "";
-      for (const it of items){
-        const opt = document.createElement("option");
-        opt.value = it.file;    // file (avec ou sans "papers/")
-        opt.textContent = it.title;
-        sel.appendChild(opt);
+      // peuple select
+      sel.innerHTML="";
+      for(const it of items){
+        const o=document.createElement("option");
+        o.value=it.file; o.textContent=it.title; sel.appendChild(o);
       }
 
-      // choix initial: ?pdf=… > localStorage > 1er
-      const fromQS = qs.get("pdf");    // ex: "mon.pdf" ou "papers/mon.pdf"
+      // choix initial
+      const fromQS = qs.get("pdf");
       const last   = localStorage.getItem("flip:last");
-      if (fromQS) {
-        const hit = items.find(it => basename(it.file) === basename(fromQS));
+      if (fromQS){
+        const hit = items.find(it => basename(it.file)===basename(fromQS));
         sel.value = hit ? hit.file : items[0].file;
-      } else if (last && items.some(it => it.file === last)) {
+      } else if (last && items.some(it => it.file===last)){
         sel.value = last;
       } else {
         sel.value = items[0].file;
       }
 
-      // maj URL (deep-linking propre)
-      try {
+      // update URL
+      try{
         const b = basename(sel.value);
-        const url = new URL(location.href);
-        url.searchParams.set("pdf", b);
-        history.replaceState(null, "", url.toString());
-      } catch(e){}
+        const u = new URL(location.href); u.searchParams.set("pdf", b);
+        history.replaceState(null,"",u.toString());
+      }catch{}
 
       // listeners
-      sel.addEventListener("change", () => {
-        try {
+      sel.addEventListener("change", ()=>{
+        try{
           const b = basename(sel.value);
-          const url = new URL(location.href);
-          url.searchParams.set("pdf", b);
-          history.replaceState(null, "", url.toString());
-        } catch(e){}
-        renderPDF(sel.value);
+          const u = new URL(location.href); u.searchParams.set("pdf", b);
+          history.replaceState(null,"",u.toString());
+        }catch{}
+        loadAndRender(sel.value);
       });
-      btnR.addEventListener("click", () => renderPDF(sel.value));
-      btnP.addEventListener("click", () => flip && flip.flipPrev());
-      btnN.addEventListener("click", () => flip && flip.flipNext());
-      document.addEventListener("keydown", (e) => {
-        if (!flip) return;
-        if (e.key === "ArrowLeft")  flip.flipPrev();
-        if (e.key === "ArrowRight") flip.flipNext();
-      });
+      btnR.addEventListener("click", ()=> loadAndRender(sel.value));
 
-      // lance le rendu initial
-      renderPDF(sel.value);
+      // lance rendu initial
+      loadAndRender(sel.value);
     })();
   })();
   </script>
