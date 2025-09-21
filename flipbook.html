@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Flipbook PDF</title>
 
-  <!-- StPageFlip CSS (CDN) -->
-  <link rel="stylesheet" href="https://unpkg.com/page-flip/dist/css/page-flip.css">
-
   <style>
     :root{--bg:#0f1115;--ink:#eaeaea;--muted:#8a8f98;--card:#0b0d11;--border:#2a2f39}
     *{box-sizing:border-box}
@@ -25,7 +22,7 @@
     }
     .spacer{flex:1}
     .page-count{color:var(--muted);font-variant-numeric:tabular-nums}
-    .links{display:flex;gap:12px;align-items:center;color:var(--muted);margin:8px 0 0}
+    .links{display:flex;gap:12px;align-items:center;color:var(--muted);margin:8px 0 0;flex-wrap:wrap}
     .links a{color:#bcd;text-decoration:none}
     .links a:hover{text-decoration:underline}
     .book{
@@ -35,46 +32,59 @@
       display:flex;align-items:center;justify-content:center;margin-top:12px
     }
     .hint{color:var(--muted);font-size:14px;margin:8px 0 0}
-    .loader{color:var(--muted);font-size:14px}
+    .loader{color:var(--muted);font-size:14px;text-align:center;padding:8px 12px}
     .err{color:#ff9b9b}
+    code.small{font-size:12px;opacity:.8}
   </style>
 
-  <!-- Charge PDF.js depuis CDN avec fallback -->
+  <!-- Chargeurs robustes (PDF.js & StPageFlip) -->
   <script>
+    // --- utilitaire pour charger un <script> et attendre qu'il soit prêt
+    function loadScript(src){return new Promise((resolve,reject)=>{const s=document.createElement("script");s.src=src;s.async=false;s.onload=()=>resolve(src);s.onerror=()=>reject(new Error("load fail: "+src));document.head.appendChild(s);});}
+
+    // --- charge PDF.js (legacy/UMD) avec fallback CDN → local
     (function(){
-      const CDNS = [
+      const PDF_CANDIDATES = [
         "https://unpkg.com/pdfjs-dist@4.5.136/legacy/build/",
-        "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.5.136/legacy/build/"
+        "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.5.136/legacy/build/",
+        "https://cdn.jsdelivr.net/gh/mozilla/pdfjs-dist@v4.5.136/legacy/build/",
+        // local (optionnel) — fonctionne si tu ajoutes vendor/pdfjs/pdf*.js à ton repo
+        "vendor/pdfjs/"
       ];
-      function loadScript(src){
-        return new Promise((resolve, reject)=>{
-          const s = document.createElement("script");
-          s.src = src; s.async = false;
-          s.onload = ()=>resolve(src);
-          s.onerror = ()=>reject(new Error("load fail: "+src));
-          document.head.appendChild(s);
-        });
-      }
-      // séquence: tenter unpkg puis jsDelivr
-      window.__pdfjsReady = (async () => {
-        let baseUsed = null;
-        for (const base of CDNS){
-          try {
-            await loadScript(base + "pdf.min.js");
-            if (window.pdfjsLib) { baseUsed = base; break; }
-          } catch(e) { /* essaie le suivant */ }
+      window.__pdfjsReady = (async ()=>{
+        let baseUsed=null,lastErr=null;
+        for(const base of PDF_CANDIDATES){
+          try{
+            await loadScript(base+"pdf.min.js");
+            // v4 legacy expose pdfjsLib en global (ou sous 'pdfjs-dist/build/pdf')
+            window.pdfjsLib = window.pdfjsLib || window['pdfjs-dist/build/pdf'];
+            if (window.pdfjsLib && typeof pdfjsLib.getDocument==="function"){
+              pdfjsLib.GlobalWorkerOptions.workerSrc = base+"pdf.worker.min.js";
+              console.log("[flipbook] PDF.js via", base);
+              baseUsed=base;break;
+            }
+          }catch(e){ lastErr=e; }
         }
-        if (!window.pdfjsLib) {
-          throw new Error("Impossible de charger PDF.js depuis les CDNs (bloqué par le réseau/CSP ?)");
+        if(!baseUsed){ throw new Error("Impossible de charger PDF.js (réseau/CSP ?). Dernière erreur: "+(lastErr?.message||lastErr)); }
+      })();
+    })();
+
+    // --- charge StPageFlip avec fallback
+    (function(){
+      const PF_CANDIDATES = [
+        "https://unpkg.com/page-flip/dist/js/page-flip.browser.min.js",
+        "https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"
+      ];
+      window.__pageflipReady = (async ()=>{
+        let ok=false,lastErr=null;
+        for(const src of PF_CANDIDATES){
+          try{ await loadScript(src); if (window.St && St.PageFlip){ ok=true; console.log("[flipbook] PageFlip via", src); break; } }
+          catch(e){ lastErr=e; }
         }
-        pdfjsLib.GlobalWorkerOptions.workerSrc = baseUsed + "pdf.worker.min.js";
-        console.log("[flipbook] PDF.js via", baseUsed);
+        if(!ok){ throw new Error("Impossible de charger StPageFlip. Dernière erreur: "+(lastErr?.message||lastErr)); }
       })();
     })();
   </script>
-
-  <!-- StPageFlip JS (CDN) -->
-  <script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.min.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -103,15 +113,17 @@
       <span id="status"></span>
     </p>
 
-    <p class="hint">Astuce : clique sur le coin de la page, ou utilise ←/→ au clavier.</p>
+    <p class="hint">Astuce : clique sur le coin de la page, ou utilise ←/→ au clavier.<br>
+      <code class="small">Si ton réseau bloque les CDNs, ajoute en option <b>vendor/pdfjs/pdf.min.js</b> & <b>pdf.worker.min.js</b> : le chargeur basculera automatiquement en local.</code>
+    </p>
   </div>
 
-  <!-- Script flipbook -->
+  <!-- Script principal -->
   <script>
   (function(){
     // --------- Constantes & DOM ----------
     const MANIFEST = "papers/index.json";
-    const RENDER_SCALE = 2.0;   // qualité (1.5–2.0 conseillé)
+    const RENDER_SCALE = 2.0;   // 1.5–2.0 = bon compromis
     const JPEG_QUALITY = 0.92;
 
     const sel   = document.getElementById("pdfSelect");
@@ -163,9 +175,12 @@
       setBusy("Chargement du PDF…");
 
       try {
-        // s'assurer que PDF.js est prêt (chargé depuis CDN)
+        // s’assurer que les bibliothèques sont prêtes
         if (window.__pdfjsReady) { await window.__pdfjsReady; }
-        if (!window.pdfjsLib || !pdfjsLib.getDocument) throw new Error("pdfjsLib indisponible");
+        if (window.__pageflipReady) { await window.__pageflipReady; }
+        if (!window.pdfjsLib || typeof pdfjsLib.getDocument !== "function"){
+          throw new Error("pdfjsLib indisponible");
+        }
 
         const pdf = await pdfjsLib.getDocument({ url }).promise;
         const total = pdf.numPages;
@@ -202,7 +217,9 @@
       } catch (err) {
         console.error(err);
         setButtons(false);
-        bookEl.innerHTML = `<div class="loader err">❌ Impossible de charger “${url}”. Vérifie le chemin, la casse, et CORS.</div>`;
+        bookEl.innerHTML =
+          `<div class="loader err">❌ Impossible de charger “${url}”.<br>` +
+          `<small>${(err && err.message) ? err.message : err}</small></div>`;
         setBusy("");
       }
     }
@@ -220,7 +237,7 @@
         items = normalizeItems(raw);
       } catch(e){
         console.error(e);
-        setBusy(`❌ Impossible de charger ${MANIFEST}.`);
+        setBusy(`❌ Impossible de charger ${MANIFEST}. Vérifie le chemin et le JSON.`);
         return;
       }
 
