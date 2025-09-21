@@ -464,16 +464,6 @@
       `<div style="margin-bottom:1rem;">${titleHTML}</div>`
     );
 
-    function buildItemTitleOnly(entry) {
-      const li = document.createElement('li');
-      // Juste le titre (HTML autorisé pour <strong> sur ton nom)
-      const titleHTML = (entry.title_long || entry.title_short || '')
-        .trim()
-        .replace(/\s+/g, ' ');
-      li.className = 'paper-item paper-inprep';
-      li.innerHTML = titleHTML;
-      return li;
-    };
       
     row.appendChild(colTitle);
 
@@ -512,6 +502,17 @@
 
     return li;
   }
+
+ function buildItemTitleOnly(entry) {
+      const li = document.createElement('li');
+      // Juste le titre (HTML autorisé pour <strong> sur ton nom)
+      const titleHTML = (entry.title_long || entry.title_short || '')
+        .trim()
+        .replace(/\s+/g, ' ');
+      li.className = 'paper-item paper-inprep';
+      li.innerHTML = titleHTML;
+      return li;
+    };
 
   // Fetch du JSON
   let data;
