@@ -474,7 +474,7 @@
       : `&nbsp;`;
 
     row.appendChild(
-      makeCol('col-lg-2 col-md-3 col-sm-4 col-xs-4 text-center', linksHTML)
+         makeCol('col-lg-2 col-md-3 col-sm-4 col-4 text-center links-cell', linksHTML)
     );
 
     // Dimensions badge
@@ -484,7 +484,7 @@
       dimSpan.setAttribute('data-doi', entry.doi);
       dimSpan.setAttribute('data-style', 'small_circle');
       row.appendChild(
-          makeCol('col-lg-1 col-md-2 col-sm-2 col-3 text-center', dimSpan)
+          makeCol('col-lg-1 col-md-2 col-sm-2 col-4 text-center badge-cell', dimSpan)
       );
 
       // Altmetric badge
@@ -494,7 +494,7 @@
       altDiv.setAttribute('data-badge-type','donut');
       altDiv.setAttribute('data-doi', entry.doi);
       row.appendChild(
-          makeCol('col-lg-1 col-md-2 col-sm-2 col-3 text-center', altDiv)
+          makeCol('col-lg-1 col-md-2 col-sm-2 col-4 text-center badge-cell', altDiv)
       );
     }
 
