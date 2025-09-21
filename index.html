@@ -318,88 +318,14 @@
         </section>
 
 
-  <div class="wrap">
-    <div class="toolbar" role="group" aria-label="Contrôles flipbook">
-      <button id="prev">← Précédent</button>
-      <button id="next">Suivant →</button>
-      <div class="spacer"></div>
-      <span class="page-count"><span id="pageNow">—</span> / <span id="pageTotal">—</span></span>
-    </div>
-
-    <div id="book" class="book" aria-label="Flipbook PDF">
-      <div class="loader" id="loader">Chargement…</div>
-    </div>
-
-    <p class="hint">Astuce : clique le coin ou ←/→.</p>
-  </div>
-
-  <!-- PDF.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.js"></script>
-  <script>pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.js";</script>
-  <!-- StPageFlip -->
-  <script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.min.js"></script>
-
-  <script>
-  (async function () {
-    const qs = new URLSearchParams(location.search);
-    const name = qs.get("pdf"); // ex: "mon.pdf" ou "papers/mon.pdf"
-    const PDF_URL = name ? (name.startsWith("papers/") ? name : "papers/" + name) : null;
-
-    const bookEl = document.getElementById("book");
-    const pageNow = document.getElementById("pageNow");
-    const pageTot = document.getElementById("pageTotal");
-    const btnP = document.getElementById("prev");
-    const btnN = document.getElementById("next");
-    const loader = document.getElementById("loader");
-
-    if (!PDF_URL) {
-      bookEl.innerHTML = "<div class='loader'>Aucun PDF. Ajoute ?pdf=mon.pdf</div>";
-      return;
-    }
-
-    try {
-      const pdf = await pdfjsLib.getDocument({ url: PDF_URL }).promise;
-      const total = pdf.numPages;
-      pageTot.textContent = String(total);
-
-      const images = [];
-      const SCALE = 2.0, Q = 0.92;
-      for (let p = 1; p <= total; p++) {
-        loader.textContent = `Rendu des pages… (${p}/${total})`;
-        const page = await pdf.getPage(p);
-        const viewport = page.getViewport({ scale: SCALE });
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = Math.floor(viewport.width);
-        canvas.height = Math.floor(viewport.height);
-        await page.render({ canvasContext: ctx, viewport }).promise;
-        images.push(canvas.toDataURL("image/jpeg", Q));
-      }
-
-      bookEl.innerHTML = "";
-      const flip = new St.PageFlip(bookEl, {
-        width: 680, height: 960, size: "stretch", showCover: true,
-        maxShadowOpacity:.25, mobileScrollSupport:true, usePortrait:true, swipeDistance:30
-      });
-      flip.loadFromImages(images);
-
-      flip.on("flip", e => { pageNow.textContent = String(e.data + 1); });
-      flip.on("init", () => { pageNow.textContent = String(flip.getCurrentPageIndex() + 1); });
-
-      btnP.addEventListener("click", () => flip.flipPrev());
-      btnN.addEventListener("click", () => flip.flipNext());
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "ArrowLeft")  flip.flipPrev();
-        if (e.key === "ArrowRight") flip.flipNext();
-      });
-
-    } catch (err) {
-      console.error(err);
-      bookEl.innerHTML = `<div class="loader">❌ Impossible de charger “${PDF_URL}”. (CORS / chemin ?)</div>`;
-    }
-  })();
-  </script>
-
+       <iframe
+          src="/flipbook.html"         
+          style="width:100%;height:80vh;border:0;border-radius:12px;overflow:hidden"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+          allow="fullscreen"
+          title="Lecteur PDF (flipbook)">
+        </iframe>
 
 
         <!-- About-->
