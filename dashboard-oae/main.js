@@ -544,7 +544,7 @@ controls.enablePan = true;
       if (saved && availableVars.includes(saved)) {
         activeVar = saved;
       } else if (availableVars.includes('eff')) {
-        activeVar = 'temp';
+        activeVar = 'eff';
         localStorage.setItem('activeVar', activeVar);
       } else if (availableVars.length) {
         activeVar = availableVars[0];
