@@ -20,7 +20,7 @@ let hexGroupRef = null;
 // Units + Labels
 // -----------------------------
 const units = {
-  eff: '(%)',
+  eff: '(molCO₂/molAlk)',
   salt: '(psu)',
   temp: '(°C)',
   alk: '(umol/kg)',
@@ -42,7 +42,7 @@ const units = {
 };
 
 const varLabels = {
-  eff: 'Efficiency',
+  eff: 'Chemical Efficiency',
   salt: 'Salinity',
   temp: 'Temperature',
   alk: 'Alkalinity',
