@@ -442,8 +442,8 @@ document.getElementById('runModel').addEventListener('click', async () => {
 
    try {
      // 3) Appel API
-     const res = await fetch('http://127.0.0.1:8000/api/run-model', {
-     //const res = await fetch('https://oae-dashboard-backend.onrender.com/api/run-model', {
+     //const res = await fetch('http://127.0.0.1:8000/api/run-model', {
+     const res = await fetch('https://oae-dashboard-backend.onrender.com/api/run-model', {
        method: 'POST',
        headers: { 'Content-Type': 'application/json' },
        body: JSON.stringify(params),
