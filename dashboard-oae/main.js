@@ -7,7 +7,7 @@ import { OrbitControls } from 'https://unpkg.com/three@0.152.2/examples/jsm/cont
 let colorScaleMin = 0.46;
 let colorScaleMax = 0.88;
 
-let currentColormap = 'viridis';
+let currentColormap = 'inferno';
 let colormapReversed = false;
 
 let hexMeshes = [];
