@@ -26,7 +26,8 @@ const units = {
   alk: '(umol/kg)',
   dic: '(umol/kg)',
   net_removal: '(tCO₂/tCa(OH)₂)',
-  net_cost: '($/tCO₂)',
+  net_cost: '($/CO₂)',
+  Days_at_Sea: '(days)',
   ocean_emis: '(tCO₂/tCa(OH)₂)',
   ocean_cost: '($/tCa(OH)₂)',
   chem_eff: '(molCO₂/molAlk)',
@@ -450,11 +451,16 @@ async function init() {
   scene.add(new THREE.Points(starGeometry, starMaterial));
 
   // Controls
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.4;
-  controls.enableZoom = true;
-  controls.enablePan = true;
+ // Controls
+const controls = new OrbitControls(camera, renderer.domElement);
+
+controls.minDistance = R + 0.3;   // rayon sphère + marge
+controls.maxDistance = 6 * R;     // optionnel, limite le zoom out
+
+controls.enableDamping = true;
+controls.dampingFactor = 0.4;
+controls.enableZoom = true;
+controls.enablePan = true;
 
   // Tooltip picking (click net only)
   setupHexTooltipPicking({ renderer, camera, canvasContainer });
