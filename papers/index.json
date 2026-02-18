@@ -1,4 +1,12 @@
 [
+   {
+    "file": "XXX.pdf",
+    "title_short": "Poupon et al. (under revision)",
+    "doi": " XXXX",
+    "state": "submitted",
+    "title_long": "<strong>Poupon, M. A.</strong>, Resplandy, L., & Oppenheimer, M. under revision: Carbon Dioxide Removal via Ocean Alkalinity Enhancement: Uneven Costs and Optimal Regions"
+   },
+  
   {
     "file": "Keutgen_Subduction.pdf",
     "title_short": "Keutgen et al. (under revision)",
@@ -11,7 +19,7 @@
     "title_short": "Poupon et al. (under revision)",
     "doi": "10.21203/rs.3.rs-6666218/v1",
     "state": "submitted",
-    "title_long": "<strong>Poupon, M. A.</strong>, Resplandy, L., & Luo, J. Y. under revision: Unifying framework reveals importance of dissolved fluxes in ocean biological carbon pump"
+    "title_long": "<strong>Poupon, M. A.</strong>, Resplandy, L., & Luo, J. Y. under revision: How much do zooplankton and fine-scale processes matter for the ocean biological pump?"
   },
   {
     "file": "Lee2025.pdf",
