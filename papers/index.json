@@ -7,13 +7,6 @@
     "title_long": "<strong>Poupon, M. A.</strong>, Resplandy, L., & Oppenheimer, M. under revision: Carbon Dioxide Removal via Ocean Alkalinity Enhancement: Uneven Costs and Optimal Regions"
    },
   
-  {
-    "file": "Keutgen_Subduction.pdf",
-    "title_short": "Keutgen et al. (under revision)",
-    "doi": " 10.22541/essoar.176005744.47156377",
-    "state": "submitted",
-    "title_long": "Keutgen, M., Resplandy, L., & <strong>Poupon, M. A.</strong> under revision: Global Eddy Subduction Carbon Pump from Argo Floats"
-  },
  {
     "file": "Poupon_et_al_Carbon.pdf",
     "title_short": "Poupon et al. (under revision)",
@@ -21,12 +14,21 @@
     "state": "submitted",
     "title_long": "<strong>Poupon, M. A.</strong>, Resplandy, L., & Luo, J. Y. under revision: How much do zooplankton and fine-scale processes matter for the ocean biological pump?"
   },
+
+  {
+    "file": "Keutgen2026.pdf",
+    "title_short": "Keutgen et al. (2026)",
+    "doi": " 10.1029/2025GB008912",
+    "state": "published",
+    "title_long": "Keutgen, M., Resplandy, L., & <strong>Poupon, M. A.</strong>, 2026 : Global Eddy Subduction Carbon Pump from Argo Floats"
+  },
+
   {
     "file": "Lee2025.pdf",
     "title_short": "Lee et al. (2025)",
     "doi": "10.5194/bg-22-4743-2025",
     "state": "published",
-    "title_long": "Lee, J. A., Vineis, J. H., <strong>Poupon, M. A.</strong>, Resplandy, L., & Ward, B. B. 2025: Phytoplankton community succession and biogeochemistry in a bloom simulation experiment at an estuary-ocean interface. Biogeosciences."
+    "title_long": "Lee, J. A., Vineis, J. H., <strong>Poupon, M. A.</strong>, Resplandy, L., & Ward, B., 2025: Phytoplankton community succession and biogeochemistry in a bloom simulation experiment at an estuary-ocean interface. Biogeosciences."
   },
   {
     "file": "Poupon2025.pdf",
