@@ -1,0 +1,250 @@
+/* =========================================================================
+   Mathieu Poupon — Brand Tokens
+   Colors and typography. All values are normative for the brand.
+   Required Google Fonts in <head>:
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..500;1,9..144,300..500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..400;1,8..60,300..400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+   ========================================================================= */
+
+:root {
+  /* -----------------------------------------------------------------------
+     COLOR — brand core (visible everywhere)
+     Rule of thumb: a reader sees ONLY three colors at any moment:
+     ivory, Prussian, terracotta. Greys are invisible; data colors live in graphs.
+     ----------------------------------------------------------------------- */
+  --ivory: #FAF8F3;              /* single background of the whole brand */
+  --prussian: #16273A;           /* line and running text. NEVER pure black. */
+  --terracotta: #C5612E;         /* single accent. Max 10% of a surface. */
+
+  /* Working greys, all derived from Prussian. They stay invisible. */
+  --ink-grey: #43505E;           /* secondary text, leads (chapôs) */
+  --mist-grey: #8A93A0;          /* captions, metadata */
+  --rule: #E0DCD0;               /* 1px dividers, gridlines, card borders */
+  --ivory-deep: #F2EEE3;         /* card and inset backgrounds */
+
+  /* Functional colors — never decorative */
+  --status-live: #1E7D74;        /* vert-de-gris — work in progress */
+  --status-done: var(--prussian);/* accomplished */
+  --status-closed: var(--mist-grey);/* terminated, archived */
+  --alert: #B23A2E;              /* rouge minium — semantic alert in figures only */
+
+  /* Data palette — figures only. Do not use for UI. */
+  --data-1: #16273A;             /* Prussian */
+  --data-2: #1E7D74;             /* vert-de-gris */
+  --data-3: #8A6B1E;             /* brass */
+  --data-4: #C5612E;             /* terracotta */
+  --data-5: #4C6B2F;             /* deep olive */
+
+  /* Semantic surface/text aliases (use these in components) */
+  --bg: var(--ivory);
+  --bg-inset: var(--ivory-deep);
+  --fg: var(--prussian);
+  --fg-secondary: var(--ink-grey);
+  --fg-meta: var(--mist-grey);
+  --border: var(--rule);
+  --link: var(--terracotta);
+
+  /* -----------------------------------------------------------------------
+     TYPE — three families, strict roles
+     Fraunces:     all titles, signature of the name (300–500). Italics are
+                   a brand signature, used for emphasized keywords. Never faux-italic.
+     Source Serif 4: all body text (300–400, leading 1.66). All-serif system.
+     JetBrains Mono: "instrument" elements only — section kickers, metadata,
+                    figure captions, coordinates, status markers, serial numbers.
+                    Always UPPERCASE for labels, letter-spacing 0.14em–0.22em.
+     ----------------------------------------------------------------------- */
+  --font-display: "Fraunces", "Source Serif 4", Georgia, serif;
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Type scale — modest, editorial. Built on a body of 17/28. */
+  --fs-mono-xs: 11px;        /* coordinates: "N° 03 / 05" */
+  --fs-mono-sm: 12px;        /* kickers, labels */
+  --fs-mono-md: 13px;        /* metadata */
+  --fs-caption: 14px;        /* small body, captions, in Source Serif */
+  --fs-body: 17px;           /* running text */
+  --fs-lede: 21px;           /* chapô (lead paragraph), Source Serif 300 */
+  --fs-h4: 22px;
+  --fs-h3: 28px;
+  --fs-h2: 38px;
+  --fs-h1: 56px;
+  --fs-display: 88px;        /* hero, signature, project numerals */
+
+  --lh-tight: 1.12;
+  --lh-snug: 1.28;
+  --lh-body: 1.66;          /* canonical reading leading */
+
+  --tracking-mono-label: 0.18em;   /* kickers, labels: 0.14–0.22 */
+  --tracking-mono-meta: 0.10em;    /* lighter mono usage */
+  --tracking-display-tight: -0.012em;
+
+  /* -----------------------------------------------------------------------
+     SPACING — 8px grid, no off-grid values
+     ----------------------------------------------------------------------- */
+  --u: 8px;
+  --s-0: 0;
+  --s-1: 8px;
+  --s-2: 16px;
+  --s-3: 24px;
+  --s-4: 32px;
+  --s-5: 40px;
+  --s-6: 48px;
+  --s-7: 56px;
+  --s-8: 64px;
+  --s-9: 80px;
+  --s-10: 96px;
+  --s-12: 128px;
+
+  /* Layout: reading column for long text */
+  --reading-col: 640px;            /* ~64ch at 17/28 */
+  --reading-col-wide: 760px;
+  --page-max: 1280px;
+  --page-gutter: var(--s-4);
+
+  /* Borders — only one rule weight in the system: 1px */
+  --hairline: 1px solid var(--rule);
+
+  /* Status dot — fixed 9px */
+  --status-dot: 9px;
+
+  /* No shadow system. Depth is conveyed by hairlines + space, not blur. */
+}
+
+/* =========================================================================
+   ELEMENT DEFAULTS
+   ========================================================================= */
+
+html { background: var(--bg); color: var(--fg); -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-feature-settings: "onum" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings — Fraunces, weights 300 to 500 only */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--fg);
+  letter-spacing: var(--tracking-display-tight);
+  line-height: var(--lh-tight);
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-h1); font-weight: 350; }
+h2 { font-size: var(--fs-h2); font-weight: 400; }
+h3 { font-size: var(--fs-h3); font-weight: 400; }
+h4 { font-size: var(--fs-h4); font-weight: 500; }
+
+/* Display: hero name + signature numerals */
+.display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 300;
+  line-height: 0.96;
+  letter-spacing: -0.018em;
+}
+
+/* Lede (chapô) — Source Serif 300, slightly larger and looser */
+.lede {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--fs-lede);
+  line-height: 1.5;
+  color: var(--fg-secondary);
+  text-wrap: pretty;
+}
+
+p { margin: 0 0 var(--s-3) 0; text-wrap: pretty; }
+
+/* Italics — used as a signature on keywords */
+em, i, .em {
+  font-style: italic;
+  /* Italic comes from Fraunces/Source Serif's real italic. Never faux. */
+}
+
+/* Mono "instrument" classes — kickers, metadata, captions */
+.kicker, .mono-label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--tracking-mono-label);
+  text-transform: uppercase;
+  color: var(--fg-secondary);
+}
+.meta, .mono-meta {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--fs-mono-md);
+  letter-spacing: var(--tracking-mono-meta);
+  color: var(--fg-meta);
+}
+.coord {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--fs-mono-xs);
+  letter-spacing: var(--tracking-mono-meta);
+  color: var(--fg-meta);
+}
+.caption {
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+  color: var(--fg-secondary);
+}
+
+/* Links — terracotta, fine underline by default */
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in oklab, var(--terracotta) 50%, transparent);
+  transition: color 120ms ease, text-decoration-color 120ms ease;
+}
+a:hover {
+  text-decoration-color: var(--terracotta);
+}
+
+/* Horizontal rule — single hairline */
+hr {
+  border: 0;
+  border-top: var(--hairline);
+  margin: var(--s-5) 0;
+}
+
+/* Status dot — used in conjunction with mono label */
+.status-dot {
+  display: inline-block;
+  width: var(--status-dot);
+  height: var(--status-dot);
+  border-radius: 50%;
+  vertical-align: -1px;
+  margin-right: var(--s-1);
+}
+.status-dot.is-live { background: var(--status-live); }
+.status-dot.is-done { background: var(--status-done); }
+.status-dot.is-closed { background: var(--status-closed); }
+
+/* Status label combo (dot + UPPERCASE mono word) */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--fs-mono-sm);
+  letter-spacing: var(--tracking-mono-label);
+  text-transform: uppercase;
+  color: var(--fg-secondary);
+}
+
+/* Card surface — ivory-deep with hairline */
+.card {
+  background: var(--bg-inset);
+  border: var(--hairline);
+  padding: var(--s-3);
+}

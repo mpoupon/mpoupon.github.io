@@ -1,0 +1,409 @@
+/* =========================================================================
+   Mobile + responsive pass — applies on top of website.css + website-extras.css
+   Breakpoints:
+     ≤ 960px : tablet — stack hero, narrow grids
+     ≤ 720px : phone — hamburger nav, single-column everything, compact type
+   ========================================================================= */
+
+/* Sticky header on all viewports — auto-hides on scroll-down */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  transition: transform 220ms cubic-bezier(.4,.0,.2,1);
+  will-change: transform;
+}
+.site-header.is-hidden { transform: translateY(-100%); }
+
+/* Mobile-meta wrapper (current section + burger) — hidden on desktop */
+.site-header__mobile-meta { display: none; }
+.site-header__burger {
+  position: relative;
+  width: 36px; height: 36px;
+  background: none; border: 0; cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.site-header__burger span {
+  display: block;
+  position: absolute; left: 8px; right: 8px;
+  height: 1.5px; background: var(--fg);
+  transition: transform 220ms ease, opacity 180ms ease, top 220ms ease;
+}
+.site-header__burger span:nth-child(1) { top: 12px; }
+.site-header__burger span:nth-child(2) { top: 18px; }
+.site-header__burger span:nth-child(3) { top: 24px; }
+.site-header__burger.is-open span:nth-child(1) { top: 18px; transform: rotate(45deg); }
+.site-header__burger.is-open span:nth-child(2) { opacity: 0; }
+.site-header__burger.is-open span:nth-child(3) { top: 18px; transform: rotate(-45deg); }
+
+.site-header__current {
+  font-family: var(--font-mono); font-weight: 500;
+  font-size: 11px; letter-spacing: 0.18em; color: var(--ink-grey);
+  text-transform: uppercase;
+}
+
+/* =====================================================================
+   ≤ 960px — tablet pass
+   ===================================================================== */
+@media (max-width: 1080px) {
+  .shell { padding: 0 32px; max-width: 100%; }
+
+  /* Hero stacks; aside (portrait/motif) goes ABOVE the text on tablet */
+  .hero,
+  .hero--motif,
+  .hero--portrait {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    padding-top: 56px !important;
+    padding-bottom: 16px !important;
+  }
+  .hero__aside { order: -1; max-width: 260px; justify-self: center; align-self: center; }
+  .hero__break { display: none; }
+  .hero__sub { font-size: 20px !important; }
+
+  /* ---- ROUTES (home) — 2 per row below 1080px ------------------------ */
+  .routes { grid-template-columns: 1fr 1fr !important; gap: 20px !important; }
+
+  .writings { grid-template-columns: 1fr !important; }
+  /* keep research-grid at 2 columns until well into mobile */
+  .writing-tile, .writing-tile + .writing-tile {
+    padding: 22px 0 22px 0 !important;
+    border-left: 0 !important;
+  }
+
+  .contact-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+  .contact-faq__list { grid-template-columns: 1fr !important; }
+
+  .site-footer__grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .site-footer__addr { grid-template-columns: 1fr !important; gap: 24px !important; }
+
+  .kicker-block__title { font-size: 44px; }
+  .kicker-block__lede { font-size: 19px; }
+}
+
+/* =====================================================================
+   ≤ 960px — tablet + phone pass: hamburger + everything single-column.
+   The hero already stacks at this breakpoint via the block above; here we
+   activate the burger nav so 6 nav links don't crowd the brand, and tighten
+   all multi-column grids to a single column.
+   ===================================================================== */
+@media (max-width: 1080px) {
+  .shell { padding: 0 20px; }
+
+  /* ---- HEADER -------------------------------------------------------- */
+  .site-header__row { min-height: 72px; gap: 12px; }
+  .site-brand__name { font-size: 17px; }
+  .site-brand__logo { width: 28px; height: 28px; }
+
+  /* Reveal the mobile-meta cluster (current section + lang toggle + burger) */
+  .site-header__mobile-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-left: auto;
+  }
+  /* The compact lang toggle lives in the header bar on mobile */
+  .lang-toggle--mobile { display: inline-flex !important; padding: 2px !important; margin-left: 0 !important; }
+  .lang-toggle--mobile button { padding: 4px 8px !important; }
+  .lang-toggle--mobile .lang-toggle__flag { width: 20px !important; }
+  /* Hide the in-drawer toggle on mobile — the one in the header bar handles it */
+  .site-nav > .lang-toggle:not(.lang-toggle--mobile) { display: none !important; }
+
+  /* The desktop .site-nav becomes a full-viewport drawer when open */
+  .site-nav {
+    position: fixed;
+    top: 72px; left: 0; right: 0;
+    bottom: 0;
+    height: calc(100vh - 72px);
+    height: calc(100dvh - 72px);
+    background: var(--bg);
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0 !important;
+    margin: 0 !important;
+    padding: 12px 20px 32px;
+    border-top: 1px solid var(--rule);
+    transform: translateY(-110%);
+    transition: transform 280ms cubic-bezier(.4,.0,.2,1);
+    z-index: 49;
+    overflow-y: auto;
+  }
+  .site-nav.is-open { transform: translateY(0); }
+
+  .site-nav__link {
+    display: grid !important;
+    grid-template-columns: 32px 1fr 20px;
+    align-items: baseline !important;
+    column-gap: 16px;
+    padding: 22px 4px !important;
+    border-bottom: 1px solid var(--rule) !important;
+    border-top: 0 !important;
+    font-family: var(--font-display) !important;
+    font-weight: 400 !important;
+    font-size: 30px !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.012em !important;
+    text-transform: none !important;
+    color: var(--fg) !important;
+    text-align: left !important;
+  }
+  .site-nav__link.is-active { color: var(--terracotta) !important; border-bottom-color: var(--rule) !important; }
+  /* Decorate with numeric prefix + arrow via ::before / ::after */
+  .site-nav__link::before {
+    content: counter(navitem, decimal-leading-zero);
+    counter-increment: navitem;
+    font-family: var(--font-mono); font-weight: 500;
+    font-size: 11px; letter-spacing: 0.18em;
+    color: var(--mist-grey);
+    align-self: baseline;
+  }
+  .site-nav__link::after {
+    content: '→';
+    font-family: var(--font-mono); font-size: 14px;
+    color: var(--mist-grey); text-align: right;
+  }
+  .site-nav__link.is-active::after { color: var(--terracotta); }
+  .site-nav { counter-reset: navitem -1; }
+
+  /* Lang toggle pushed to bottom of drawer */
+  .site-nav .lang-toggle {
+    margin-top: auto !important;
+    margin-left: 0 !important;
+    align-self: flex-start;
+    padding: 4px !important;
+  }
+  .site-nav .lang-toggle button { padding: 8px 16px; }
+  .site-nav .lang-toggle__flag { width: 26px; }
+
+  /* ---- HERO ---------------------------------------------------------- */
+  .hero { padding-top: 48px !important; padding-bottom: 8px !important; gap: 28px !important; }
+  .hero__coord { font-size: 10px; margin-bottom: 18px; letter-spacing: 0.16em; }
+  .hero__sub { font-size: 18px !important; line-height: 1.5; margin-top: 20px !important; }
+  .hero__meta { font-size: 10px; letter-spacing: 0.16em; line-height: 1.6; }
+  .hero__aside { max-width: clamp(240px, 48vw, 360px); width: 100%; }
+  .hero__caption { font-size: 10px; letter-spacing: 0.14em; }
+  .hero__motif-note { font-size: 14.5px; margin-top: 20px; }
+  .hero-band { height: 160px; margin: 0 -20px; }
+  .hero-band__overlay { padding: 16px 20px; }
+  .hero-band__kicker { font-size: 10px; letter-spacing: 0.18em; line-height: 1.5; }
+
+  /* ---- SECTION TITLE ------------------------------------------------- */
+  .kicker-block { margin-top: 36px !important; }
+  .kicker-block__kicker { font-size: 10px; letter-spacing: 0.16em; }
+  .kicker-block__title { font-size: 34px; letter-spacing: -0.012em; }
+  .kicker-block__lede { font-size: 16.5px; line-height: 1.5; margin-top: 16px; }
+
+  /* ---- ROUTES (home) — keep 2 per row, just trim spacing ------------- */
+  /* margin-top now handled by clamp() in website.css */
+  .route-tile { min-height: 72px; padding: 16px !important; }
+  .route-tile__label { font-size: 22px; }
+
+  /* ---- LATEST strip on home ------------------------------------------ */
+  /* margin-top now handled by clamp() in website-extras.css */
+  .latest { padding-top: 20px; }
+  .latest__head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .latest__h, .latest__all { font-size: 10px; letter-spacing: 0.16em; }
+
+  /* ---- ITEM LISTS — restack to single column ------------------------- */
+  .itemlist__row,
+  .itemlist__row--pub,
+  .itemlist__row--conf,
+  .itemlist__row--teach,
+  .itemlist__row--out,
+  .itemlist__row--press,
+  .latest__list .itemlist__row {
+    display: block !important;
+    padding: 18px 0 !important;
+  }
+  .itemlist__yr, .itemlist__date, .itemlist__fmt, .itemlist__org {
+    display: inline-block;
+    margin-right: 12px;
+    margin-bottom: 6px;
+    font-size: 10px !important;
+    letter-spacing: 0.14em !important;
+  }
+  .itemlist__org { font-family: var(--font-mono); font-weight: 500; font-size: 10px !important; letter-spacing: 0.20em !important; color: var(--ink-grey); text-transform: uppercase; }
+  .itemlist__title { font-size: 17px; line-height: 1.25; }
+  .itemlist__title a { word-break: break-word; }
+  .itemlist__sub { font-size: 13.5px; margin-top: 4px; }
+  .itemlist__right, .itemlist__right-meta, .itemlist__loc {
+    text-align: left !important;
+    margin-top: 8px;
+    font-size: 12.5px;
+  }
+  .itemlist__right-meta { margin-top: 4px; }
+
+  /* Publication rows keep their 3-column grid layout until 650px.
+     Just narrow the right column so the title still has room. */
+  .itemlist__row--pub {
+    display: grid !important;
+    grid-template-columns: 64px 1fr 200px !important;
+    padding: 14px 0 !important;
+    gap: 24px !important;
+  }
+  .itemlist__row--pub .itemlist__yr {
+    display: block !important;
+    margin: 0 !important;
+    font-size: 11px !important;
+  }
+  .itemlist__row--pub .itemlist__right-badges {
+    justify-content: flex-end;
+  }
+  .itemlist__row--pub .itemlist__right-meta {
+    text-align: right !important;
+    margin-top: 16px !important;
+  }
+  .itemlist__actions {
+    flex-wrap: wrap;
+    gap: 10px !important;
+  }
+  .itemlist__note { font-size: 13.5px; margin-top: 8px; }
+
+  /* ---- RESEARCH CARDS ------------------------------------------------ */
+  .research-grid { gap: 20px !important; margin-top: 32px !important; }
+  .research-card { aspect-ratio: 4/3; }
+  .research-card__body { padding: 18px 20px 20px; }
+  .research-card h3 { font-size: 22px !important; line-height: 1.15; }
+  .research-card p { font-size: 14px; line-height: 1.45; }
+  .research-card__row { gap: 8px; flex-wrap: wrap; }
+
+  /* ---- ENGAGEMENT BLOCKS --------------------------------------------- */
+  .engage-block { margin-top: 40px !important; }
+  .engage-block__head {
+    flex-direction: column; align-items: flex-start; gap: 6px;
+    padding-bottom: 12px;
+  }
+  .engage-block__title { font-size: 22px; }
+
+  /* ---- CONTACT ------------------------------------------------------- */
+  .contact-grid { margin-top: 40px !important; padding-top: 32px !important; gap: 36px !important; }
+  .contact-card { padding: 22px 22px 20px; }
+  .contact-card__org { font-size: 22px; }
+  .contact-card__addr { font-size: 14.5px; }
+  .contact-email { font-size: 26px; word-break: break-word; }
+  .contact-email-note { font-size: 13px; }
+  .contact-links a {
+    grid-template-columns: 1fr auto !important;
+    grid-template-areas: "label arr" "meta arr" !important;
+    padding: 14px 12px !important;
+    gap: 4px 12px !important;
+    align-items: center !important;
+  }
+  .contact-links__label { grid-area: label; align-self: end; }
+  .contact-links__meta  { grid-area: meta; align-self: start; }
+  .contact-links__arr   { grid-area: arr; align-self: center; }
+  .contact-faq { margin-top: 56px; padding-top: 32px; }
+  .contact-faq__list { gap: 24px !important; }
+  .contact-faq__row {
+    grid-template-columns: 1fr !important;
+    padding-top: 18px;
+  }
+  .contact-faq__num { font-size: 10px; }
+  .contact-faq__q { font-size: 18px; }
+  .contact-faq__a { grid-column: 1 !important; font-size: 14px; }
+  .contact-sig { margin-top: 56px; padding: 32px 0 8px; }
+  .contact-sig img { width: 72px; height: 72px; }
+
+  /* ---- FOOTER -------------------------------------------------------- */
+  .site-footer { margin-top: 64px; padding: 40px 0 28px; }
+  .site-footer__h { font-size: 10px; padding-bottom: 10px; margin-bottom: 14px; }
+  .site-footer__email { font-size: 20px; word-break: break-word; }
+  .site-footer__affil > div:first-child { font-size: 16px; }
+  .site-footer__bottom { font-size: 9.5px; letter-spacing: 0.10em; padding-top: 18px; margin-top: 36px; flex-direction: column; align-items: flex-start; gap: 12px; }
+
+  /* ---- ARTICLE ------------------------------------------------------- */
+  .article { margin-top: 32px; }
+  .article__kicker { font-size: 10px; }
+  .article__title { font-size: 36px; line-height: 1.06; }
+  .article__lede { font-size: 18px; }
+  .article__body p { font-size: 16px; line-height: 1.62; }
+  .article__body h2 { font-size: 24px; margin-top: 36px; }
+  .article__meta { gap: 14px; }
+
+  /* ---- ESSAYS -------------------------------------------------------- */
+  .essay-featured {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 28px 0 !important;
+    margin-top: 40px !important;
+  }
+  .essay-featured__title { font-size: 28px !important; }
+  .essay-featured__sub { font-size: 16px !important; }
+  .essays-index { margin-top: 40px !important; }
+  .essay-row {
+    grid-template-columns: 1fr 24px !important;
+    gap: 12px !important;
+    padding: 20px 0 !important;
+  }
+  .essay-row:hover { padding-left: 0 !important; padding-right: 0 !important; margin: 0 !important; }
+  .essay-row__date {
+    grid-column: 1 / -1;
+    padding-top: 0 !important;
+    font-size: 10px !important;
+  }
+  .essay-row__body { grid-column: 1; }
+  .essay-row__arr { grid-row: 2; grid-column: 2; padding-top: 8px !important; }
+  .essay-row__title { font-size: 20px !important; }
+  .essay-row__sub { font-size: 14px !important; }
+  .essay-follow {
+    grid-template-columns: 1fr !important;
+    padding: 24px !important;
+    margin-top: 48px !important;
+  }
+  .essay-follow__r { flex-direction: column; align-items: stretch; }
+  .essay-follow__btn { text-align: center; }
+
+  /* ---- TWEAKS panel — less intrusive on mobile ----------------------- */
+  .twk-panel {
+    width: calc(100vw - 24px) !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    max-height: calc(100svh - 80px) !important;
+  }
+}
+
+/* Project cards drop to a single column only on really narrow screens */
+@media (max-width: 750px) {
+  .research-grid { grid-template-columns: 1fr !important; }
+}
+
+/* Phone-only — collapse pub rows to single column, hide badges,
+   center action buttons. */
+@media (max-width: 650px) {
+  .itemlist__row--pub {
+    display: block !important;
+    grid-template-columns: none !important;
+  }
+  .itemlist__row--pub .itemlist__yr {
+    display: inline-block !important;
+    margin-right: 12px;
+    margin-bottom: 6px;
+    font-size: 10px !important;
+  }
+  .itemlist__row--pub .itemlist__right-badges { display: none; }
+  .itemlist__row--pub > div:last-child { margin-top: 8px; }
+  .itemlist__actions { justify-content: center !important; }
+}
+
+/* =====================================================================
+   ≤ 380px — ultra-compact
+   ===================================================================== */
+@media (max-width: 380px) {
+  .shell { padding: 0 16px; }
+  .kicker-block__title { font-size: 30px; }
+  .site-header__current { display: none; }
+  .site-nav__link { font-size: 26px !important; }
+}
+
+/* =====================================================================
+   Safe-area insets for iOS notch / home bar
+   ===================================================================== */
+@supports (padding: env(safe-area-inset-top)) {
+  @media (max-width: 1080px) {
+    .site-header__row { padding-top: env(safe-area-inset-top); }
+    .site-nav.is-open { padding-bottom: max(32px, env(safe-area-inset-bottom)) !important; }
+  }
+}

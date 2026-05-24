@@ -1,0 +1,32 @@
+[
+  {
+    "year": 2026,
+    "org": "Princeton Geosciences",
+    "title": {
+      "fr": "Congratulations Dr. Mathieu Poupon for successfully defending his PhD thesis",
+      "en": "Congratulations Dr. Mathieu Poupon for successfully defending his PhD thesis"
+    },
+    "kind": { "fr": "Blog Post", "en": "Blog Post" },
+    "href": "https://geosciences.princeton.edu/news/congratulations-dr-mathieu-poupon-successfully-defending-his-phd-thesis"
+  },
+  {
+    "year": 2025,
+    "org": "Resplandy Lab",
+    "title": {
+      "fr": "Graduate student Mathieu Poupon showcases research at the global Ocean Science Congress",
+      "en": "Graduate student Mathieu Poupon showcases research at the global Ocean Science Congress"
+    },
+    "kind": { "fr": "Blog Post", "en": "Blog Post" },
+    "href": "https://resplandy.princeton.edu/news/2025/graduate-student-mathieu-poupon%C2%A0showcases-research-global-ocean-science-congress"
+  },
+  {
+    "year": 2024,
+    "org": "ENS · PSL",
+    "title": {
+      "fr": "« Il est nécessaire de transmettre au public les armes pour interroger les savoirs »",
+      "en": "\"It is necessary to give the public the tools to question knowledge\""
+    },
+    "kind": { "fr": "Interview", "en": "Interview" },
+    "href": "https://www.ens.psl.eu/actualites/il-est-necessaire-de-transmettre-au-public-les-armes-pour-interroger-les-savoirs"
+  }
+]

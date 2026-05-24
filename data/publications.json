@@ -1,0 +1,93 @@
+[
+  {
+    "year": 2026,
+    "status": "review",
+    "title": {
+      "fr": "Carbon Dioxide Removal via Ocean Alkalinity Enhancement: Uneven Costs and Optimal Regions",
+      "en": "Carbon Dioxide Removal via Ocean Alkalinity Enhancement: Uneven Costs and Optimal Regions"
+    },
+    "authors": "Poupon M. A., Resplandy L., Oppenheimer M.",
+    "venue": "",
+    "doi": null,
+    "pdf": null,
+    "supp": null
+  },
+  {
+    "year": 2026,
+    "status": "done",
+    "title": {
+      "fr": "How much do zooplankton and fine-scale processes matter for the ocean biological pump?",
+      "en": "How much do zooplankton and fine-scale processes matter for the ocean biological pump?"
+    },
+    "authors": "Poupon M. A., Resplandy L., Luo J. Y.",
+    "venue": "Nature Communications",
+    "doi": "10.1038/s41467-026-72144-x",
+    "pdf": "papers/Poupon2026.pdf",
+    "supp": null
+  },
+  {
+    "year": 2026,
+    "status": "done",
+    "title": {
+      "fr": "Global Eddy Subduction Carbon Pump from Argo Floats",
+      "en": "Global Eddy Subduction Carbon Pump from Argo Floats"
+    },
+    "authors": "Keutgen M., Resplandy L., Poupon M. A.",
+    "venue": "Global Biogeochemical Cycles",
+    "doi": "10.1029/2025GB008912",
+    "pdf": "papers/Keutgen2026.pdf",
+    "supp": null
+  },
+  {
+    "year": 2025,
+    "status": "done",
+    "title": {
+      "fr": "Phytoplankton community succession and biogeochemistry in a bloom simulation experiment at an estuary–ocean interface",
+      "en": "Phytoplankton community succession and biogeochemistry in a bloom simulation experiment at an estuary–ocean interface"
+    },
+    "authors": "Lee J. A., Vineis J. H., Poupon M. A., Resplandy L., Ward B.",
+    "venue": "Biogeosciences",
+    "doi": "10.5194/bg-22-4743-2025",
+    "pdf": "papers/Lee2025.pdf",
+    "supp": null
+  },
+  {
+    "year": 2025,
+    "status": "done",
+    "title": {
+      "fr": "Chlorophyll shading reduces zooplankton diel migration depth in a high-resolution physical–biogeochemical model",
+      "en": "Chlorophyll shading reduces zooplankton diel migration depth in a high-resolution physical–biogeochemical model"
+    },
+    "authors": "Poupon M. A., Resplandy L., Garwood J., Stock C., Zadeh N., Luo J.",
+    "venue": "Ocean Science",
+    "doi": "10.5194/os-21-851-2025",
+    "pdf": "papers/Poupon2025.pdf",
+    "supp": null
+  },
+  {
+    "year": 2023,
+    "status": "done",
+    "title": {
+      "fr": "Pacific decadal oscillation influences tropical oxygen minimum zone extent and obscures anthropogenic changes",
+      "en": "Pacific decadal oscillation influences tropical oxygen minimum zone extent and obscures anthropogenic changes"
+    },
+    "authors": "Poupon M. A., Resplandy L., Lévy M., Bopp L.",
+    "venue": "Geophysical Research Letters",
+    "doi": "10.1029/2022GL102123",
+    "pdf": "papers/Poupon2023.pdf",
+    "supp": null
+  },
+  {
+    "year": 2022,
+    "status": "done",
+    "title": {
+      "fr": "Coastlines at Risk of Hypoxia from Natural Variability in the Northern Indian Ocean",
+      "en": "Coastlines at Risk of Hypoxia from Natural Variability in the Northern Indian Ocean"
+    },
+    "authors": "Pearson J., Resplandy L., Poupon M. A.",
+    "venue": "Global Biogeochemical Cycles",
+    "doi": "10.1029/2021GB007192",
+    "pdf": "papers/Pearson2022.pdf",
+    "supp": null
+  }
+]

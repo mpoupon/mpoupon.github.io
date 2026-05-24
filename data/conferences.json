@@ -1,0 +1,223 @@
+[
+  {
+    "year": 2026,
+    "month": 6,
+    "status": "upcoming",
+    "format": "TALK",
+    "title": {
+      "fr": "Uneven Costs, Optimal Regions: A Global Techno-Economic Assessment of Ocean Alkalinity Enhancement",
+      "en": "Uneven Costs, Optimal Regions: A Global Techno-Economic Assessment of Ocean Alkalinity Enhancement"
+    },
+    "event": "4th International Conference on Carbon Dioxide Removal",
+    "city": "Milano",
+    "country": "IT"
+  },
+  {
+    "year": 2026,
+    "month": 5,
+    "status": "held",
+    "format": "ROUND TABLE",
+    "title": {
+      "fr": "Decarbonising Maritime Transport in Europe: Innovation, Regulation and Market Incentives for a Net-Zero Shipping Sector",
+      "en": "Decarbonising Maritime Transport in Europe: Innovation, Regulation and Market Incentives for a Net-Zero Shipping Sector"
+    },
+    "event": "EU Ocean Pact Conference (Cyprus Presidency of the Council of the EU)",
+    "city": "Ammochostos",
+    "country": "CY"
+  },
+  {
+    "year": 2026,
+    "month": 5,
+    "status": "held",
+    "format": "TALK",
+    "title": {
+      "fr": "Uneven Costs, Optimal Regions: A Global Techno-Economic Assessment of Ocean Alkalinity Enhancement",
+      "en": "Uneven Costs, Optimal Regions: A Global Techno-Economic Assessment of Ocean Alkalinity Enhancement"
+    },
+    "event": "EGU General Assembly 2026",
+    "city": "Vienna",
+    "country": "AT"
+  },
+  {
+    "year": 2026,
+    "month": 2,
+    "status": "held",
+    "format": "TALK",
+    "title": {
+      "fr": "Uneven Costs, Optimal Regions: A Global Techno-Economic Assessment of Ocean Alkalinity Enhancement",
+      "en": "Uneven Costs, Optimal Regions: A Global Techno-Economic Assessment of Ocean Alkalinity Enhancement"
+    },
+    "event": "Ocean Sciences Meeting",
+    "city": "Glasgow",
+    "country": "UK"
+  },
+  {
+    "year": 2026,
+    "month": 2,
+    "status": "held",
+    "format": "TALK",
+    "title": {
+      "fr": "Unifying framework reveals importance of dissolved fluxes in ocean biological carbon pump",
+      "en": "Unifying framework reveals importance of dissolved fluxes in ocean biological carbon pump"
+    },
+    "event": "Ocean Sciences Meeting",
+    "city": "Glasgow",
+    "country": "UK"
+  },
+  {
+    "year": 2025,
+    "month": 10,
+    "status": "held",
+    "format": "POSTER",
+    "title": {
+      "fr": "Mapping the cost-efficiency of carbon dioxide removal via ocean alkalinity enhancement",
+      "en": "Mapping the cost-efficiency of carbon dioxide removal via ocean alkalinity enhancement"
+    },
+    "event": "France Science Summit, Embassy of France",
+    "city": "Washington D.C.",
+    "country": "US"
+  },
+  {
+    "year": 2025,
+    "month": 6,
+    "status": "held",
+    "format": "TALK",
+    "title": {
+      "fr": "Cost-effective ocean alkalinity enhancement confined to coastal regions",
+      "en": "Cost-effective ocean alkalinity enhancement confined to coastal regions"
+    },
+    "event": "One Ocean Science Congress",
+    "city": "Nice",
+    "country": "FR"
+  },
+  {
+    "year": 2025,
+    "month": 6,
+    "status": "held",
+    "format": "ROUND TABLE",
+    "title": {
+      "fr": "How ECOP Programme nodes help support ECOPs and promote ocean science around the world: real examples, needs and challenges",
+      "en": "How ECOP Programme nodes help support ECOPs and promote ocean science around the world: real examples, needs and challenges"
+    },
+    "event": "One Ocean Science Congress",
+    "city": "Nice",
+    "country": "FR"
+  },
+  {
+    "year": 2025,
+    "month": 5,
+    "status": "held",
+    "format": "TALK",
+    "title": {
+      "fr": "Cost-effective ocean alkalinity enhancement confined to coastal regions",
+      "en": "Cost-effective ocean alkalinity enhancement confined to coastal regions"
+    },
+    "event": "56th Liège Colloquium on Ocean Dynamics",
+    "city": "Liège",
+    "country": "BE"
+  },
+  {
+    "year": 2025,
+    "month": 5,
+    "status": "held",
+    "format": "WEBINAR",
+    "title": {
+      "fr": "Unifying framework reveals importance of dissolved fluxes in ocean biological carbon pump",
+      "en": "Unifying framework reveals importance of dissolved fluxes in ocean biological carbon pump"
+    },
+    "event": "BGC Argo Science Meeting",
+    "city": "Online",
+    "country": null
+  },
+  {
+    "year": 2024,
+    "month": 2,
+    "status": "held",
+    "format": "TALK",
+    "title": {
+      "fr": "Elucidate the processes controlling the migrating zooplankton carbon pump",
+      "en": "Elucidate the processes controlling the migrating zooplankton carbon pump"
+    },
+    "event": "Ocean Sciences Meeting",
+    "city": "New Orleans",
+    "country": "US"
+  },
+  {
+    "year": 2023,
+    "month": 9,
+    "status": "held",
+    "format": "TALK",
+    "title": {
+      "fr": "How could the migrating zooplankton carbon pump evolve in a warmer world?",
+      "en": "How could the migrating zooplankton carbon pump evolve in a warmer world?"
+    },
+    "event": "Symposium on the Ocean Twilight Zone, WHOI",
+    "city": "Woods Hole",
+    "country": "US"
+  },
+  {
+    "year": 2023,
+    "month": 9,
+    "status": "held",
+    "format": "POSTER",
+    "title": {
+      "fr": "Exploring the migrant pump variability: a mechanistic model approach to identify its drivers",
+      "en": "Exploring the migrant pump variability: a mechanistic model approach to identify its drivers"
+    },
+    "event": "Symposium on the Ocean Twilight Zone, WHOI",
+    "city": "Woods Hole",
+    "country": "US"
+  },
+  {
+    "year": 2022,
+    "month": 8,
+    "status": "held",
+    "format": "POSTER",
+    "title": {
+      "fr": "Extending subducted filament detection to the global scale using Argo floats",
+      "en": "Extending subducted filament detection to the global scale using Argo floats"
+    },
+    "event": "FilaChange",
+    "city": "Providence",
+    "country": "US"
+  },
+  {
+    "year": 2022,
+    "month": 6,
+    "status": "held",
+    "format": "POSTER",
+    "title": {
+      "fr": "Extending subducted filament detection to the global scale using Argo floats",
+      "en": "Extending subducted filament detection to the global scale using Argo floats"
+    },
+    "event": "2nd Gordon Research Conference on Ocean Mixing",
+    "city": "South Hadley",
+    "country": "US"
+  },
+  {
+    "year": 2022,
+    "month": 5,
+    "status": "held",
+    "format": "TALK",
+    "title": {
+      "fr": "Pacific decadal oscillation influences the extension of the tropical Oxygen Minimum Zone and obscures the impacts of anthropogenic changes",
+      "en": "Pacific decadal oscillation influences the extension of the tropical Oxygen Minimum Zone and obscures the impacts of anthropogenic changes"
+    },
+    "event": "53rd Liège Colloquium · 3rd GO2NE Conference",
+    "city": "Liège",
+    "country": "BE"
+  },
+  {
+    "year": 2022,
+    "month": 3,
+    "status": "held",
+    "format": "TALK",
+    "title": {
+      "fr": "Response of Tropical Pacific oxygen minimum zone to Pacific natural mode of variability",
+      "en": "Response of Tropical Pacific oxygen minimum zone to Pacific natural mode of variability"
+    },
+    "event": "Ocean Sciences Meeting (remote)",
+    "city": "Hawaiʻi",
+    "country": "US"
+  }
+]

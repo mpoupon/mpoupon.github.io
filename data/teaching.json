@@ -1,0 +1,41 @@
+[
+  {
+    "date": "2024",
+    "role": { "fr": "CHARGÉ DE TD", "en": "TEACHING ASSISTANT" },
+    "title": {
+      "fr": "Dynamique océanique et écosystèmes",
+      "en": "Ocean Dynamics and Ecosystems"
+    },
+    "venue": {
+      "fr": "Princeton University · Princeton, US · cours de niveau master",
+      "en": "Princeton University · Princeton, US · graduate-level class"
+    },
+    "href": "https://registrar.princeton.edu/course-offerings/course-details?courseid=007326&term=1244"
+  },
+  {
+    "date": "2021",
+    "role": { "fr": "ENSEIGNANT", "en": "INSTRUCTOR" },
+    "title": {
+      "fr": "Introduction à l'océanographie physique et biogéochimique",
+      "en": "Introduction to physical and biogeochemical oceanography"
+    },
+    "venue": {
+      "fr": "École Normale Supérieure · Paris, FR · Les cours aux Ernests · cours de niveau licence",
+      "en": "École Normale Supérieure · Paris, FR · Les cours aux Ernests · undergraduate-level class"
+    },
+    "href": "https://www.eleves.ens.fr/coursauxernest/"
+  },
+  {
+    "date": "2018–2019",
+    "role": { "fr": "ENSEIGNANT", "en": "INSTRUCTOR" },
+    "title": {
+      "fr": "TALENS — accompagnement de lycéens issus de milieux défavorisés",
+      "en": "TALENS — tutoring high-school students from disadvantaged backgrounds"
+    },
+    "venue": {
+      "fr": "Lycée Colbert · Paris, FR · cours de niveau lycée",
+      "en": "Lycée Colbert · Paris, FR · high-school-level class"
+    },
+    "href": "https://psl.eu/talens/"
+  }
+]

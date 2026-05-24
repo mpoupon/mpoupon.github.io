@@ -1,0 +1,17 @@
+{
+  "date": "2026-05-23",
+  "read": "1 min",
+  "tag": { "fr": "AVIS", "en": "NOTICE" },
+  "title": {
+    "fr": "Cet espace est en chantier",
+    "en": "This space is under construction"
+  },
+  "sub": {
+    "fr": "Les premières notes se préparent — patience, elles arrivent.",
+    "en": "The first notes are brewing — patience, they're on their way."
+  },
+  "body": {
+    "fr": "<p>Vous êtes arrivés un peu tôt. Cette section est encore en chantier — les premières notes mûrissent quelque part entre un carnet, un fichier <code>.tex</code> en cours d'écriture, et l'arrière-cuisine de quelques idées qui demandent à reposer.</p><p>Repassez bientôt. Les premières <em>bouteilles à la mer</em> ne devraient pas tarder à être jetées.</p><p>D'ici là, si quelque chose vous a fait penser à autre chose ailleurs sur ce site, écrivez-moi — c'est exactement le genre de résonance que j'espère provoquer.</p>",
+    "en": "<p>You're a touch early. This section is still under construction — the first notes are ripening somewhere between a notebook, a <code>.tex</code> file in progress, and the back kitchen of a few ideas that need to rest a little longer.</p><p>Check back soon. The first <em>messages in bottles</em> should be tossed overboard before long.</p><p>In the meantime, if something on this site triggered a thought of your own, drop me a line — that's exactly the kind of resonance I'm hoping to spark.</p>"
+  }
+}

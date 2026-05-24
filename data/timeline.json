@@ -1,0 +1,86 @@
+[
+  {
+    "period": "2026 → 2028",
+    "kind": "position",
+    "title": {
+      "fr": "Postdoctorat CNRS",
+      "en": "CNRS Postdoctoral Fellow"
+    },
+    "org": {
+      "fr": "LOCEAN–IPSL · Sorbonne Université",
+      "en": "LOCEAN–IPSL · Sorbonne Université"
+    },
+    "place": "Paris, FR",
+    "href": "https://www.ocean-climat.fr/Les-actions-et-projets/Generation-PPR/Post-docs-mCDR-soutenus"
+  },
+  {
+    "period": "2021 → 2026",
+    "kind": "degree",
+    "title": {
+      "fr": "Doctoral Certificate — Environmental Policy",
+      "en": "Doctoral Certificate — Environmental Policy"
+    },
+    "org": {
+      "fr": "Princeton School of Public and International Affairs",
+      "en": "Princeton School of Public and International Affairs"
+    },
+    "place": "Princeton, US",
+    "href": "https://environment.princeton.edu/education/hmei-step/"
+  },
+  {
+    "period": "2021 → 2026",
+    "kind": "degree",
+    "title": {
+      "fr": "Doctorat — Sciences Atmosphériques & Océaniques",
+      "en": "PhD — Atmospheric & Oceanic Sciences"
+    },
+    "org": {
+      "fr": "Princeton Program in Atmospheric and Oceanic Sciences",
+      "en": "Princeton Program in Atmospheric and Oceanic Sciences"
+    },
+    "place": "Princeton, US",
+    "href": "https://aos.princeton.edu/phd_program/overview"
+  },
+  {
+    "period": "2019 → 2021",
+    "kind": "degree",
+    "title": {
+      "fr": "Master — Sciences de la Terre & Environnement",
+      "en": "M.Sc. — Earth & Planetary Sciences, Environment"
+    },
+    "org": {
+      "fr": "École Normale Supérieure",
+      "en": "École Normale Supérieure"
+    },
+    "place": "Paris, FR",
+    "href": "https://www.geosciences.ens.fr/master"
+  },
+  {
+    "period": "2019 → 2021",
+    "kind": "degree",
+    "title": {
+      "fr": "Diplôme de l'ENS (Master) — Politiques environnementales",
+      "en": "ENS Diploma (M.A.) — Environmental Policy"
+    },
+    "org": {
+      "fr": "École Normale Supérieure",
+      "en": "École Normale Supérieure"
+    },
+    "place": "Paris, FR",
+    "href": "https://www.ens.psl.eu/une-formation-d-exception/formations/le-dens-ou-diplome-de-l-ecole-normale-superieure"
+  },
+  {
+    "period": "2018 → 2019",
+    "kind": "degree",
+    "title": {
+      "fr": "Licence — Sciences de la Terre",
+      "en": "B.Sc. — Earth & Planetary Sciences"
+    },
+    "org": {
+      "fr": "École Normale Supérieure",
+      "en": "École Normale Supérieure"
+    },
+    "place": "Paris, FR",
+    "href": "https://www.geosciences.ens.fr/enseignement/diplome-de-lens#cours"
+  }
+]
