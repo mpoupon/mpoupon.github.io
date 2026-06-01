@@ -58,9 +58,6 @@ function Header({ section, lang, onNav, onLang, heroOverlay }) {
 
         {/* Mobile-only current section + hamburger + lang toggle */}
         <div className="site-header__mobile-meta">
-          <span className="site-header__current">
-            {active ? (lang === 'fr' ? active.fr : active.en) : ''}
-          </span>
           <span className="lang-toggle lang-toggle--mobile" data-active={lang} role="group" aria-label="Language">
             <span className="lang-toggle__thumb" aria-hidden="true" />
             <button className={lang==='fr'?'is-active':''} onClick={()=>onLang('fr')} aria-pressed={lang==='fr'} aria-label="Français">
