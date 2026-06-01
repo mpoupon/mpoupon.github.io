@@ -149,7 +149,7 @@ function Home({ lang, onNav, onOpenArticle, hero = 'portrait' }) {
   }, []);
 
   const t = lang === 'fr' ? {
-    sub: "Chercheur en biogéochimie océanique. Postdoc CNRS au LOCEAN–IPSL, après un doctorat à Princeton (Atmospheric & Oceanic Sciences) et un certificat STEP. Je travaille sur la pompe biologique de carbone, sur l'élimination du CO₂ par l'océan, et sur ce que chacune engage pour la décision.",
+    sub: "Chercheur en sciences de l'océan et en politique environnementale. Postdoc CNRS au LOCEAN–IPSL, après un doctorat à Princeton University. Je travaille sur le cycle naturel du carbone dans l'océan et sur sa modification délibérée par l'homme, ainsi que sur ce que chacun de ces sujets engage pour la prise de décision.",
     meta: 'POSTDOC CNRS · LOCEAN–IPSL',
     coord: '48.846°N · 2.357°E — PARIS',
     routes: [
@@ -163,7 +163,7 @@ function Home({ lang, onNav, onOpenArticle, hero = 'portrait' }) {
     portraitCap: 'PORTRAIT · 2025',
     bg: 'PARCOURS',
   } : {
-    sub: "Ocean biogeochemistry researcher. CNRS postdoc at LOCEAN–IPSL after a PhD at Princeton (Atmospheric & Oceanic Sciences) and a STEP graduate certificate. I work on the biological carbon pump, on ocean carbon dioxide removal, and on what each commits us to in decision-making.",
+    sub: "Ocean science and environmental policy researcher. CNRS postdoc at LOCEAN–IPSL after a PhD at Princeton University. I work on the natural carbon cycle in the ocean and its deliberate modification by humans, and on what each commits us to in decision-making.",
     meta: 'CNRS POSTDOC · LOCEAN–IPSL',
     coord: '48.846°N · 2.357°E — PARIS',
     routes: [
