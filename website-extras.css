@@ -413,19 +413,31 @@ html[data-theme="dark"] .hero-band__motif { filter: invert(0.92) hue-rotate(180d
 }
 
 @media (max-width: 768px) {
+  /* On phones the stacked content (portrait + name + bio) can be taller than
+     the viewport. Let the banner grow with its content so the ocean photo
+     (background-size: cover) always covers the text, and put .banner-info back
+     in normal flow so it contributes to the banner height. */
+  .hero-frontispiece__banner {
+    height: auto;
+    min-height: 100dvh;
+  }
   .banner-info {
-    top: clamp(96px, 12vh, 140px);
-    left: 50%; right: auto;
-    transform: translateX(-50%);
+    position: static;
+    top: auto; left: auto; right: auto;
+    transform: none;
+    margin: 0 auto;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     text-align: center;
-    width: calc(100% - 48px);
+    width: 100%;
     max-width: 520px;
-    padding: 0;
+    /* top: clear the navbar · bottom: reserve room so the scroll cue never
+       overlaps the bio text */
+    padding: clamp(96px, 12vh, 140px) 24px 132px;
     gap: 22px;
   }
+  .scroll-cue { bottom: 28px; }
   .banner-info__left  { align-items: center; }
   .banner-info__right { align-items: center; text-align: center; max-width: 100%; }
   .banner-info__name  { font-size: clamp(36px, 9vw, 56px); }
