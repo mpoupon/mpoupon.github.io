@@ -1,5 +1,13 @@
 [
    {
+  "file": "XXX.pdf",
+  "title_short": "Keutgen De Greef et al. (under revision)",
+  "doi": "XXXX",
+  "state": "submitted",
+  "title_long": "Keutgen De Greef, M., Resplandy, L., Champenois, B., <strong>Poupon, M. A.</strong>, Li, W., Hassanzadeh, P., & Zanna, L. under revision: SamudraBGC: Machine Learning Emulation of Regional Mesoscale Ocean Biogeochemistry"
+  },
+   
+   {
     "file": "XXX.pdf",
     "title_short": "Poupon et al. (under revision)",
     "doi": " XXXX",
@@ -7,13 +15,13 @@
     "title_long": "<strong>Poupon, M. A.</strong>, Resplandy, L., & Oppenheimer, M. under revision: Carbon Dioxide Removal via Ocean Alkalinity Enhancement: Uneven Costs and Optimal Regions"
    },
   
- {
+   {
     "file": "Poupon_et_al_Carbon.pdf",
     "title_short": "Poupon et al. (under revision)",
     "doi": "10.21203/rs.3.rs-6666218/v1",
     "state": "submitted",
-    "title_long": "<strong>Poupon, M. A.</strong>, Resplandy, L., & Luo, J. Y. under revision: How much do zooplankton and fine-scale processes matter for the ocean biological pump?"
-  },
+    "title_long": "<strong>Poupon, M. A.</strong>, Resplandy, L., & Luo, J. Y. under revision: How much do zooplankton and fine-scale processes matter for the ocean biological pump?" 
+   },
 
   {
     "file": "Keutgen2026.pdf",
