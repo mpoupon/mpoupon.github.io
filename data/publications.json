@@ -1,4 +1,16 @@
-[
+[ {
+  "year": 2026,
+  "status": "review",
+  "title": {
+    "fr": "SamudraBGC: Machine Learning Emulation of Regional Mesoscale Ocean Biogeochemistry",
+    "en": "SamudraBGC: Machine Learning Emulation of Regional Mesoscale Ocean Biogeochemistry"
+  },
+  "authors": "Keutgen De Greef M., Resplandy L., Champenois B., Poupon M. A., Li W., Hassanzadeh P., Zanna L.",
+  "venue": "",
+  "doi": null,
+  "pdf": null,
+  "supp": null
+},
   {
     "year": 2026,
     "status": "review",
