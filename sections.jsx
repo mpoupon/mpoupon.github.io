@@ -12,7 +12,7 @@ const RESEARCH = [
       en: "How modifying ocean chemistry can enhance atmospheric CO₂ removal — where is it viable, at what cost, and what are the limiting factors.",
     },
     status: 'live',
-    image: 'assets/research/oae.jpg',
+    image: 'assets/research/oae.webp',
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const RESEARCH = [
       en: "How multi-year and decadal ocean variability modes shape the dynamics of low-oxygen zones.",
     },
     status: 'closed',
-    image: 'assets/research/oxygen.jpg',
+    image: 'assets/research/oxygen.webp',
   },
 ];
 
@@ -57,7 +57,7 @@ const ENGAGE_PROJECTS = [
       en: "Coordinating the French node of ECOP — giving early-career ocean professionals a voice and supporting their professional development.",
     },
     status: 'live',
-    image: 'assets/engagement/ecop.png',
+    image: 'assets/engagement/ecop.webp',
     url: 'https://www.ecopdecade.org/france/',
   },
   {
@@ -68,7 +68,7 @@ const ENGAGE_PROJECTS = [
       en: "Young Ocean Advocate with the European Commission — voice of a generation committed to ocean protection and governance.",
     },
     status: 'live',
-    image: 'assets/engagement/young_ocean_advocate.png',
+    image: 'assets/engagement/young_ocean_advocate.webp',
     url: 'https://maritime-forum.ec.europa.eu/node/8227_en',
   },
   {
@@ -79,7 +79,7 @@ const ENGAGE_PROJECTS = [
       en: "Jeunes Ambassadeurs pour le Climat — talks and training in schools on the causes, consequences and solutions of climate change.",
     },
     status: 'closed',
-    image: 'assets/engagement/jac.jpg',
+    image: 'assets/engagement/jac.webp',
     url: 'https://jac-asso.fr/',
   },
   {
@@ -101,7 +101,7 @@ const ENGAGE_PROJECTS = [
       en: "Videos and outreach communication on IPCC reports, and the causes and consequences of climate change.",
     },
     status: 'closed',
-    image: 'assets/engagement/j2d.png',
+    image: 'assets/engagement/j2d.webp',
     url: 'https://www.j2d.org/',
   },
   {
@@ -112,7 +112,7 @@ const ENGAGE_PROJECTS = [
       en: "Popular science video series on Earth's orders of magnitude — helping the public understand how our planet works.",
     },
     status: 'closed',
-    image: 'assets/engagement/odg.png',
+    image: 'assets/engagement/odg.webp',
     url: 'https://www.youtube.com/playlist?list=PLOF9KoYAaAFoFY-dbvlk2aJXJI0s_Lo7k',
   },
 ];
@@ -183,7 +183,7 @@ function Home({ lang, onNav, onOpenArticle, hero = 'portrait' }) {
     // portrait (default for non-frontispiece variants)
     return (
       <div className="hero__aside">
-        <img className="hero__portrait" src="assets/home/portrait.png" alt="Mathieu Poupon" />
+        <img className="hero__portrait" src="assets/home/portrait.webp" alt="Mathieu Poupon" />
         <div className="hero__caption">
           <span>{t.portraitCap}</span>
           <span style={{color:'var(--ink-grey)'}}>{lang === 'fr' ? 'PARIS' : 'PARIS'}</span>
@@ -200,7 +200,7 @@ function Home({ lang, onNav, onOpenArticle, hero = 'portrait' }) {
         <div className="banner-info">
           <div className="banner-info__left">
             <div className="banner-info__portrait-frame">
-              <img src="assets/home/portrait.png" alt="Mathieu Poupon" className="banner-info__portrait" />
+              <img src="assets/home/portrait.webp" alt="Mathieu Poupon" className="banner-info__portrait" />
             </div>
             <div className="banner-info__kicker">{t.meta}</div>
             <div className="banner-info__socials" aria-label={lang === 'fr' ? 'Liens externes' : 'External links'}>
@@ -403,7 +403,7 @@ function Research({ lang }) {
           {RESEARCH.map(p => (
             <button key={p.id} className="research-card">
               <div className="research-card__figure">
-                <img src={p.image} alt="" className="research-card__img" />
+                <img src={p.image} alt="" loading="lazy" className="research-card__img" />
               </div>
               <div className="research-card__status">
                 <StatusPip kind={p.status} lang={lang} />
@@ -425,7 +425,7 @@ function Research({ lang }) {
           {ENGAGE_PROJECTS.map(p => (
             <a key={p.id} className="research-card" href={p.url} target="_blank" rel="noopener noreferrer">
               <div className="research-card__figure">
-                <img src={p.image} alt="" className="research-card__img" />
+                <img src={p.image} alt="" loading="lazy" className="research-card__img" />
               </div>
               <div className="research-card__status">
                 <StatusPip kind={p.status} lang={lang} />
@@ -455,17 +455,17 @@ function Publications({ lang }) {
     kicker:'02 — PUBLICATIONS',
     title:'Publications',
     lede:"Articles à comité de lecture, publiés ou en révision, et contributions à des documents d'orientation pour les politiques publiques.",
-    s1:'En révision',
-    s2:'Publiés',
-    s3:'Expertise pour les politiques publiques',
+    s1:'Articles en révision',
+    s2:'Articles publiés',
+    s3:'Politiques publiques',
     article:'PDF',
     supp:'Supplementary',
   } : {
     kicker:'02 — PUBLICATIONS',
     title:'Publications',
     lede:"Peer-reviewed papers, published or under review, and policy-oriented documents I contributed expertise to.",
-    s1:'Under review',
-    s2:'Published',
+    s1:'Articles under review',
+    s2:'Published articles',
     s3:'Policy contributions',
     article:'PDF',
     supp:'Supplementary',

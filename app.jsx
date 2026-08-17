@@ -3,10 +3,46 @@
 
 const { useState: useStateApp, useEffect: useEffectApp } = React;
 
+// ---- Hash routing ---------------------------------------------------------
+// Each view maps to a URL hash (#pubs, #research, #note/<slug>, ...) so pages
+// are linkable and bookmarkable, and browser back/forward work as expected.
+const ROUTE_SECTIONS = ['home', 'research', 'pubs', 'engage', 'essays', 'contact'];
+
+function readRoute() {
+  const h = decodeURIComponent((window.location.hash || '').replace(/^#\/?/, ''));
+  if (!h) return { section: 'home', article: null };
+  const [head, ...rest] = h.split('/');
+  if (head === 'note' && rest.length) return { section: 'essays', article: rest.join('/') };
+  if (ROUTE_SECTIONS.includes(head)) return { section: head, article: null };
+  return { section: 'home', article: null };
+}
+
+function writeRoute(section, article) {
+  const target = article ? `#note/${encodeURIComponent(article)}` : (section === 'home' ? '' : `#${section}`);
+  if ((window.location.hash || '') === target) return;
+  if (target === '') {
+    history.pushState(null, '', window.location.pathname + window.location.search);
+  } else {
+    window.location.hash = target;
+  }
+}
+
 function App() {
   const [t, setTweak] = useTweaks(window.TWEAK_DEFAULTS);
-  const [section, setSection] = useStateApp('home');
-  const [article, setArticle] = useStateApp(null); // article slug, when open
+  const initialRoute = readRoute();
+  const [section, setSection] = useStateApp(initialRoute.section);
+  const [article, setArticle] = useStateApp(initialRoute.article); // article slug, when open
+
+  // Follow browser back/forward (and manual hash edits).
+  useEffectApp(() => {
+    const onRouteChange = () => { const r = readRoute(); setSection(r.section); setArticle(r.article); };
+    window.addEventListener('hashchange', onRouteChange);
+    window.addEventListener('popstate', onRouteChange);
+    return () => {
+      window.removeEventListener('hashchange', onRouteChange);
+      window.removeEventListener('popstate', onRouteChange);
+    };
+  }, []);
 
   const lang = t.lang === 'en' ? 'en' : 'fr';
   const setLang = (l) => setTweak('lang', l);
@@ -18,9 +54,9 @@ function App() {
     document.documentElement.lang = lang;
   }, [t.dark, t.density, lang]);
 
-  const onNav = (s) => { setArticle(null); setSection(s); window.scrollTo({top:0,behavior:'instant'}); };
-  const openArticle = (slug) => { setArticle(slug); window.scrollTo({top:0,behavior:'instant'}); };
-  const closeArticle = () => { setArticle(null); };
+  const onNav = (s) => { setArticle(null); setSection(s); writeRoute(s, null); window.scrollTo({top:0,behavior:'instant'}); };
+  const openArticle = (slug) => { setArticle(slug); writeRoute('essays', slug); window.scrollTo({top:0,behavior:'instant'}); };
+  const closeArticle = () => { setArticle(null); writeRoute(section, null); };
 
   let body;
   if (article !== null) {
