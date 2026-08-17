@@ -675,6 +675,11 @@ function Publications({ lang }) {
     className: "itemlist"
   }, policyPubs.map((p, i) => renderRow(p, `p-${i}`, true)))));
 }
+function confStatus(c) {
+  const now = new Date;
+  const past = c.year < now.getFullYear() || c.year === now.getFullYear() && c.month < now.getMonth() + 1;
+  return past ? "held" : "upcoming";
+}
 function Conferences({ lang }) {
   const [confs, setConfs] = React.useState([]);
   React.useEffect(() => {
@@ -717,7 +722,7 @@ function Conferences({ lang }) {
     }, c.event, " · ", loc)), React.createElement("div", {
       style: { textAlign: "right" }
     }, React.createElement(StatusPip, {
-      kind: c.status,
+      kind: confStatus(c),
       lang
     })));
   })));
@@ -805,4 +810,4 @@ function Writings({ lang, onNav, onOpenArticle }) {
     onClick: () => onNav && onNav("contact")
   }, lang === "fr" ? "M'ÉCRIRE  →" : "WRITE TO ME  →"))));
 }
-Object.assign(window, { Home, Research, Publications, Conferences, Writings });
+Object.assign(window, { Home, Research, Publications, Conferences, Writings, confStatus });

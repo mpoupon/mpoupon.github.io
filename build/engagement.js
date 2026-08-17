@@ -70,7 +70,7 @@ function Engagement({ lang }) {
   }, c.event, " · ", c.loc)), React.createElement("div", {
     style: { textAlign: "right" }
   }, React.createElement(StatusPip, {
-    kind: c.status,
+    kind: confStatus(c),
     lang
   }))))), allConfs.length > 3 && React.createElement("button", {
     type: "button",
