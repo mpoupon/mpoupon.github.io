@@ -453,18 +453,20 @@ function Publications({ lang }) {
 
   const t = lang === 'fr' ? {
     kicker:'02 — PUBLICATIONS',
-    title:'Articles à comité de lecture',
-    lede:"Articles à comité de lecture, publiés ou en révision.",
+    title:'Publications',
+    lede:"Articles à comité de lecture, publiés ou en révision, et contributions à des documents d'orientation pour les politiques publiques.",
     s1:'En révision',
     s2:'Publiés',
+    s3:'Expertise pour les politiques publiques',
     article:'PDF',
     supp:'Supplementary',
   } : {
     kicker:'02 — PUBLICATIONS',
-    title:'Peer-reviewed papers',
-    lede:"Peer-reviewed papers, published or under review.",
+    title:'Publications',
+    lede:"Peer-reviewed papers, published or under review, and policy-oriented documents I contributed expertise to.",
     s1:'Under review',
     s2:'Published',
+    s3:'Policy contributions',
     article:'PDF',
     supp:'Supplementary',
   };
@@ -486,6 +488,7 @@ function Publications({ lang }) {
 
   const reviewPubs = pubs.filter(p => p.status === 'review');
   const donePubs = pubs.filter(p => p.status === 'done');
+  const policyPubs = pubs.filter(p => p.status === 'policy');
 
   const docIcon = (
     <span className="itemlist__action-icon" aria-hidden="true">
@@ -509,9 +512,12 @@ function Publications({ lang }) {
         <div className="itemlist__title">
           {p.doi
             ? <a href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener noreferrer">{p.title[lang]}</a>
-            : <span>{p.title[lang]}</span>}
+            : p.url
+              ? <a href={p.url} target="_blank" rel="noopener noreferrer">{p.title[lang]}</a>
+              : <span>{p.title[lang]}</span>}
         </div>
         <div className="itemlist__sub" dangerouslySetInnerHTML={{__html: p.authors.replace(/Poupon M\. A\./g, '<strong>Poupon M. A.</strong>')}} />
+        {p.role && <div className="itemlist__sub itemlist__sub--role">{p.role[lang]}</div>}
         {(p.venue || (withActions && (p.pdf || p.supp))) && (
           <div className="itemlist__actions">
             {p.venue && p.doi && (
@@ -519,7 +525,12 @@ function Publications({ lang }) {
                 {p.venue}
               </a>
             )}
-            {p.venue && !p.doi && (
+            {p.venue && !p.doi && p.url && (
+              <a className="itemlist__action itemlist__action--venue" href={p.url} target="_blank" rel="noopener noreferrer">
+                {p.venue}
+              </a>
+            )}
+            {p.venue && !p.doi && !p.url && (
               <span className="itemlist__action itemlist__action--venue itemlist__action--static">
                 {p.venue}
               </span>
@@ -538,7 +549,7 @@ function Publications({ lang }) {
         )}
       </div>
       <div>
-        {withActions && p.doi && (
+        {withActions && p.doi && p.status !== 'policy' && (
           <div className="itemlist__right-badges">
             <span
               className="__dimensions_badge_embed__ itemlist__badge"
@@ -581,6 +592,17 @@ function Publications({ lang }) {
           </header>
           <div className="itemlist">
             {donePubs.map((p,i) => renderRow(p, `d-${i}`, true))}
+          </div>
+        </section>
+      )}
+
+      {policyPubs.length > 0 && (
+        <section className="engage-block">
+          <header className="engage-block__head">
+            <h2 className="engage-block__title">{t.s3}</h2>
+          </header>
+          <div className="itemlist">
+            {policyPubs.map((p,i) => renderRow(p, `p-${i}`, true))}
           </div>
         </section>
       )}

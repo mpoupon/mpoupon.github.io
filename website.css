@@ -205,6 +205,7 @@ html, body { margin: 0; }
 .itemlist__title a { color: var(--prussian); text-decoration: none; border-bottom: 1px solid var(--rule); }
 .itemlist__title a:hover { border-bottom-color: var(--terracotta); color: var(--terracotta); }
 .itemlist__sub { font-family: var(--font-body); font-style: italic; font-size: 14px; color: var(--ink-grey); margin-top: 4px; }
+.itemlist__sub--role { font-size: 13px; opacity: .85; }
 .itemlist__right { text-align: right; font-family: var(--font-body); font-style: italic; font-size: 13.5px; color: var(--ink-grey); }
 .itemlist__right-meta { text-align: right; margin-top: 16px; }
 
