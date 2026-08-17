@@ -401,7 +401,7 @@ function Research({ lang }) {
         </header>
         <div className="research-grid">
           {RESEARCH.map(p => (
-            <button key={p.id} className="research-card">
+            <div key={p.id} className="research-card">
               <div className="research-card__figure">
                 <img src={p.image} alt="" loading="lazy" className="research-card__img" />
               </div>
@@ -412,7 +412,7 @@ function Research({ lang }) {
                 <h3 dangerouslySetInnerHTML={{__html:p.title[lang]}} />
                 <p>{p.summary[lang]}</p>
               </div>
-            </button>
+            </div>
           ))}
         </div>
       </section>
