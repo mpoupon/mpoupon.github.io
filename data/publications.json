@@ -115,5 +115,41 @@
     "doi": "10.1029/2021GB007192",
     "pdf": "papers/Pearson2022.pdf",
     "supp": null
+  },
+  {
+    "year": 2026,
+    "status": "policy",
+    "title": {
+      "fr": "Navigating Hopes and Threats: How Precaution Should Guide Marine Carbon Dioxide Removal Research and Governance",
+      "en": "Navigating Hopes and Threats: How Precaution Should Guide Marine Carbon Dioxide Removal Research and Governance"
+    },
+    "authors": "Ocean & Climate Platform",
+    "role": {
+      "fr": "Policy brief — contribution en tant qu'expert scientifique",
+      "en": "Policy brief — contributed as a scientific expert"
+    },
+    "venue": "Ocean & Climate Platform",
+    "doi": null,
+    "url": "https://ocean-climate.org/en/policy-brief-navigating-hopes-and-threats-how-precaution-should-guide-marine-carbon-dioxide-removal-research-and-governance-2/",
+    "pdf": "papers/ocp2026.pdf",
+    "supp": null
+  },
+  {
+    "year": 2026,
+    "status": "policy",
+    "title": {
+      "fr": "Riding the Wave: Recommendations for Europe's Ocean Future",
+      "en": "Riding the Wave: Recommendations for Europe's Ocean Future"
+    },
+    "authors": "Siokouros Z., Piaton G., Christoforou K. (CMMI)",
+    "role": {
+      "fr": "Recommandations de la conférence Riding the Wave (Chypre, mai 2026) — contribution en tant qu'expert scientifique",
+      "en": "Recommendations from the Riding the Wave conference (Cyprus, May 2026) — contributed as a scientific expert"
+    },
+    "venue": "Cyprus Marine & Maritime Institute (CMMI)",
+    "doi": "10.5281/zenodo.21672513",
+    "url": "https://zenodo.org/records/21672513",
+    "pdf": "papers/RidingTheWave2026.pdf",
+    "supp": null
   }
 ]
