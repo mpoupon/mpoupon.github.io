@@ -610,6 +610,15 @@ function Publications({ lang }) {
   );
 }
 
+// Conference status is derived from the date: an event is 'held' only once
+// its month is over; during (or before) the event month it stays 'upcoming'.
+function confStatus(c) {
+  const now = new Date();
+  const past = (c.year < now.getFullYear()) ||
+               (c.year === now.getFullYear() && c.month < now.getMonth() + 1);
+  return past ? 'held' : 'upcoming';
+}
+
 // ============================================================================
 // Conferences
 // ============================================================================
@@ -652,7 +661,7 @@ function Conferences({ lang }) {
                 <div className="itemlist__sub">{c.event} · {loc}</div>
               </div>
               <div style={{textAlign:'right'}}>
-                <StatusPip kind={c.status} lang={lang} />
+                <StatusPip kind={confStatus(c)} lang={lang} />
               </div>
             </div>
           );
@@ -764,4 +773,4 @@ function Writings({ lang, onNav, onOpenArticle }) {
   );
 }
 
-Object.assign(window, { Home, Research, Publications, Conferences, Writings });
+Object.assign(window, { Home, Research, Publications, Conferences, Writings, confStatus });

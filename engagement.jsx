@@ -69,7 +69,7 @@ function Engagement({ lang }) {
                 <div className="itemlist__sub">{c.event} · {c.loc}</div>
               </div>
               <div style={{textAlign:'right'}}>
-                <StatusPip kind={c.status} lang={lang} />
+                <StatusPip kind={confStatus(c)} lang={lang} />
               </div>
             </div>
           ))}

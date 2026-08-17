@@ -107,7 +107,7 @@ function Contact({ lang }) {
               </a>
             </div>
             <div className="contact-card__role">
-              {lang === 'fr' ? 'Doctorant · 2020 → 2025' : 'PhD Candidate · 2020 → 2025'}
+              {lang === 'fr' ? 'Doctorant · 2021 → 2026' : 'PhD Candidate · 2021 → 2026'}
             </div>
           </div>
         </section>
