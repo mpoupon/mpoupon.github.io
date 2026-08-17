@@ -21,8 +21,12 @@ function writeRoute(section, article) {
     window.location.hash = target;
   }
 }
+function initialTweaks() {
+  const urlLang = new URLSearchParams(window.location.search).get("lang");
+  return urlLang === "fr" || urlLang === "en" ? { ...window.TWEAK_DEFAULTS, lang: urlLang } : window.TWEAK_DEFAULTS;
+}
 function App() {
-  const [t, setTweak] = useTweaks(window.TWEAK_DEFAULTS);
+  const [t, setTweak] = useTweaks(initialTweaks());
   const initialRoute = readRoute();
   const [section, setSection] = useStateApp(initialRoute.section);
   const [article, setArticle] = useStateApp(initialRoute.article);
