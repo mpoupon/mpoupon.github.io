@@ -141,12 +141,12 @@
       "fr": "Riding the Wave: Recommendations for Europe's Ocean Future",
       "en": "Riding the Wave: Recommendations for Europe's Ocean Future"
     },
-    "authors": "Siokouros Z., Piaton G., Christoforou K. (CMMI)",
+    "authors": "Cyprus Marine and Maritime Institute",
     "role": {
-      "fr": "Recommandations de la conférence Riding the Wave (Chypre, mai 2026) — contribution en tant qu'expert scientifique",
-      "en": "Recommendations from the Riding the Wave conference (Cyprus, May 2026) — contributed as a scientific expert"
+      "fr": "Recommandations de la conférence Riding the Wave — contribution en tant qu'expert scientifique",
+      "en": "Recommendations from the Riding the Wave conference — contributed as a scientific expert"
     },
-    "venue": "Cyprus Marine & Maritime Institute (CMMI)",
+    "venue": "Cyprus Marine & Maritime Institute",
     "doi": "10.5281/zenodo.21672513",
     "url": "https://zenodo.org/records/21672513",
     "pdf": "papers/RidingTheWave2026.pdf",
