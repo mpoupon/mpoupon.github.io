@@ -451,7 +451,7 @@ function Research({ lang }) {
     className: "engage-block__title"
   }, t.s1t)), React.createElement("div", {
     className: "research-grid"
-  }, RESEARCH.map((p) => React.createElement("button", {
+  }, RESEARCH.map((p) => React.createElement("div", {
     key: p.id,
     className: "research-card"
   }, React.createElement("div", {
