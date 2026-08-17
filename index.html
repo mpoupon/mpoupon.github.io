@@ -8,6 +8,11 @@
   <meta name="author" content="Mathieu Poupon">
   <link rel="canonical" href="https://mpoupon.github.io/">
 
+  <!-- Bilingual (FR/EN) alternates for search engines -->
+  <link rel="alternate" hreflang="en" href="https://mpoupon.github.io/?lang=en">
+  <link rel="alternate" hreflang="fr" href="https://mpoupon.github.io/?lang=fr">
+  <link rel="alternate" hreflang="x-default" href="https://mpoupon.github.io/">
+
   <!-- Social cards -->
   <meta property="og:type" content="profile">
   <meta property="og:title" content="Mathieu Poupon — Ocean & Climate Scientist">
@@ -15,6 +20,8 @@
   <meta property="og:url" content="https://mpoupon.github.io/">
   <meta property="og:image" content="https://mpoupon.github.io/assets/home/portrait-og.jpg">
   <meta property="og:site_name" content="Mathieu Poupon">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="fr_FR">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Mathieu Poupon — Ocean & Climate Scientist">
   <meta name="twitter:description" content="Ocean science and environmental policy researcher. CNRS postdoc at LOCEAN–IPSL, PhD from Princeton.">
@@ -46,14 +53,13 @@
 
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
   <link rel="preload" as="image" href="assets/home/banner.jpg" fetchpriority="high">
-  <link rel="preconnect" href="https://unpkg.com" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/SourceSerif4-VF.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/Fraunces-VF.woff2" crossorigin>
-  <link rel="stylesheet" href="fonts/fonts.css?v=79">
-  <link rel="stylesheet" href="colors_and_type.css?v=79">
-  <link rel="stylesheet" href="website.css?v=79">
-  <link rel="stylesheet" href="website-extras.css?v=79">
-  <link rel="stylesheet" href="website-mobile.css?v=79">
+  <link rel="stylesheet" href="fonts/fonts.css?v=80">
+  <link rel="stylesheet" href="colors_and_type.css?v=80">
+  <link rel="stylesheet" href="website.css?v=80">
+  <link rel="stylesheet" href="website-extras.css?v=80">
+  <link rel="stylesheet" href="website-mobile.css?v=80">
 </head>
 <body>
   <div id="root"></div>
@@ -93,9 +99,8 @@
     }/*EDITMODE-END*/;
   </script>
 
-  <!-- React 18.3.1 (production builds) -->
-  <script defer src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
-  <script defer src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+  <!-- React (production, self-hosted — see README) -->
+  <script defer src="build/react.js?v=80"></script>
 
   <!-- Altmetric badges (renders any .altmetric-embed div with a data-doi) -->
   <script defer src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
@@ -103,13 +108,13 @@
   <script defer src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
 
   <!-- App (precompiled from the .jsx sources — see README: rebuild build/ after editing any .jsx) -->
-  <script defer src="build/tweaks-panel.js?v=79"></script>
-  <script defer src="build/components.js?v=79"></script>
-  <script defer src="build/sections.js?v=79"></script>
-  <script defer src="build/engagement.js?v=79"></script>
-  <script defer src="build/contact.js?v=79"></script>
-  <script defer src="build/BlogPost.js?v=79"></script>
-  <script defer src="build/app.js?v=79"></script>
+  <script defer src="build/tweaks-panel.js?v=80"></script>
+  <script defer src="build/components.js?v=80"></script>
+  <script defer src="build/sections.js?v=80"></script>
+  <script defer src="build/engagement.js?v=80"></script>
+  <script defer src="build/contact.js?v=80"></script>
+  <script defer src="build/BlogPost.js?v=80"></script>
+  <script defer src="build/app.js?v=80"></script>
 
   <!-- Privacy-friendly analytics (GoatCounter: no cookies, GDPR-safe) -->
   <script>

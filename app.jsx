@@ -27,8 +27,18 @@ function writeRoute(section, article) {
   }
 }
 
+// ?lang=fr / ?lang=en in the URL overrides the default language for the visit
+// (used by the hreflang alternate links so search engines can index both
+// language versions; the in-page toggle still works normally afterwards).
+function initialTweaks() {
+  const urlLang = new URLSearchParams(window.location.search).get('lang');
+  return (urlLang === 'fr' || urlLang === 'en')
+    ? { ...window.TWEAK_DEFAULTS, lang: urlLang }
+    : window.TWEAK_DEFAULTS;
+}
+
 function App() {
-  const [t, setTweak] = useTweaks(window.TWEAK_DEFAULTS);
+  const [t, setTweak] = useTweaks(initialTweaks());
   const initialRoute = readRoute();
   const [section, setSection] = useStateApp(initialRoute.section);
   const [article, setArticle] = useStateApp(initialRoute.article); // article slug, when open
