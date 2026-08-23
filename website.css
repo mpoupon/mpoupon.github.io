@@ -127,6 +127,7 @@ html, body { margin: 0; }
 .routes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: clamp(56px, 6vw, 80px); }
 .route-tile {
   display: flex; align-items: center; justify-content: center;
+  text-decoration: none; color: inherit;
   min-height: 120px;
   padding: 24px;
   border: 0;
@@ -244,6 +245,6 @@ a.research-card { cursor: pointer; }
 .latest { margin-top: 96px; border-top: 1px solid var(--rule); padding-top: 24px; }
 .latest__head { display: flex; justify-content: space-between; align-items: baseline; }
 .latest__h { font-family: var(--font-mono); font-weight: 500; font-size: 11px; letter-spacing: 0.20em; text-transform: uppercase; color: var(--ink-grey); }
-.latest__all { font-family: var(--font-mono); font-weight: 500; font-size: 11px; letter-spacing: 0.20em; text-transform: uppercase; color: var(--terracotta); border: 0; background: none; cursor: pointer; }
+.latest__all { font-family: var(--font-mono); font-weight: 500; font-size: 11px; letter-spacing: 0.20em; text-transform: uppercase; color: var(--terracotta); border: 0; background: none; cursor: pointer; text-decoration: none; }
 .latest__list { margin-top: 8px; }
 .latest__list .itemlist__row { padding: 18px 0; }

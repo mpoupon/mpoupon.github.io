@@ -244,10 +244,18 @@ html[data-theme="dark"] .hero-band__motif { filter: invert(0.92) hue-rotate(180d
   height: 100dvh;
   min-height: 540px;
   overflow: hidden;
-  /* Banner photo lives at assets/home/banner.jpg. Gradient is the fallback. */
+  /* Banner photo lives at assets/home/banner.webp (1920px; a 1200px variant is
+     served to narrow screens below). Gradient is the fallback. */
   background:
-    url("assets/home/banner.jpg") center/cover no-repeat,
+    url("assets/home/banner.webp") center/cover no-repeat,
     linear-gradient(180deg, #0e2840 0%, #051528 100%);
+}
+@media (max-width: 820px) {
+  .hero-frontispiece__banner {
+    background:
+      url("assets/home/banner-mobile.webp") center/cover no-repeat,
+      linear-gradient(180deg, #0e2840 0%, #051528 100%);
+  }
 }
 
 /* ---- Scroll cue ---- single refined chevron, slow "breath" animation.
@@ -1490,6 +1498,7 @@ html[data-theme="dark"] .engagetile__motif { filter: invert(1); opacity: 0.5; }
 }
 .home-contact__kicker--link {
   background: none; border: 0; cursor: pointer; padding: 0;
+  text-decoration: none; color: inherit;
   display: inline-flex; align-items: center; gap: 10px;
   transition: color 160ms ease;
 }

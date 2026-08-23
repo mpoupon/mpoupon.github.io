@@ -3,6 +3,21 @@
 
 const { useState } = React;
 
+// ---- Section links --------------------------------------------------------
+// Navigation targets are real <a href="#section"> anchors, not buttons, so they
+// can be opened in a new tab, middle-clicked, copied, and followed by crawlers.
+// A plain left-click is intercepted for SPA navigation; modified clicks are
+// left to the browser.
+function navHref(id) { return id === 'home' ? './' : '#' + id; }
+function navClick(id, go) {
+  return (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (typeof e.button === 'number' && e.button !== 0) return;
+    e.preventDefault();
+    go(id);
+  };
+}
+
 // ---- Header ---------------------------------------------------------------
 function Header({ section, lang, onNav, onLang, heroOverlay }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -51,10 +66,10 @@ function Header({ section, lang, onNav, onLang, heroOverlay }) {
   return (
     <header className={'site-header' + (menuOpen ? ' is-open' : '') + (overHero && !menuOpen ? ' is-over-hero' : '')}>
       <div className="shell site-header__row">
-        <button className="site-brand" onClick={() => handleNav('home')} style={{background:'none',border:0,cursor:'pointer',padding:0}}>
+        <a className="site-brand" href={navHref('home')} onClick={navClick('home', handleNav)}>
           <img src="assets/logo.svg" width="32" height="32" alt="" className="site-brand__logo" />
           <span className="site-brand__name">Mathieu Poupon</span>
-        </button>
+        </a>
 
         {/* Mobile-only current section + hamburger + lang toggle */}
         <div className="site-header__mobile-meta">
@@ -103,13 +118,15 @@ function Header({ section, lang, onNav, onLang, heroOverlay }) {
 
         <nav className={'site-nav' + (menuOpen ? ' is-open' : '')}>
           {items.map(it => (
-            <button
+            <a
               key={it.id}
               className={'site-nav__link' + (section === it.id ? ' is-active' : '')}
-              onClick={() => handleNav(it.id)}
+              href={navHref(it.id)}
+              aria-current={section === it.id ? 'page' : undefined}
+              onClick={navClick(it.id, handleNav)}
             >
               {lang === 'fr' ? it.fr : it.en}
-            </button>
+            </a>
           ))}
           <span className="lang-toggle" data-active={lang} role="group" aria-label="Language">
             <span className="lang-toggle__thumb" aria-hidden="true" />
@@ -259,4 +276,4 @@ function FigurePlaceholder({ seed = 1, label }) {
   );
 }
 
-Object.assign(window, { Header, Footer, KickerBlock, StatusPip, FigurePlaceholder });
+Object.assign(window, { Header, Footer, KickerBlock, StatusPip, FigurePlaceholder, navHref, navClick });

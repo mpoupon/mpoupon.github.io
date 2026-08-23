@@ -283,16 +283,16 @@ function Home({ lang, onNav, onOpenArticle, hero = 'portrait' }) {
 
       <nav className="routes">
         {t.routes.map(([n,l,id]) => (
-          <button key={id} className="route-tile" onClick={() => onNav(id)}>
+          <a key={id} className="route-tile" href={navHref(id)} onClick={navClick(id, onNav)}>
             <div className="route-tile__label">{l}</div>
-          </button>
+          </a>
         ))}
       </nav>
 
       <section className="latest">
         <div className="latest__head">
           <span className="latest__h">{t.latest}</span>
-          <button className="latest__all" onClick={()=>onNav('pubs')}>{t.all}</button>
+          <a className="latest__all" href={navHref('pubs')} onClick={navClick('pubs', onNav)}>{t.all}</a>
         </div>
         <div className="latest__list">
           {pubs.filter(p => p.status === 'done').slice(0, pubsCount).map((p,i) => (
@@ -344,14 +344,14 @@ function Home({ lang, onNav, onOpenArticle, hero = 'portrait' }) {
       </section>
 
       <section className="home-contact">
-        <button
-          type="button"
+        <a
           className="home-contact__kicker home-contact__kicker--link"
-          onClick={() => onNav('contact')}
+          href={navHref('contact')}
+          onClick={navClick('contact', onNav)}
           aria-label={lang === 'fr' ? 'Aller à la page contact' : 'Go to contact page'}
         >
           — {lang === 'fr' ? 'CONTACT' : 'CONTACT'} <span className="home-contact__kicker-arr">→</span>
-        </button>
+        </a>
         <div className="home-contact__grid">
           <div className="home-contact__col">
             <div className="home-contact__label">{lang === 'fr' ? 'ADRESSE' : 'ADDRESS'}</div>
