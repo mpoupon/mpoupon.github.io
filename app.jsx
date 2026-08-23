@@ -77,7 +77,7 @@ function App() {
     if (!new URLSearchParams(window.location.search).has('tweaks')) return;
     if (window.TweaksPanel) { setPanelReady(true); return; }
     const s = document.createElement('script');
-    s.src = 'build/tweaks-panel.js?v=86';
+    s.src = 'build/tweaks-panel.js?v=87';
     s.onload = () => setPanelReady(true);
     document.head.appendChild(s);
   }, []);
@@ -131,9 +131,7 @@ function App() {
       <Header section={section} lang={lang} onNav={onNav} onLang={setLang}
               heroOverlay={section === 'home' && article === null && t.hero === 'frontispiece'} />
       {body}
-      <footer className="site-copyright">
-        © 2026 Mathieu Poupon · {lang === 'fr' ? 'Tous droits réservés' : 'All rights reserved'}
-      </footer>
+      <Footer lang={lang} onNav={onNav} />
 
       {/* Authoring panel: only shipped when the URL carries ?tweaks=1, so
           visitors never download it (see the loader effect above). */}

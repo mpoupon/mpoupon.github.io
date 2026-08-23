@@ -21,11 +21,11 @@ function BlogPost({ slug, lang, onBack }) {
   const t = lang === 'fr' ? {
     kicker: '04 — NOTES',
     back: '← TOUTES LES NOTES',
-    meta: { date:'PUBLIÉ', read:'LECTURE', tags:'TAGS', cite:'CITATION' },
+    meta: { date:'PUBLIÉ', read:'LECTURE' },
   } : {
     kicker: '04 — NOTES',
     back: '← ALL NOTES',
-    meta: { date:'PUBLISHED', read:'READ', tags:'TAGS', cite:'CITE' },
+    meta: { date:'PUBLISHED', read:'READ' },
   };
 
   // Format ISO "YYYY-MM-DD" → "YYYY·MM·DD" for display
@@ -40,7 +40,6 @@ function BlogPost({ slug, lang, onBack }) {
         <div className="article__meta">
           <span><span style={{color:'var(--ink-grey)',fontWeight:500,letterSpacing:'0.18em'}}>{t.meta.date}</span> &nbsp; {displayDate}</span>
           <span><span style={{color:'var(--ink-grey)',fontWeight:500,letterSpacing:'0.18em'}}>{t.meta.read}</span> &nbsp; {w.read}</span>
-          <span><span style={{color:'var(--ink-grey)',fontWeight:500,letterSpacing:'0.18em'}}>{t.meta.cite}</span> &nbsp; mathieupoupon.science/notes/{w.slug}</span>
         </div>
         <div className="article__body" dangerouslySetInnerHTML={{__html: w.body[lang]}} />
         <button className="article__back" onClick={onBack}>{t.back}</button>

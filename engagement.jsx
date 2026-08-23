@@ -36,8 +36,8 @@ function Engagement({ lang }) {
     title:'Conferences, teaching, press',
     lede:"Scientific talks, round tables, posters, teaching activities, and press appearances.",
     s0: 'Conferences',
-    s1: 'Teaching and Mentorship',
-    s2: 'Interviews and Blog',
+    s1: 'Teaching and mentorship',
+    s2: 'Interviews and blog',
     showMore: 'Show all',
     showLess: 'Show less',
   };

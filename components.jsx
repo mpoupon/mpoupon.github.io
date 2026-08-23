@@ -206,25 +206,35 @@ function Header({ section, lang, onNav, onLang, heroOverlay }) {
 }
 
 // ---- Footer ---------------------------------------------------------------
-// Real socials, two affiliations. The footer is dense — three columns on
-// desktop: affiliations, "open the conversation" prompt + email, and links.
+// Closes every page: affiliation, a way to write, and the profiles. The
+// copyright line lives in the bottom bar, so the page has exactly one
+// <footer> landmark.
 function Footer({ lang, onNav }) {
   const t = lang === 'fr' ? {
-    h1: 'AFFILIATIONS',
+    h1: 'AFFILIATION',
     h2: 'CONTACT',
-    address1: ['LOCEAN–IPSL', 'Sorbonne Université', '4 place Jussieu', '75005 Paris, France'],
-    emailLabel: 'Écrire',
-    bottom: '© 2026 Mathieu Poupon · Tous droits réservés.',
+    h3: 'PROFILS',
+    address: ['LOCEAN–IPSL', 'Sorbonne Université', '4 place Jussieu', '75005 Paris, France'],
+    contactAria: 'Aller à la page contact',
+    bottom: '© 2026 Mathieu Poupon · Tous droits réservés',
   } : {
-    h1: 'AFFILIATIONS',
+    h1: 'AFFILIATION',
     h2: 'CONTACT',
-    address1: ['LOCEAN–IPSL', 'Sorbonne Université', '4 place Jussieu', '75005 Paris, France'],
-    emailLabel: 'Write',
-    bottom: '© 2026 Mathieu Poupon · All rights reserved.',
+    h3: 'PROFILES',
+    address: ['LOCEAN–IPSL', 'Sorbonne Université', '4 place Jussieu', '75005 Paris, France'],
+    contactAria: 'Go to contact page',
+    bottom: '© 2026 Mathieu Poupon · All rights reserved',
   };
 
-  // Coordonnées (mono) — affichée en bas comme "point de mesure".
-  const coord1 = '48.846°N · 2.357°E';
+  const profiles = [
+    { label: 'GOOGLE SCHOLAR', href: 'https://scholar.google.com/citations?user=1kRXs-IAAAAJ' },
+    { label: 'ORCID',          href: 'https://orcid.org/0000-0002-8136-4011' },
+    { label: 'GITHUB',         href: 'https://github.com/mpoupon' },
+    { label: 'LINKEDIN',       href: 'https://www.linkedin.com/in/mathieu-poupon' },
+  ];
+
+  // Coordinates (mono) — shown under the address as a "measurement point".
+  const coord = '48.846°N · 2.357°E';
 
   return (
     <footer className="site-footer">
@@ -235,27 +245,44 @@ function Footer({ lang, onNav }) {
             <div className="site-footer__h">{t.h1}</div>
             <div className="site-footer__addr">
               <div className="site-footer__affil">
-                {t.address1.map((l,i) => <div key={i}>{l}</div>)}
-                <div className="site-footer__coord">{coord1}</div>
+                {t.address.map((l, i) => <div key={i}>{l}</div>)}
+                <div className="site-footer__coord">{coord}</div>
               </div>
             </div>
           </div>
 
           <div className="site-footer__col">
-            <button
+            <a
               className="site-footer__h site-footer__h--link"
-              onClick={() => onNav && onNav('contact')}
-              aria-label={lang === 'fr' ? 'Aller à la page contact' : 'Go to contact page'}
+              href={navHref('contact')}
+              onClick={navClick('contact', onNav)}
+              aria-label={t.contactAria}
             >
               {t.h2}  <span className="site-footer__h-arr">→</span>
-            </button>
+            </a>
             <a className="site-footer__email" href="mailto:mathieu.poupon@locean.ipsl.fr">
               mathieu.poupon<span className="site-footer__email-at">@</span>locean.ipsl.fr
             </a>
           </div>
 
+          <div className="site-footer__col">
+            <div className="site-footer__h">{t.h3}</div>
+            <ul className="site-footer__links">
+              {profiles.map(l => (
+                <li key={l.label}>
+                  <a href={l.href} target="_blank" rel="noopener noreferrer">
+                    {l.label}<span className="site-footer__link-arr">↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
 
+        <div className="site-footer__bottom">
+          <span>{t.bottom}</span>
+        </div>
       </div>
     </footer>
   );
@@ -274,7 +301,7 @@ function KickerBlock({ kicker, title, lede }) {
 // ---- StatusPip ------------------------------------------------------------
 function StatusPip({ kind, lang }) {
   const labels = {
-    fr: { live: 'EN COURS', done: 'PUBLIÉ', closed: 'TERMINÉ', upcoming: 'À VENIR', held: 'TENUE', review: 'EN RÉVISION', policy: 'POLICY' },
+    fr: { live: 'EN COURS', done: 'PUBLIÉ', closed: 'TERMINÉ', upcoming: 'À VENIR', held: 'PASSÉ', review: 'EN RÉVISION', policy: 'EXPERTISE' },
     en: { live: 'ACTIVE', done: 'PUBLISHED', closed: 'COMPLETED', upcoming: 'UPCOMING', held: 'HELD', review: 'UNDER REVIEW', policy: 'POLICY' },
   };
   const colorMap = { live:'live', done:'live', closed:'closed', upcoming:'live', review:'review', held:'done', policy:'done' };

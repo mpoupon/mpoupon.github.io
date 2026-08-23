@@ -12,7 +12,7 @@ function Contact({ lang }) {
   const [status, setStatus] = React.useState('idle'); // idle | sending | sent | error
   const t = lang === 'fr' ? {
     kicker:'06 — CONTACT',
-    title:"M'écrire, <em>échanger</em>, collaborer",
+    title:"M’écrire, <em>échanger</em>, collaborer",
     lede:"",
     h1:'AFFILIATION PRINCIPALE',
     h2:'AFFILIATION PRÉCÉDENTE',
@@ -27,7 +27,7 @@ function Contact({ lang }) {
     formHint:"Le bouton ouvrira votre client e-mail avec le message pré-rempli.",
     formSending:'Envoi en cours…',
     formSent:'Message envoyé — merci, je vous réponds dès que possible.',
-    formError:"L'envoi a échoué.",
+    formError:"L’envoi a échoué.",
     formErrorLink:'Écrire directement par e-mail',
   } : {
     kicker:'06 — CONTACT',
@@ -135,7 +135,7 @@ function Contact({ lang }) {
             mathieu.poupon<span className="contact-email__at">@</span>locean.ipsl.fr
           </a>
 
-          {/* Contact form — opens user's e-mail client via mailto: */}
+          {/* Contact form — opens user’s e-mail client via mailto: */}
           <form
             style={{marginTop: 36}}
             className="contact-form"

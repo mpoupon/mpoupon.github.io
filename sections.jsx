@@ -8,18 +8,18 @@ const RESEARCH = [
     id: 1,
     title: { fr: 'Ocean Alkalinity Enhancement', en: 'Ocean Alkalinity Enhancement' },
     summary: {
-      fr: "Comment modifier la chimie de l'océan peut augmenter le retrait de CO₂ atmosphérique — où est-ce viable, à quel coût et quels sont les facteurs limitants.",
+      fr: "Comment modifier la chimie de l’océan peut augmenter le retrait de CO₂ atmosphérique — où est-ce viable, à quel coût et quels sont les facteurs limitants.",
       en: "How modifying ocean chemistry can enhance atmospheric CO₂ removal — where is it viable, at what cost, and what are the limiting factors.",
     },
     status: 'live',
     image: 'assets/research/oae.webp',
-    alt: { fr: "Vue aérienne du sillage d'un navire coloré par un traceur rose lors d'un essai en mer", en: "Aerial view of a ship's wake stained pink by a dye tracer during a field trial" },
+    alt: { fr: "Vue aérienne du sillage d’un navire coloré par un traceur rose lors d’un essai en mer", en: "Aerial view of a ship’s wake stained pink by a dye tracer during a field trial" },
   },
   {
     id: 2,
     title: { fr: 'Biological Carbon Pump', en: 'Biological Carbon Pump' },
     summary: {
-      fr: "Comment l'activité biologique et ses interactions avec la dynamique océanique contrôlent le cycle du carbone et des nutriments.",
+      fr: "Comment l’activité biologique et ses interactions avec la dynamique océanique contrôlent le cycle du carbone et des nutriments.",
       en: "How biological activity and its interplay with ocean dynamics control the carbon and nutrient cycles.",
     },
     status: 'live',
@@ -30,7 +30,7 @@ const RESEARCH = [
     id: 3,
     title: { fr: 'Oxygen Natural Variability', en: 'Oxygen Natural Variability' },
     summary: {
-      fr: "Comment les modes de variabilité pluriannuelle et décennale de l'océan modifient la dynamique des zones pauvres en oxygène.",
+      fr: "Comment les modes de variabilité pluriannuelle et décennale de l’océan modifient la dynamique des zones pauvres en oxygène.",
       en: "How multi-year and decadal ocean variability modes shape the dynamics of low-oxygen zones.",
     },
     status: 'closed',
@@ -56,24 +56,24 @@ const ENGAGE_PROJECTS = [
     id: 1,
     title: { fr: 'ECOP', en: 'ECOP' },
     summary: {
-      fr: "Coordination du nœud français d'ECOP — porter la voix des jeunes professionnels de l'océan et faciliter leur développement professionnel.",
+      fr: "Coordination du nœud français d’ECOP — porter la voix des jeunes professionnels de l’océan et faciliter leur développement professionnel.",
       en: "Coordinating the French node of ECOP — giving early-career ocean professionals a voice and supporting their professional development.",
     },
     status: 'live',
     image: 'assets/engagement/ecop.webp',
-    alt: { fr: "Groupe de jeunes professionnels de l'océan réunis lors d'un atelier ECOP", en: "A group of early career ocean professionals gathered at an ECOP workshop" },
+    alt: { fr: "Groupe de jeunes professionnels de l’océan réunis lors d’un atelier ECOP", en: "A group of early career ocean professionals gathered at an ECOP workshop" },
     url: 'https://www.ecopdecade.org/france/',
   },
   {
     id: 5,
     title: { fr: 'EU — Young Ocean Advocate', en: 'EU — Young Ocean Advocate' },
     summary: {
-      fr: "Jeune Ambassadeur de l'Océan auprès de la Commission européenne — porte-parole d'une génération engagée pour la protection et la gouvernance de l'océan.",
+      fr: "Jeune Ambassadeur de l’Océan auprès de la Commission européenne — porte-parole d’une génération engagée pour la protection et la gouvernance de l’océan.",
       en: "Young Ocean Advocate with the European Commission — voice of a generation committed to ocean protection and governance.",
     },
     status: 'live',
     image: 'assets/engagement/young_ocean_advocate.webp',
-    alt: { fr: "Visuel de la campagne européenne « I am a Young Ocean Advocate » avec le portrait de Mathieu Poupon", en: "European campaign card reading 'I am a Young Ocean Advocate', with a portrait of Mathieu Poupon" },
+    alt: { fr: "Visuel de la campagne européenne « I am a Young Ocean Advocate » avec le portrait de Mathieu Poupon", en: "European campaign card reading “I am a Young Ocean Advocate”, with a portrait of Mathieu Poupon" },
     url: 'https://maritime-forum.ec.europa.eu/node/8227_en',
   },
   {
@@ -85,14 +85,14 @@ const ENGAGE_PROJECTS = [
     },
     status: 'closed',
     image: 'assets/engagement/jac.webp',
-    alt: { fr: "Participants rassemblés sous un chapiteau lors d'un rassemblement des Jeunes Ambassadeurs pour le Climat", en: "Participants gathered under a marquee at a Jeunes Ambassadeurs pour le Climat meeting" },
+    alt: { fr: "Participants rassemblés sous un chapiteau lors d’un rassemblement des Jeunes Ambassadeurs pour le Climat", en: "Participants gathered under a marquee at a Jeunes Ambassadeurs pour le Climat meeting" },
     url: 'https://jac-asso.fr/',
   },
   {
     id: 3,
     title: { fr: 'ClimateScience', en: 'ClimateScience' },
     summary: {
-      fr: "Traducteur francophone pour l'app mobile et le site ClimateScience — contenu éducatif sur les causes et conséquences du changement climatique.",
+      fr: "Traducteur francophone pour l’app mobile et le site ClimateScience — contenu éducatif sur les causes et conséquences du changement climatique.",
       en: "French translator for the ClimateScience app and website — educational content on climate change.",
     },
     status: 'closed',
@@ -117,11 +117,11 @@ const ENGAGE_PROJECTS = [
     title: { fr: 'Ordre de Grandeur', en: 'Ordre de Grandeur' },
     summary: {
       fr: "Série de vidéos de vulgarisation sur les grands ordres de grandeur terrestres — pour comprendre le fonctionnement de notre planète.",
-      en: "Popular science video series on Earth's orders of magnitude — helping the public understand how our planet works.",
+      en: "Popular science video series on Earth’s orders of magnitude — helping the public understand how our planet works.",
     },
     status: 'closed',
     image: 'assets/engagement/odg.webp',
-    alt: { fr: "Mathieu Poupon devant un tableau noir couvert de courbes et d'équations sur le CO₂", en: "Mathieu Poupon at a blackboard covered with CO2 curves and equations" },
+    alt: { fr: "Mathieu Poupon devant un tableau noir couvert de courbes et d’équations sur le CO₂", en: "Mathieu Poupon at a blackboard covered with CO2 curves and equations" },
     url: 'https://www.youtube.com/playlist?list=PLOF9KoYAaAFoFY-dbvlk2aJXJI0s_Lo7k',
   },
 ];
@@ -158,8 +158,8 @@ function Home({ lang, onNav, onOpenArticle, hero = 'portrait' }) {
   }, []);
 
   const t = lang === 'fr' ? {
-    sub: "Chercheur en sciences de l'océan et en politique environnementale. Postdoc CNRS au LOCEAN–IPSL, après un doctorat à Princeton University. Je travaille sur le cycle naturel du carbone dans l'océan et sur sa modification délibérée par l'homme, ainsi que sur ce que chacun de ces sujets engage pour la prise de décision.",
-    meta: 'POSTDOC CNRS · LOCEAN–IPSL',
+    sub: "Chercheur en sciences de l’océan et en politique environnementale. Postdoctorat CNRS au LOCEAN–IPSL, après un doctorat à Princeton University. Je travaille sur le cycle naturel du carbone dans l’océan et sur sa modification délibérée par l’homme, ainsi que sur ce que chacun de ces sujets engage pour la prise de décision.",
+    meta: 'POSTDOCTORAT CNRS · LOCEAN–IPSL',
     coord: '48.846°N · 2.357°E — PARIS',
     routes: [
       ['01','Projets','research'],
@@ -238,14 +238,6 @@ function Home({ lang, onNav, onOpenArticle, hero = 'portrait' }) {
               <a className="social-pill" href="https://www.linkedin.com/in/mathieu-poupon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-              </a>
-              <a className="social-pill" href="#cv" aria-label="CV (PDF)">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
-                  <path d="M14 3v4a1 1 0 001 1h4"/>
-                  <path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-                  <line x1="9" y1="13" x2="15" y2="13"/>
-                  <line x1="9" y1="17" x2="13" y2="17"/>
                 </svg>
               </a>
             </div>
@@ -390,7 +382,7 @@ function Research({ lang }) {
   const t = lang === 'fr' ? {
     kicker:'01 — PROJETS',
     title:'Recherche et engagement',
-    lede:"Mes axes de recherche, et les programmes d'engagement public auxquels je contribue.",
+    lede:"Mes axes de recherche, et les programmes d’engagement public auxquels je contribue.",
     s1t:'Recherche',
     s2t:'Engagement public',
   } : {
@@ -463,12 +455,12 @@ function Publications({ lang }) {
   const t = lang === 'fr' ? {
     kicker:'02 — PUBLICATIONS',
     title:'Publications',
-    lede:"Articles à comité de lecture, publiés ou en révision, et contributions à des documents d'orientation pour les politiques publiques.",
+    lede:"Articles à comité de lecture, publiés ou en révision, et contributions à des documents d’orientation pour les politiques publiques.",
     s1:'Articles en révision',
     s2:'Articles publiés',
     s3:'Politiques publiques',
     article:'PDF',
-    supp:'Supplementary',
+    supp:'Annexes',
   } : {
     kicker:'02 — PUBLICATIONS',
     title:'Publications',
@@ -787,7 +779,7 @@ function Writings({ lang, onNav, onOpenArticle }) {
             className="essay-follow__btn"
             onClick={() => onNav && onNav('contact')}
           >
-            {lang==='fr' ? "M'ÉCRIRE  →" : "WRITE TO ME  →"}
+            {lang==='fr' ? "M’ÉCRIRE  →" : "WRITE TO ME  →"}
           </button>
         </div>
       </aside>
