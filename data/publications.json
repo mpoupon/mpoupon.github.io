@@ -1,38 +1,12 @@
-[ {
-  "year": 2026,
-  "status": "review",
-  "title": {
-    "fr": "The case against renewed ocean iron fertilization field trials",
-    "en": "The case against renewed ocean iron fertilization field trials"
-  },
-  "authors": "Poupon M. A., Gray P. C., Tagliabue A., Cullen J. J., Lévy M., Boss E.",
-  "venue": "",
-  "doi": null,
-  "pdf": null,
-  "supp": null
-  },
-  
-  {
-  "year": 2026,
-  "status": "review",
-  "title": {
-    "fr": "SamudraBGC: Machine Learning Emulation of Regional Mesoscale Ocean Biogeochemistry",
-    "en": "SamudraBGC: Machine Learning Emulation of Regional Mesoscale Ocean Biogeochemistry"
-  },
-  "authors": "Keutgen De Greef M., Resplandy L., Champenois B., Poupon M. A., Li W., Hassanzadeh P., Zanna L.",
-  "venue": "",
-  "doi": null,
-  "pdf": null,
-  "supp": null
-},
+[
   {
     "year": 2026,
     "status": "review",
     "title": {
-      "fr": "Carbon Dioxide Removal via Ocean Alkalinity Enhancement: Uneven Costs and Optimal Regions",
-      "en": "Carbon Dioxide Removal via Ocean Alkalinity Enhancement: Uneven Costs and Optimal Regions"
+      "fr": "Expert identification of key processes and uncertainties in marine atmospheric carbon dioxide removal via ocean alkalinity enhancement",
+      "en": "Expert identification of key processes and uncertainties in marine atmospheric carbon dioxide removal via ocean alkalinity enhancement"
     },
-    "authors": "Poupon M. A., Resplandy L., Oppenheimer M.",
+    "authors": "Alpert A., Barrett R. C., Cape M., Carter B. R., Dombrowik V., Doney S. C., Karspeck A., Myridinas M., Poupon M. A., Power I. M., Subhas A. V., Britton D., Buma B., Kleisner K., Pearce C. R., Van der Spek M.",
     "venue": "",
     "doi": null,
     "pdf": null,
@@ -42,10 +16,36 @@
     "year": 2026,
     "status": "review",
     "title": {
-      "fr": "Expert identification of key processes and uncertainties in marine atmospheric carbon dioxide removal via ocean alkalinity enhancement",
-      "en": "Expert identification of key processes and uncertainties in marine atmospheric carbon dioxide removal via ocean alkalinity enhancement"
+      "fr": "The case against renewed ocean iron fertilization field trials",
+      "en": "The case against renewed ocean iron fertilization field trials"
     },
-    "authors": "Alpert A., Barrett R. C., Cape M., Carter B. R., Dombrowik V., Doney S. C., Karspeck A., Myridinas M., Poupon M. A., Power I. M., Subhas A. V., Britton D., Buma B., Kleisner K., Pearce C. R., Van der Spek M.",
+    "authors": "Poupon M. A., Gray P. C., Tagliabue A., Cullen J. J., Lévy M., Boss E.",
+    "venue": "",
+    "doi": null,
+    "pdf": null,
+    "supp": null
+  },
+  {
+    "year": 2026,
+    "status": "review",
+    "title": {
+      "fr": "SamudraBGC: Machine Learning Emulation of Regional Mesoscale Ocean Biogeochemistry",
+      "en": "SamudraBGC: Machine Learning Emulation of Regional Mesoscale Ocean Biogeochemistry"
+    },
+    "authors": "Keutgen De Greef M., Resplandy L., Champenois B., Poupon M. A., Li W., Hassanzadeh P., Zanna L.",
+    "venue": "",
+    "doi": null,
+    "pdf": null,
+    "supp": null
+  },
+  {
+    "year": 2026,
+    "status": "review",
+    "title": {
+      "fr": "Carbon Dioxide Removal via Ocean Alkalinity Enhancement: Uneven Costs and Optimal Regions",
+      "en": "Carbon Dioxide Removal via Ocean Alkalinity Enhancement: Uneven Costs and Optimal Regions"
+    },
+    "authors": "Poupon M. A., Resplandy L., Oppenheimer M.",
     "venue": "",
     "doi": null,
     "pdf": null,
