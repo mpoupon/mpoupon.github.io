@@ -57,6 +57,22 @@ function App() {
   const lang = t.lang === 'en' ? 'en' : 'fr';
   const setLang = (l) => setTweak('lang', l);
 
+  // Per-section document title. The home page keeps the full descriptive title
+  // (that is what search engines and shared links show); the other sections get
+  // their own, so tabs and bookmarks are distinguishable.
+  useEffectApp(() => {
+    const SITE = 'Mathieu Poupon';
+    const names = {
+      research: { fr: 'Projets',       en: 'Projects' },
+      pubs:     { fr: 'Publications',  en: 'Publications' },
+      engage:   { fr: 'Interventions', en: 'Appearances' },
+      essays:   { fr: 'Notes',         en: 'Notes' },
+      contact:  { fr: 'Contact',       en: 'Contact' },
+    };
+    const n = names[section];
+    document.title = n ? `${n[lang] || n.en} — ${SITE}` : `${SITE} — Ocean & Climate Scientist`;
+  }, [section, lang]);
+
   // Apply dark + density to the root data-attrs so CSS can hook in.
   useEffectApp(() => {
     document.documentElement.dataset.theme = t.dark ? 'dark' : 'light';
