@@ -1597,5 +1597,6 @@ main[tabindex]:focus { outline: none; }
   .pub-links a[href^="http"]::after,
   .contact-links a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; word-break: break-all; }
   .status-pip__dot { box-shadow: none !important; border: 1px solid #000; }
+  .status-pip__dot::after { display: none !important; }   /* no halo on paper */
   .site-copyright { margin-top: 18pt; font-size: 8pt; }
 }

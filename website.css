@@ -191,14 +191,24 @@ a.research-card { cursor: pointer; }
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 8px rgba(0, 0, 0, 0.35);
 }
 .research-card__status .status-pip { color: #FAF8F3; }
-/* On photo cards the dot needs its own edge: a hairline white ring detaches it
-   from the image, the soft shadow keeps it from floating. */
-.research-card__status .status-pip__dot {
-  box-shadow:
-    0 0 0 1px #FFFFFF,               /* hairline ring, detaches the dot from the photo */
-    0 1px 2px rgba(0, 0, 0, 0.45),   /* contact shadow */
-    0 3px 9px rgba(0, 0, 0, 0.26);   /* ambient cushion */
+/* On a photo the beacon needs more light than on ivory: a brighter teal, a
+   hairline of white to detach it, and a hollow ring drawn in ivory when the
+   project is closed. */
+.research-card__status .status-pip[data-kind="live"] .status-pip__dot,
+.research-card__status .status-pip[data-kind="upcoming"] .status-pip__dot {
+  background: #2EC4B6;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5), 0 0 10px rgba(46, 196, 182, 0.55);
 }
+.research-card__status .status-pip[data-kind="live"] .status-pip__dot::after,
+.research-card__status .status-pip[data-kind="upcoming"] .status-pip__dot::after {
+  border-color: rgba(46, 196, 182, 0.9);
+}
+.research-card__status .status-pip[data-kind="closed"] .status-pip__dot {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px rgba(250, 248, 243, 0.75), 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+/* Hovering the card opens the letterspacing of its status. */
+.research-card:hover .status-pip { letter-spacing: 0.30em; }
 .research-card h3 { font-family: var(--font-display); font-weight: 400; font-size: 26px; line-height: 1.12; margin: 10px 0 0; letter-spacing: -0.010em; text-wrap: balance; color: #FAF8F3; }
 .research-card p { font-family: var(--font-body); font-size: 15px; line-height: 1.5; color: rgba(250, 248, 243, 0.88); margin: 10px 0 0; }
 
@@ -218,12 +228,38 @@ a.research-card { cursor: pointer; }
 .itemlist__right-meta { text-align: right; margin-top: 16px; }
 
 /* Status pip */
-.status-pip { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-weight: 500; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-grey); }
-.status-pip__dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.status-pip { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-weight: 500; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-grey); transition: letter-spacing 300ms ease; }
+.status-pip__dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; position: relative; flex: none; }
 .status-pip--live .status-pip__dot { background: var(--status-live); }
 .status-pip--done .status-pip__dot { background: var(--status-done); }
 .status-pip--closed .status-pip__dot { background: var(--status-closed); }
 .status-pip--review .status-pip__dot { background: var(--terracotta); }
+
+/* Beacon — the state lives in the shape of the dot, not only in its colour:
+   something under way emits a slow radar ping, something finished is a hollow
+   ring. data-kind is the exact state; the --live class groups several kinds. */
+.status-pip[data-kind="live"] .status-pip__dot::after,
+.status-pip[data-kind="upcoming"] .status-pip__dot::after {
+  content: ''; position: absolute; inset: -3px; border-radius: 50%;
+  border: 1px solid var(--status-live);
+  animation: status-ping 2.6s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+@keyframes status-ping {
+  0%   { transform: scale(0.7); opacity: 0.9; }
+  70%  { transform: scale(2.4); opacity: 0; }
+  100% { opacity: 0; }
+}
+.status-pip[data-kind="closed"] .status-pip__dot {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--status-closed);
+}
+/* Visitors who ask for less motion get the halo, held still. */
+@media (prefers-reduced-motion: reduce) {
+  .status-pip[data-kind="live"] .status-pip__dot::after,
+  .status-pip[data-kind="upcoming"] .status-pip__dot::after {
+    animation: none; transform: scale(1.4); opacity: 0.5;
+  }
+}
 
 /* Writings tiles */
 .writings { margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1px solid var(--rule); }

@@ -305,8 +305,10 @@ function StatusPip({ kind, lang }) {
     en: { live: 'ACTIVE', done: 'PUBLISHED', closed: 'COMPLETED', upcoming: 'UPCOMING', held: 'HELD', review: 'UNDER REVIEW', policy: 'POLICY' },
   };
   const colorMap = { live:'live', done:'live', closed:'closed', upcoming:'live', review:'review', held:'done', policy:'done' };
+  // data-kind carries the exact state (the colour class groups several kinds
+  // together), so the beacon styles can single out a running or closed project.
   return (
-    <span className={`status-pip status-pip--${colorMap[kind]}`}>
+    <span className={`status-pip status-pip--${colorMap[kind]}`} data-kind={kind}>
       <span className="status-pip__dot" />
       <span>{labels[lang][kind]}</span>
     </span>
