@@ -5,7 +5,7 @@
 // visitor's own mail client with a pre-filled message (no third party involved).
 // Set this to the Formspree form id — the XXXXXXXX in https://formspree.io/f/XXXXXXXX —
 // and messages are posted straight to the inbox without the visitor leaving the page.
-const FORMSPREE_ID = '';
+const FORMSPREE_ID = 'mnpayzoq';
 const EMAIL = 'mathieu.poupon@locean.ipsl.fr';
 
 function Contact({ lang }) {
