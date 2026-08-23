@@ -194,7 +194,10 @@ a.research-card { cursor: pointer; }
 /* On photo cards the dot needs its own edge: a hairline white ring detaches it
    from the image, the soft shadow keeps it from floating. */
 .research-card__status .status-pip__dot {
-  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.95), 0 1px 3px rgba(0, 0, 0, 0.45);
+  box-shadow:
+    0 0 0 1px #FFFFFF,               /* hairline ring, detaches the dot from the photo */
+    0 1px 2px rgba(0, 0, 0, 0.45),   /* contact shadow */
+    0 3px 9px rgba(0, 0, 0, 0.26);   /* ambient cushion */
 }
 .research-card h3 { font-family: var(--font-display); font-weight: 400; font-size: 26px; line-height: 1.12; margin: 10px 0 0; letter-spacing: -0.010em; text-wrap: balance; color: #FAF8F3; }
 .research-card p { font-family: var(--font-body); font-size: 15px; line-height: 1.5; color: rgba(250, 248, 243, 0.88); margin: 10px 0 0; }
