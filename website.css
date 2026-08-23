@@ -196,12 +196,14 @@ a.research-card { cursor: pointer; }
    project is closed. */
 .research-card__status .status-pip[data-kind="live"] .status-pip__dot,
 .research-card__status .status-pip[data-kind="upcoming"] .status-pip__dot {
-  background: #2EC4B6;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5), 0 0 10px rgba(46, 196, 182, 0.55);
+  background: var(--status-live);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6), 0 1px 3px rgba(0, 0, 0, 0.4);
 }
+/* The brand green is too dark to read as a wave over a photograph — on cards
+   the ping is drawn in ivory instead, like light leaving the dot. */
 .research-card__status .status-pip[data-kind="live"] .status-pip__dot::after,
 .research-card__status .status-pip[data-kind="upcoming"] .status-pip__dot::after {
-  border-color: rgba(46, 196, 182, 0.9);
+  border-color: rgba(250, 248, 243, 0.8);
 }
 .research-card__status .status-pip[data-kind="closed"] .status-pip__dot {
   background: transparent;
@@ -240,13 +242,16 @@ a.research-card { cursor: pointer; }
    ring. data-kind is the exact state; the --live class groups several kinds. */
 .status-pip[data-kind="live"] .status-pip__dot::after,
 .status-pip[data-kind="upcoming"] .status-pip__dot::after {
-  content: ''; position: absolute; inset: -3px; border-radius: 50%;
+  content: ''; position: absolute; inset: -2.5px; border-radius: 50%;
   border: 1px solid var(--status-live);
   animation: status-ping 2.6s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
 }
+/* The wave stops short of the label: the ring is 14px across, so at 1.7x it
+   reaches 11.9px from the centre — just inside the 12.5px where the word starts
+   (4.5px of dot radius + the 8px gap). Widen the gap before the scale. */
 @keyframes status-ping {
   0%   { transform: scale(0.7); opacity: 0.9; }
-  70%  { transform: scale(2.4); opacity: 0; }
+  70%  { transform: scale(1.7); opacity: 0; }
   100% { opacity: 0; }
 }
 .status-pip[data-kind="closed"] .status-pip__dot {

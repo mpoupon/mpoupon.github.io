@@ -77,7 +77,7 @@ function App() {
     if (!new URLSearchParams(window.location.search).has('tweaks')) return;
     if (window.TweaksPanel) { setPanelReady(true); return; }
     const s = document.createElement('script');
-    s.src = 'build/tweaks-panel.js?v=88';
+    s.src = 'build/tweaks-panel.js?v=89';
     s.onload = () => setPanelReady(true);
     document.head.appendChild(s);
   }, []);
