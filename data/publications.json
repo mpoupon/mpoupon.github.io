@@ -71,7 +71,7 @@
       "fr": "Global Eddy Subduction Carbon Pump from Argo Floats",
       "en": "Global Eddy Subduction Carbon Pump from Argo Floats"
     },
-    "authors": "Keutgen M., Resplandy L., Poupon M. A.",
+    "authors": "Keutgen De Greef M., Resplandy L., Poupon M. A.",
     "venue": "Global Biogeochemical Cycles",
     "doi": "10.1029/2025GB008912",
     "pdf": "papers/Keutgen2026.pdf",
@@ -97,7 +97,7 @@
       "fr": "Chlorophyll shading reduces zooplankton diel migration depth in a high-resolution physical–biogeochemical model",
       "en": "Chlorophyll shading reduces zooplankton diel migration depth in a high-resolution physical–biogeochemical model"
     },
-    "authors": "Poupon M. A., Resplandy L., Garwood J., Stock C., Zadeh N., Luo J.",
+    "authors": "Poupon M. A., Resplandy L., Garwood J., Stock C., Zadeh N., Luo J. Y.",
     "venue": "Ocean Science",
     "doi": "10.5194/os-21-851-2025",
     "pdf": "papers/Poupon2025.pdf",
@@ -138,7 +138,7 @@
     },
     "authors": "Ocean & Climate Platform",
     "role": {
-      "fr": "Policy brief — contribution en tant qu'expert scientifique",
+      "fr": "Policy brief — contribution en tant qu’expert scientifique",
       "en": "Policy brief — contributed as a scientific expert"
     },
     "venue": "Ocean & Climate Platform",
@@ -151,12 +151,12 @@
     "year": 2026,
     "status": "policy",
     "title": {
-      "fr": "Riding the Wave: Recommendations for Europe's Ocean Future",
-      "en": "Riding the Wave: Recommendations for Europe's Ocean Future"
+      "fr": "Riding the Wave: Recommendations for Europe’s Ocean Future",
+      "en": "Riding the Wave: Recommendations for Europe’s Ocean Future"
     },
-    "authors": "Cyprus Marine and Maritime Institute",
+    "authors": "Cyprus Marine & Maritime Institute",
     "role": {
-      "fr": "Recommandations de la conférence Riding the Wave — contribution en tant qu'expert scientifique",
+      "fr": "Recommandations de la conférence Riding the Wave — contribution en tant qu’expert scientifique",
       "en": "Recommendations from the Riding the Wave conference — contributed as a scientific expert"
     },
     "venue": "Cyprus Marine & Maritime Institute",
