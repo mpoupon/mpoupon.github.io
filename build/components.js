@@ -436,7 +436,8 @@ function StatusPip({ kind, lang }) {
   };
   const colorMap = { live: "live", done: "live", closed: "closed", upcoming: "live", review: "review", held: "done", policy: "done" };
   return React.createElement("span", {
-    className: `status-pip status-pip--${colorMap[kind]}`
+    className: `status-pip status-pip--${colorMap[kind]}`,
+    "data-kind": kind
   }, React.createElement("span", {
     className: "status-pip__dot"
   }), React.createElement("span", null, labels[lang][kind]));
