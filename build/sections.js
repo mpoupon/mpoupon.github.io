@@ -7,7 +7,8 @@ const RESEARCH = [
       en: "How modifying ocean chemistry can enhance atmospheric CO₂ removal — where is it viable, at what cost, and what are the limiting factors."
     },
     status: "live",
-    image: "assets/research/oae.webp"
+    image: "assets/research/oae.webp",
+    alt: { fr: "Vue aérienne du sillage d'un navire coloré par un traceur rose lors d'un essai en mer", en: "Aerial view of a ship's wake stained pink by a dye tracer during a field trial" }
   },
   {
     id: 2,
@@ -17,7 +18,8 @@ const RESEARCH = [
       en: "How biological activity and its interplay with ocean dynamics control the carbon and nutrient cycles."
     },
     status: "live",
-    image: "assets/research/bcp.webp"
+    image: "assets/research/bcp.webp",
+    alt: { fr: "Deux copépodes photographiés au microscope sur fond noir", en: "Two copepods photographed under the microscope against a black background" }
   },
   {
     id: 3,
@@ -27,7 +29,8 @@ const RESEARCH = [
       en: "How multi-year and decadal ocean variability modes shape the dynamics of low-oxygen zones."
     },
     status: "closed",
-    image: "assets/research/oxygen.webp"
+    image: "assets/research/oxygen.webp",
+    alt: { fr: "Bulles de gaz remontant dans une eau bleue", en: "Gas bubbles rising through blue water" }
   }
 ];
 const ENGAGE_PROJECTS = [
@@ -40,6 +43,7 @@ const ENGAGE_PROJECTS = [
     },
     status: "live",
     image: "assets/engagement/ecop.webp",
+    alt: { fr: "Groupe de jeunes professionnels de l'océan réunis lors d'un atelier ECOP", en: "A group of early career ocean professionals gathered at an ECOP workshop" },
     url: "https://www.ecopdecade.org/france/"
   },
   {
@@ -51,6 +55,7 @@ const ENGAGE_PROJECTS = [
     },
     status: "live",
     image: "assets/engagement/young_ocean_advocate.webp",
+    alt: { fr: "Visuel de la campagne européenne « I am a Young Ocean Advocate » avec le portrait de Mathieu Poupon", en: "European campaign card reading 'I am a Young Ocean Advocate', with a portrait of Mathieu Poupon" },
     url: "https://maritime-forum.ec.europa.eu/node/8227_en"
   },
   {
@@ -62,6 +67,7 @@ const ENGAGE_PROJECTS = [
     },
     status: "closed",
     image: "assets/engagement/jac.webp",
+    alt: { fr: "Participants rassemblés sous un chapiteau lors d'un rassemblement des Jeunes Ambassadeurs pour le Climat", en: "Participants gathered under a marquee at a Jeunes Ambassadeurs pour le Climat meeting" },
     url: "https://jac-asso.fr/"
   },
   {
@@ -73,6 +79,7 @@ const ENGAGE_PROJECTS = [
     },
     status: "closed",
     image: "assets/engagement/climate_science.webp",
+    alt: { fr: "Illustration de deux personnages en forme de planète travaillant sur des ordinateurs portables", en: "Illustration of two planet-shaped characters working on laptops" },
     url: "https://climatescience.org/"
   },
   {
@@ -84,6 +91,7 @@ const ENGAGE_PROJECTS = [
     },
     status: "closed",
     image: "assets/engagement/j2d.webp",
+    alt: { fr: "Voilier ancré au coucher du soleil devant un paysage de montagnes", en: "A sailing ship at anchor at sunset in front of a mountain landscape" },
     url: "https://www.j2d.org/"
   },
   {
@@ -95,6 +103,7 @@ const ENGAGE_PROJECTS = [
     },
     status: "closed",
     image: "assets/engagement/odg.webp",
+    alt: { fr: "Mathieu Poupon devant un tableau noir couvert de courbes et d'équations sur le CO₂", en: "Mathieu Poupon at a blackboard covered with CO2 curves and equations" },
     url: "https://www.youtube.com/playlist?list=PLOF9KoYAaAFoFY-dbvlk2aJXJI0s_Lo7k"
   }
 ];
@@ -460,7 +469,7 @@ function Research({ lang }) {
     className: "research-card__figure"
   }, React.createElement("img", {
     src: p.image,
-    alt: "",
+    alt: p.alt ? lang === "fr" ? p.alt.fr : p.alt.en : "",
     loading: "lazy",
     className: "research-card__img"
   })), React.createElement("div", {
@@ -490,7 +499,7 @@ function Research({ lang }) {
     className: "research-card__figure"
   }, React.createElement("img", {
     src: p.image,
-    alt: "",
+    alt: p.alt ? lang === "fr" ? p.alt.fr : p.alt.en : "",
     loading: "lazy",
     className: "research-card__img"
   })), React.createElement("div", {
