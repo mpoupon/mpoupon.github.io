@@ -301,7 +301,7 @@ function KickerBlock({ kicker, title, lede }) {
 // ---- StatusPip ------------------------------------------------------------
 function StatusPip({ kind, lang }) {
   const labels = {
-    fr: { live: 'EN COURS', done: 'PUBLIÉ', closed: 'TERMINÉ', upcoming: 'À VENIR', held: 'PASSÉ', review: 'EN RÉVISION', policy: 'EXPERTISE' },
+    fr: { live: 'EN COURS', done: 'PUBLIÉ', closed: 'TERMINÉ', upcoming: 'À VENIR', held: 'PASSÉ', review: 'EN RÉVISION', policy: 'POLICY' },
     en: { live: 'ACTIVE', done: 'PUBLISHED', closed: 'COMPLETED', upcoming: 'UPCOMING', held: 'HELD', review: 'UNDER REVIEW', policy: 'POLICY' },
   };
   const colorMap = { live:'live', done:'live', closed:'closed', upcoming:'live', review:'review', held:'done', policy:'done' };

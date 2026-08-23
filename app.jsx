@@ -131,7 +131,9 @@ function App() {
       <Header section={section} lang={lang} onNav={onNav} onLang={setLang}
               heroOverlay={section === 'home' && article === null && t.hero === 'frontispiece'} />
       {body}
-      <Footer lang={lang} onNav={onNav} />
+      <footer className="site-copyright">
+        © 2026 Mathieu Poupon · {lang === 'fr' ? 'Tous droits réservés' : 'All rights reserved'}
+      </footer>
 
       {/* Authoring panel: only shipped when the URL carries ?tweaks=1, so
           visitors never download it (see the loader effect above). */}
