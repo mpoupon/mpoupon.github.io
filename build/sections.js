@@ -324,10 +324,11 @@ function Home({ lang, onNav, onOpenArticle, hero = "portrait" }) {
     className: "hero__meta"
   }, t.meta)), heroAside), React.createElement("nav", {
     className: "routes"
-  }, t.routes.map(([n, l, id]) => React.createElement("button", {
+  }, t.routes.map(([n, l, id]) => React.createElement("a", {
     key: id,
     className: "route-tile",
-    onClick: () => onNav(id)
+    href: navHref(id),
+    onClick: navClick(id, onNav)
   }, React.createElement("div", {
     className: "route-tile__label"
   }, l)))), React.createElement("section", {
@@ -336,9 +337,10 @@ function Home({ lang, onNav, onOpenArticle, hero = "portrait" }) {
     className: "latest__head"
   }, React.createElement("span", {
     className: "latest__h"
-  }, t.latest), React.createElement("button", {
+  }, t.latest), React.createElement("a", {
     className: "latest__all",
-    onClick: () => onNav("pubs")
+    href: navHref("pubs"),
+    onClick: navClick("pubs", onNav)
   }, t.all)), React.createElement("div", {
     className: "latest__list"
   }, pubs.filter((p) => p.status === "done").slice(0, pubsCount).map((p, i) => React.createElement("div", {
@@ -399,10 +401,10 @@ function Home({ lang, onNav, onOpenArticle, hero = "portrait" }) {
     }, it.place)));
   }))), React.createElement("section", {
     className: "home-contact"
-  }, React.createElement("button", {
-    type: "button",
+  }, React.createElement("a", {
     className: "home-contact__kicker home-contact__kicker--link",
-    onClick: () => onNav("contact"),
+    href: navHref("contact"),
+    onClick: navClick("contact", onNav),
     "aria-label": lang === "fr" ? "Aller à la page contact" : "Go to contact page"
   }, "— ", lang === "fr" ? "CONTACT" : "CONTACT", " ", React.createElement("span", {
     className: "home-contact__kicker-arr"

@@ -1,4 +1,17 @@
 const { useState } = React;
+function navHref(id) {
+  return id === "home" ? "./" : "#" + id;
+}
+function navClick(id, go) {
+  return (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey)
+      return;
+    if (typeof e.button === "number" && e.button !== 0)
+      return;
+    e.preventDefault();
+    go(id);
+  };
+}
 function Header({ section, lang, onNav, onLang, heroOverlay }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [overHero, setOverHero] = useState(!!heroOverlay);
@@ -49,10 +62,10 @@ function Header({ section, lang, onNav, onLang, heroOverlay }) {
     className: "site-header" + (menuOpen ? " is-open" : "") + (overHero && !menuOpen ? " is-over-hero" : "")
   }, React.createElement("div", {
     className: "shell site-header__row"
-  }, React.createElement("button", {
+  }, React.createElement("a", {
     className: "site-brand",
-    onClick: () => handleNav("home"),
-    style: { background: "none", border: 0, cursor: "pointer", padding: 0 }
+    href: navHref("home"),
+    onClick: navClick("home", handleNav)
   }, React.createElement("img", {
     src: "assets/logo.svg",
     width: "32",
@@ -186,10 +199,12 @@ function Header({ section, lang, onNav, onLang, heroOverlay }) {
     "aria-expanded": menuOpen
   }, React.createElement("span", null), React.createElement("span", null), React.createElement("span", null))), React.createElement("nav", {
     className: "site-nav" + (menuOpen ? " is-open" : "")
-  }, items.map((it) => React.createElement("button", {
+  }, items.map((it) => React.createElement("a", {
     key: it.id,
     className: "site-nav__link" + (section === it.id ? " is-active" : ""),
-    onClick: () => handleNav(it.id)
+    href: navHref(it.id),
+    "aria-current": section === it.id ? "page" : undefined,
+    onClick: navClick(it.id, handleNav)
   }, lang === "fr" ? it.fr : it.en)), React.createElement("span", {
     className: "lang-toggle",
     "data-active": lang,
@@ -427,4 +442,4 @@ function FigurePlaceholder({ seed = 1, label }) {
     fill: "#8A93A0"
   }, label));
 }
-Object.assign(window, { Header, Footer, KickerBlock, StatusPip, FigurePlaceholder });
+Object.assign(window, { Header, Footer, KickerBlock, StatusPip, FigurePlaceholder, navHref, navClick });
