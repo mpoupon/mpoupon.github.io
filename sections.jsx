@@ -277,7 +277,7 @@ function Home({ lang, onNav, onOpenArticle, hero = 'portrait' }) {
   ) : null;
 
   return (
-    <main className="shell">
+    <main id="main" className="shell">
       {frontispiece}
       {hero !== 'frontispiece' && (
       <section className={'hero hero--' + hero}>
@@ -401,7 +401,7 @@ function Research({ lang }) {
     s2t:'Public engagement',
   };
   return (
-    <main className="shell">
+    <main id="main" className="shell">
       <KickerBlock kicker={t.kicker} title={t.title} lede={t.lede} />
 
       <section className="engage-block">
@@ -480,15 +480,28 @@ function Publications({ lang }) {
     supp:'Supplementary',
   };
 
-  // Trigger Altmetric + Dimensions badge rendering on mount.
-  // SPA navigation doesn't fire DOMContentLoaded, so we manually re-init each.
+  // Altmetric and Dimensions are third-party scripts, and their badges only ever
+  // appear on this page — so they are fetched here, on first visit to the
+  // section, rather than on every page of the site. Once loaded they stay.
+  // SPA navigation doesn't fire DOMContentLoaded, so we re-init them by hand.
   React.useEffect(() => {
     let cancelled = false;
+    const BADGE_SCRIPTS = [
+      ['altmetric', 'https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'],
+      ['dimensions', 'https://badge.dimensions.ai/badge.js'],
+    ];
     const renderBadges = () => {
       if (cancelled) return;
       try { window._altmetric_embed_init && window._altmetric_embed_init(); } catch (e) {}
       try { window.__dimensions_embed && window.__dimensions_embed.addBadges && window.__dimensions_embed.addBadges(); } catch (e) {}
     };
+    BADGE_SCRIPTS.forEach(([key, src]) => {
+      if (document.querySelector(`script[data-badge="${key}"]`)) return;
+      const el = document.createElement('script');
+      el.src = src; el.async = true; el.dataset.badge = key;
+      el.onload = renderBadges;
+      document.head.appendChild(el);
+    });
     renderBadges();
     const t1 = setTimeout(renderBadges, 400);
     const t2 = setTimeout(renderBadges, 1200);
@@ -580,7 +593,7 @@ function Publications({ lang }) {
   );
 
   return (
-    <main className="shell">
+    <main id="main" className="shell">
       <KickerBlock kicker={t.kicker} title={t.title} lede={t.lede} />
 
       {reviewPubs.length > 0 && (
@@ -655,7 +668,7 @@ function Conferences({ lang }) {
   };
 
   return (
-    <main className="shell">
+    <main id="main" className="shell">
       <KickerBlock kicker={t.kicker} title={t.title} lede={t.lede} />
       <div className="itemlist">
         {confs.map((c, i) => {
@@ -719,7 +732,7 @@ function Writings({ lang, onNav, onOpenArticle }) {
     lede:"Thinking aloud, hoping to spark resonances.",
   };
   return (
-    <main className="shell">
+    <main id="main" className="shell">
       <KickerBlock kicker={t.kicker} title={t.title} lede={t.lede} />
 
       {/* Featured — the latest essay, displayed full-width above the grid */}

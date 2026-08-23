@@ -58,7 +58,7 @@ function Contact({ lang }) {
   ];
 
   return (
-    <main className="shell">
+    <main id="main" className="shell">
       <KickerBlock kicker={t.kicker} title={t.title} lede={t.lede} />
 
       <div className="contact-grid">

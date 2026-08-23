@@ -32,7 +32,7 @@ function BlogPost({ slug, lang, onBack }) {
   const displayDate = (w.date || '').replaceAll('-', '·');
 
   return (
-    <main>
+    <main id="main">
       <article className="article">
         <div className="article__kicker">{t.kicker}</div>
         <h1 className="article__title" dangerouslySetInnerHTML={{__html: w.title[lang]}} />

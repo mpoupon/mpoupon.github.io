@@ -18,6 +18,26 @@ function navClick(id, go) {
   };
 }
 
+// ── useTweaks ───────────────────────────────────────────────────────────────
+// Single source of truth for tweak values. setTweak persists via the host
+// (__edit_mode_set_keys → host rewrites the EDITMODE block on disk).
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  // Accepts either setTweak('key', value) or setTweak({ key: value, ... }) so a
+  // useState-style call doesn't write a "[object Object]" key into the persisted
+  // JSON block.
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    // Same-window signal so in-page listeners (deck-stage rail thumbnails)
+    // can react — the parent message only reaches the host, not peers.
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
 // ---- Header ---------------------------------------------------------------
 function Header({ section, lang, onNav, onLang, heroOverlay }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -65,6 +85,23 @@ function Header({ section, lang, onNav, onLang, heroOverlay }) {
 
   return (
     <header className={'site-header' + (menuOpen ? ' is-open' : '') + (overHero && !menuOpen ? ' is-over-hero' : '')}>
+      {/* Keyboard users land here first and can jump straight past the nav.
+          The click is intercepted: letting the browser follow "#main" would
+          rewrite the hash the router reads and send the visitor back to Home. */}
+      <a
+        className="skip-link"
+        href="#main"
+        onClick={(e) => {
+          const m = document.getElementById('main');
+          if (!m) return;                 // no target: let the browser try
+          e.preventDefault();
+          m.setAttribute('tabindex', '-1');
+          m.focus({ preventScroll: true });
+          m.scrollIntoView({ block: 'start' });
+        }}
+      >
+        {lang === 'fr' ? 'Aller au contenu' : 'Skip to content'}
+      </a>
       <div className="shell site-header__row">
         <a className="site-brand" href={navHref('home')} onClick={navClick('home', handleNav)}>
           <img src="assets/logo.svg" width="32" height="32" alt="" className="site-brand__logo" />
@@ -276,4 +313,4 @@ function FigurePlaceholder({ seed = 1, label }) {
   );
 }
 
-Object.assign(window, { Header, Footer, KickerBlock, StatusPip, FigurePlaceholder, navHref, navClick });
+Object.assign(window, { Header, Footer, KickerBlock, StatusPip, FigurePlaceholder, navHref, navClick, useTweaks });

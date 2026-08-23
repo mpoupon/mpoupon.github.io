@@ -1564,3 +1564,38 @@ html[data-theme="dark"] .engagetile__motif { filter: invert(1); opacity: 0.5; }
   transform: translateY(0);
 }
 .site-footer__bottom { border-top: 0 !important; padding-top: 32px; }
+
+
+/* ---- Skip link ---- visible only when focused, so keyboard users can jump
+   past the navigation without it ever showing for mouse users. */
+.skip-link {
+  position: absolute; left: 12px; top: -60px; z-index: 200;
+  padding: 10px 16px; border-radius: 999px;
+  background: var(--prussian); color: #FAF8F3;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; text-decoration: none;
+  transition: top 140ms ease;
+}
+.skip-link:focus { top: 12px; }
+/* The skip target is focused programmatically; it should not draw a ring. */
+main[tabindex]:focus { outline: none; }
+
+/* ---- Print ---- the page is a document first: drop the chrome, keep the text,
+   and spell out the links that carry the information (DOIs, PDFs). */
+@media print {
+  .site-header, .skip-link, .scroll-cue, .twk-shell, .twk-panel,
+  .hero-frontispiece__banner, .lang-toggle, .routes { display: none !important; }
+  html, body { background: #fff !important; color: #000 !important; }
+  .site { padding-top: 0 !important; }
+  main, .shell { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
+  h1 { font-size: 24pt; }
+  h2 { font-size: 15pt; page-break-after: avoid; }
+  h3 { page-break-after: avoid; }
+  .itemlist__row, .research-card, .pub-row { page-break-inside: avoid; }
+  a { color: #000 !important; text-decoration: none; }
+  /* Spell out the destination of content links so a printout stays usable. */
+  .pub-links a[href^="http"]::after,
+  .contact-links a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; word-break: break-all; }
+  .status-pip__dot { box-shadow: none !important; border: 1px solid #000; }
+  .site-copyright { margin-top: 18pt; font-size: 8pt; }
+}

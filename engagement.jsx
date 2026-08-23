@@ -51,7 +51,7 @@ function Engagement({ lang }) {
   const visibleConfs = confsExpanded ? allConfs : allConfs.slice(0, 3);
 
   return (
-    <main className="shell">
+    <main id="main" className="shell">
       <KickerBlock kicker={t.kicker} title={t.title} lede={t.lede} />
 
       {/* Conferences */}

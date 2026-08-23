@@ -27,14 +27,27 @@ function writeRoute(section, article) {
   }
 }
 
-// ?lang=fr / ?lang=en in the URL overrides the default language for the visit
-// (used by the hreflang alternate links so search engines can index both
-// language versions; the in-page toggle still works normally afterwards).
+// Language resolution, in order of priority:
+//   1. ?lang=fr / ?lang=en in the URL (used by the hreflang alternates, and by
+//      anyone sharing a link in a specific language),
+//   2. the visitor's own previous choice, kept in localStorage,
+//   3. the default baked into TWEAK_DEFAULTS.
+// Storing a language preference is functional, not tracking: no consent needed.
+const LANG_KEY = 'mp.lang';
+
+function readStoredLang() {
+  try { const v = localStorage.getItem(LANG_KEY); return (v === 'fr' || v === 'en') ? v : null; }
+  catch (e) { return null; }  // private mode / storage disabled
+}
+
+function storeLang(l) {
+  try { localStorage.setItem(LANG_KEY, l); } catch (e) { /* ignore */ }
+}
+
 function initialTweaks() {
   const urlLang = new URLSearchParams(window.location.search).get('lang');
-  return (urlLang === 'fr' || urlLang === 'en')
-    ? { ...window.TWEAK_DEFAULTS, lang: urlLang }
-    : window.TWEAK_DEFAULTS;
+  const lang = (urlLang === 'fr' || urlLang === 'en') ? urlLang : readStoredLang();
+  return lang ? { ...window.TWEAK_DEFAULTS, lang } : window.TWEAK_DEFAULTS;
 }
 
 function App() {
@@ -55,7 +68,19 @@ function App() {
   }, []);
 
   const lang = t.lang === 'en' ? 'en' : 'fr';
-  const setLang = (l) => setTweak('lang', l);
+  const setLang = (l) => { storeLang(l); setTweak('lang', l); };
+
+  // The tweaks panel is an authoring tool, not a visitor feature: load it only
+  // when the URL asks for it (?tweaks=1), and render it once it has arrived.
+  const [panelReady, setPanelReady] = useStateApp(false);
+  useEffectApp(() => {
+    if (!new URLSearchParams(window.location.search).has('tweaks')) return;
+    if (window.TweaksPanel) { setPanelReady(true); return; }
+    const s = document.createElement('script');
+    s.src = 'build/tweaks-panel.js?v=86';
+    s.onload = () => setPanelReady(true);
+    document.head.appendChild(s);
+  }, []);
 
   // Per-section document title. The home page keeps the full descriptive title
   // (that is what search engines and shared links show); the other sections get
@@ -106,10 +131,14 @@ function App() {
       <Header section={section} lang={lang} onNav={onNav} onLang={setLang}
               heroOverlay={section === 'home' && article === null && t.hero === 'frontispiece'} />
       {body}
-      <div className="site-copyright">
+      <footer className="site-copyright">
         © 2026 Mathieu Poupon · {lang === 'fr' ? 'Tous droits réservés' : 'All rights reserved'}
-      </div>
+      </footer>
 
+      {/* Authoring panel: only shipped when the URL carries ?tweaks=1, so
+          visitors never download it (see the loader effect above). */}
+      {panelReady && (
+      <>
       <TweaksPanel title="Tweaks">
         <TweakSection label={lang === 'fr' ? 'Affichage' : 'Display'} />
         <TweakRadio
@@ -150,6 +179,8 @@ function App() {
           onChange={setLang}
         />
       </TweaksPanel>
+      </>
+      )}
     </div>
   );
 }
