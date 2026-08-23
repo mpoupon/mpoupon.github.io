@@ -1,7 +1,15 @@
 // Contact — coordonnées, affiliations, liens.
 // Une page sobre, calée sur le motif spirale, en 2 colonnes.
 
+// Where the contact form delivers. Empty string = fall back to opening the
+// visitor's own mail client with a pre-filled message (no third party involved).
+// Set this to the Formspree form id — the XXXXXXXX in https://formspree.io/f/XXXXXXXX —
+// and messages are posted straight to the inbox without the visitor leaving the page.
+const FORMSPREE_ID = '';
+const EMAIL = 'mathieu.poupon@locean.ipsl.fr';
+
 function Contact({ lang }) {
+  const [status, setStatus] = React.useState('idle'); // idle | sending | sent | error
   const t = lang === 'fr' ? {
     kicker:'06 — CONTACT',
     title:"M'écrire, <em>échanger</em>, collaborer",
@@ -17,6 +25,10 @@ function Contact({ lang }) {
     formMessage:'Message',
     formSend:'Envoyer',
     formHint:"Le bouton ouvrira votre client e-mail avec le message pré-rempli.",
+    formSending:'Envoi en cours…',
+    formSent:'Message envoyé — merci, je vous réponds dès que possible.',
+    formError:"L'envoi a échoué.",
+    formErrorLink:'Écrire directement par e-mail',
   } : {
     kicker:'06 — CONTACT',
     title:'Write, <em>connect</em>, collaborate',
@@ -32,6 +44,10 @@ function Contact({ lang }) {
     formMessage:'Message',
     formSend:'Send',
     formHint:"The button will open your e-mail client with the message pre-filled.",
+    formSending:'Sending…',
+    formSent:'Message sent — thank you, I will get back to you shortly.',
+    formError:'Sending failed.',
+    formErrorLink:'Write by e-mail instead',
   };
 
   const links = [
@@ -123,16 +139,38 @@ function Contact({ lang }) {
           <form
             style={{marginTop: 36}}
             className="contact-form"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              const fd = new FormData(e.currentTarget);
+              const form = e.currentTarget;
+              const fd = new FormData(form);
               const name    = (fd.get('name')    || '').toString().trim();
               const fromEm  = (fd.get('email')   || '').toString().trim();
               const subject = (fd.get('subject') || '').toString().trim();
               const message = (fd.get('message') || '').toString().trim();
-              const body = `${message}\n\n—\n${name}${fromEm ? ` <${fromEm}>` : ''}`;
-              const href = `mailto:mathieu.poupon@locean.ipsl.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-              window.location.href = href;
+              // Honeypot: a field no human ever fills. Bots do — drop silently.
+              if ((fd.get('_gotcha') || '').toString()) return;
+              if (!FORMSPREE_ID) {
+                const body = `${message}\n\n—\n${name}${fromEm ? ` <${fromEm}>` : ''}`;
+                window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                return;
+              }
+              setStatus('sending');
+              try {
+                const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+                  method: 'POST',
+                  headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    name, email: fromEm, message,
+                    _replyto: fromEm,
+                    _subject: subject || `Message from ${name}`,
+                  }),
+                });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                form.reset();
+                setStatus('sent');
+              } catch (err) {
+                setStatus('error');
+              }
             }}
           >
             <div className="contact-form__row">
@@ -153,8 +191,21 @@ function Contact({ lang }) {
               <span>{t.formMessage}</span>
               <textarea name="message" rows="5" required />
             </label>
+            <input type="text" name="_gotcha" tabIndex="-1" autoComplete="off" aria-hidden="true"
+                   style={{position:'absolute', left:'-9999px', width:1, height:1, opacity:0}} />
             <div className="contact-form__foot">
-              <button type="submit" className="contact-form__send">{t.formSend} →</button>
+              <button type="submit" className="contact-form__send" disabled={status === 'sending'}>
+                {status === 'sending' ? t.formSending : `${t.formSend} →`}
+              </button>
+              <p className="contact-form__status" role="status" aria-live="polite" data-state={status}>
+                {status === 'sent' && t.formSent}
+                {status === 'error' && (
+                  <>
+                    {t.formError}{' '}
+                    <a href={`mailto:${EMAIL}`}>{t.formErrorLink}</a>
+                  </>
+                )}
+              </p>
             </div>
           </form>
 

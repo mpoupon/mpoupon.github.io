@@ -852,6 +852,15 @@ a.timeline__title:hover { color: var(--terracotta); }
   resize: vertical;
 }
 .contact-form__field textarea { min-height: 110px; line-height: 1.5; }
+.contact-form__send[disabled] { opacity: 0.55; cursor: default; }
+.contact-form__status {
+  margin: 10px 0 0; min-height: 1.2em;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
+  color: var(--ink-grey);
+}
+.contact-form__status[data-state="sent"] { color: var(--status-live); }
+.contact-form__status[data-state="error"] { color: var(--terracotta); }
+.contact-form__status a { color: inherit; }
 .contact-form__field input:focus,
 .contact-form__field textarea:focus {
   border-color: var(--terracotta);
