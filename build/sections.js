@@ -318,6 +318,7 @@ function Home({ lang, onNav, onOpenArticle, hero = "portrait" }) {
     points: "3 4 16 13 29 4"
   }))))) : null;
   return React.createElement("main", {
+    id: "main",
     className: "shell"
   }, frontispiece, hero !== "frontispiece" && React.createElement("section", {
     className: "hero hero--" + hero
@@ -449,6 +450,7 @@ function Research({ lang }) {
     s2t: "Public engagement"
   };
   return React.createElement("main", {
+    id: "main",
     className: "shell"
   }, React.createElement(KickerBlock, {
     kicker: t.kicker,
@@ -539,6 +541,10 @@ function Publications({ lang }) {
   };
   React.useEffect(() => {
     let cancelled = false;
+    const BADGE_SCRIPTS = [
+      ["altmetric", "https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"],
+      ["dimensions", "https://badge.dimensions.ai/badge.js"]
+    ];
     const renderBadges = () => {
       if (cancelled)
         return;
@@ -549,6 +555,16 @@ function Publications({ lang }) {
         window.__dimensions_embed && window.__dimensions_embed.addBadges && window.__dimensions_embed.addBadges();
       } catch (e) {}
     };
+    BADGE_SCRIPTS.forEach(([key, src]) => {
+      if (document.querySelector(`script[data-badge="${key}"]`))
+        return;
+      const el = document.createElement("script");
+      el.src = src;
+      el.async = true;
+      el.dataset.badge = key;
+      el.onload = renderBadges;
+      document.head.appendChild(el);
+    });
     renderBadges();
     const t1 = setTimeout(renderBadges, 400);
     const t2 = setTimeout(renderBadges, 1200);
@@ -655,6 +671,7 @@ function Publications({ lang }) {
     lang
   }))));
   return React.createElement("main", {
+    id: "main",
     className: "shell"
   }, React.createElement(KickerBlock, {
     kicker: t.kicker,
@@ -709,6 +726,7 @@ function Conferences({ lang }) {
     lede: "Talks, posters, webinars, invited sessions. Slides on request."
   };
   return React.createElement("main", {
+    id: "main",
     className: "shell"
   }, React.createElement(KickerBlock, {
     kicker: t.kicker,
@@ -758,6 +776,7 @@ function Writings({ lang, onNav, onOpenArticle }) {
     lede: "Thinking aloud, hoping to spark resonances."
   };
   return React.createElement("main", {
+    id: "main",
     className: "shell"
   }, React.createElement(KickerBlock, {
     kicker: t.kicker,

@@ -48,6 +48,7 @@ function Contact({ lang }) {
     { label: "LINKEDIN", meta: "mathieu-poupon", href: "https://www.linkedin.com/in/mathieu-poupon", platform: "linkedin" }
   ];
   return React.createElement("main", {
+    id: "main",
     className: "shell"
   }, React.createElement(KickerBlock, {
     kicker: t.kicker,

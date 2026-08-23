@@ -12,6 +12,16 @@ function navClick(id, go) {
     go(id);
   };
 }
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === "object" && keyOrEdits !== null ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: "__edit_mode_set_keys", edits }, "*");
+    window.dispatchEvent(new CustomEvent("tweakchange", { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
 function Header({ section, lang, onNav, onLang, heroOverlay }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [overHero, setOverHero] = useState(!!heroOverlay);
@@ -60,7 +70,19 @@ function Header({ section, lang, onNav, onLang, heroOverlay }) {
   }, [menuOpen]);
   return React.createElement("header", {
     className: "site-header" + (menuOpen ? " is-open" : "") + (overHero && !menuOpen ? " is-over-hero" : "")
-  }, React.createElement("div", {
+  }, React.createElement("a", {
+    className: "skip-link",
+    href: "#main",
+    onClick: (e) => {
+      const m = document.getElementById("main");
+      if (!m)
+        return;
+      e.preventDefault();
+      m.setAttribute("tabindex", "-1");
+      m.focus({ preventScroll: true });
+      m.scrollIntoView({ block: "start" });
+    }
+  }, lang === "fr" ? "Aller au contenu" : "Skip to content"), React.createElement("div", {
     className: "shell site-header__row"
   }, React.createElement("a", {
     className: "site-brand",
@@ -442,4 +464,4 @@ function FigurePlaceholder({ seed = 1, label }) {
     fill: "#8A93A0"
   }, label));
 }
-Object.assign(window, { Header, Footer, KickerBlock, StatusPip, FigurePlaceholder, navHref, navClick });
+Object.assign(window, { Header, Footer, KickerBlock, StatusPip, FigurePlaceholder, navHref, navClick, useTweaks });

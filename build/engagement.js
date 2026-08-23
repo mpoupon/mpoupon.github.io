@@ -40,6 +40,7 @@ function Engagement({ lang }) {
   }));
   const visibleConfs = confsExpanded ? allConfs : allConfs.slice(0, 3);
   return React.createElement("main", {
+    id: "main",
     className: "shell"
   }, React.createElement(KickerBlock, {
     kicker: t.kicker,

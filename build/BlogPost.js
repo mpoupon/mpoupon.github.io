@@ -20,7 +20,9 @@ function BlogPost({ slug, lang, onBack }) {
     meta: { date: "PUBLISHED", read: "READ", tags: "TAGS", cite: "CITE" }
   };
   const displayDate = (w.date || "").replaceAll("-", "·");
-  return React.createElement("main", null, React.createElement("article", {
+  return React.createElement("main", {
+    id: "main"
+  }, React.createElement("article", {
     className: "article"
   }, React.createElement("div", {
     className: "article__kicker"

@@ -107,16 +107,6 @@ const __TWEAKS_STYLE = `
   .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
     filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
 `;
-function useTweaks(defaults) {
-  const [values, setValues] = React.useState(defaults);
-  const setTweak = React.useCallback((keyOrEdits, val) => {
-    const edits = typeof keyOrEdits === "object" && keyOrEdits !== null ? keyOrEdits : { [keyOrEdits]: val };
-    setValues((prev) => ({ ...prev, ...edits }));
-    window.parent.postMessage({ type: "__edit_mode_set_keys", edits }, "*");
-    window.dispatchEvent(new CustomEvent("tweakchange", { detail: edits }));
-  }, []);
-  return [values, setTweak];
-}
 function TweaksPanel({ title = "Tweaks", children }) {
   const [open, setOpen] = React.useState(false);
   const dragRef = React.useRef(null);
@@ -457,7 +447,6 @@ function TweakButton({ label, onClick, secondary = false }) {
   }, label);
 }
 Object.assign(window, {
-  useTweaks,
   TweaksPanel,
   TweakSection,
   TweakRow,

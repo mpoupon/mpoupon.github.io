@@ -21,9 +21,24 @@ function writeRoute(section, article) {
     window.location.hash = target;
   }
 }
+const LANG_KEY = "mp.lang";
+function readStoredLang() {
+  try {
+    const v = localStorage.getItem(LANG_KEY);
+    return v === "fr" || v === "en" ? v : null;
+  } catch (e) {
+    return null;
+  }
+}
+function storeLang(l) {
+  try {
+    localStorage.setItem(LANG_KEY, l);
+  } catch (e) {}
+}
 function initialTweaks() {
   const urlLang = new URLSearchParams(window.location.search).get("lang");
-  return urlLang === "fr" || urlLang === "en" ? { ...window.TWEAK_DEFAULTS, lang: urlLang } : window.TWEAK_DEFAULTS;
+  const lang = urlLang === "fr" || urlLang === "en" ? urlLang : readStoredLang();
+  return lang ? { ...window.TWEAK_DEFAULTS, lang } : window.TWEAK_DEFAULTS;
 }
 function App() {
   const [t, setTweak] = useTweaks(initialTweaks());
@@ -44,7 +59,23 @@ function App() {
     };
   }, []);
   const lang = t.lang === "en" ? "en" : "fr";
-  const setLang = (l) => setTweak("lang", l);
+  const setLang = (l) => {
+    storeLang(l);
+    setTweak("lang", l);
+  };
+  const [panelReady, setPanelReady] = useStateApp(false);
+  useEffectApp(() => {
+    if (!new URLSearchParams(window.location.search).has("tweaks"))
+      return;
+    if (window.TweaksPanel) {
+      setPanelReady(true);
+      return;
+    }
+    const s = document.createElement("script");
+    s.src = "build/tweaks-panel.js?v=86";
+    s.onload = () => setPanelReady(true);
+    document.head.appendChild(s);
+  }, []);
   useEffectApp(() => {
     const SITE = "Mathieu Poupon";
     const names = {
@@ -123,9 +154,9 @@ function App() {
     onNav,
     onLang: setLang,
     heroOverlay: section === "home" && article === null && t.hero === "frontispiece"
-  }), body, React.createElement("div", {
+  }), body, React.createElement("footer", {
     className: "site-copyright"
-  }, "© 2026 Mathieu Poupon · ", lang === "fr" ? "Tous droits réservés" : "All rights reserved"), React.createElement(TweaksPanel, {
+  }, "© 2026 Mathieu Poupon · ", lang === "fr" ? "Tous droits réservés" : "All rights reserved"), panelReady && React.createElement(React.Fragment, null, React.createElement(TweaksPanel, {
     title: "Tweaks"
   }, React.createElement(TweakSection, {
     label: lang === "fr" ? "Affichage" : "Display"
@@ -164,6 +195,6 @@ function App() {
     value: lang,
     options: [{ value: "fr", label: "FR" }, { value: "en", label: "EN" }],
     onChange: setLang
-  })));
+  }))));
 }
 ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App, null));
