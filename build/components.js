@@ -347,19 +347,27 @@ function Header({ section, lang, onNav, onLang, heroOverlay }) {
 }
 function Footer({ lang, onNav }) {
   const t = lang === "fr" ? {
-    h1: "AFFILIATIONS",
+    h1: "AFFILIATION",
     h2: "CONTACT",
-    address1: ["LOCEAN–IPSL", "Sorbonne Université", "4 place Jussieu", "75005 Paris, France"],
-    emailLabel: "Écrire",
-    bottom: "© 2026 Mathieu Poupon · Tous droits réservés."
+    h3: "PROFILS",
+    address: ["LOCEAN–IPSL", "Sorbonne Université", "4 place Jussieu", "75005 Paris, France"],
+    contactAria: "Aller à la page contact",
+    bottom: "© 2026 Mathieu Poupon · Tous droits réservés"
   } : {
-    h1: "AFFILIATIONS",
+    h1: "AFFILIATION",
     h2: "CONTACT",
-    address1: ["LOCEAN–IPSL", "Sorbonne Université", "4 place Jussieu", "75005 Paris, France"],
-    emailLabel: "Write",
-    bottom: "© 2026 Mathieu Poupon · All rights reserved."
+    h3: "PROFILES",
+    address: ["LOCEAN–IPSL", "Sorbonne Université", "4 place Jussieu", "75005 Paris, France"],
+    contactAria: "Go to contact page",
+    bottom: "© 2026 Mathieu Poupon · All rights reserved"
   };
-  const coord1 = "48.846°N · 2.357°E";
+  const profiles = [
+    { label: "GOOGLE SCHOLAR", href: "https://scholar.google.com/citations?user=1kRXs-IAAAAJ" },
+    { label: "ORCID", href: "https://orcid.org/0000-0002-8136-4011" },
+    { label: "GITHUB", href: "https://github.com/mpoupon" },
+    { label: "LINKEDIN", href: "https://www.linkedin.com/in/mathieu-poupon" }
+  ];
+  const coord = "48.846°N · 2.357°E";
   return React.createElement("footer", {
     className: "site-footer"
   }, React.createElement("div", {
@@ -374,16 +382,17 @@ function Footer({ lang, onNav }) {
     className: "site-footer__addr"
   }, React.createElement("div", {
     className: "site-footer__affil"
-  }, t.address1.map((l, i) => React.createElement("div", {
+  }, t.address.map((l, i) => React.createElement("div", {
     key: i
   }, l)), React.createElement("div", {
     className: "site-footer__coord"
-  }, coord1)))), React.createElement("div", {
+  }, coord)))), React.createElement("div", {
     className: "site-footer__col"
-  }, React.createElement("button", {
+  }, React.createElement("a", {
     className: "site-footer__h site-footer__h--link",
-    onClick: () => onNav && onNav("contact"),
-    "aria-label": lang === "fr" ? "Aller à la page contact" : "Go to contact page"
+    href: navHref("contact"),
+    onClick: navClick("contact", onNav),
+    "aria-label": t.contactAria
   }, t.h2, "  ", React.createElement("span", {
     className: "site-footer__h-arr"
   }, "→")), React.createElement("a", {
@@ -391,7 +400,23 @@ function Footer({ lang, onNav }) {
     href: "mailto:mathieu.poupon@locean.ipsl.fr"
   }, "mathieu.poupon", React.createElement("span", {
     className: "site-footer__email-at"
-  }, "@"), "locean.ipsl.fr")))));
+  }, "@"), "locean.ipsl.fr")), React.createElement("div", {
+    className: "site-footer__col"
+  }, React.createElement("div", {
+    className: "site-footer__h"
+  }, t.h3), React.createElement("ul", {
+    className: "site-footer__links"
+  }, profiles.map((l) => React.createElement("li", {
+    key: l.label
+  }, React.createElement("a", {
+    href: l.href,
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, l.label, React.createElement("span", {
+    className: "site-footer__link-arr"
+  }, "↗"))))))), React.createElement("div", {
+    className: "site-footer__bottom"
+  }, React.createElement("span", null, t.bottom))));
 }
 function KickerBlock({ kicker, title, lede }) {
   return React.createElement("div", {
@@ -406,7 +431,7 @@ function KickerBlock({ kicker, title, lede }) {
 }
 function StatusPip({ kind, lang }) {
   const labels = {
-    fr: { live: "EN COURS", done: "PUBLIÉ", closed: "TERMINÉ", upcoming: "À VENIR", held: "TENUE", review: "EN RÉVISION", policy: "POLICY" },
+    fr: { live: "EN COURS", done: "PUBLIÉ", closed: "TERMINÉ", upcoming: "À VENIR", held: "PASSÉ", review: "EN RÉVISION", policy: "EXPERTISE" },
     en: { live: "ACTIVE", done: "PUBLISHED", closed: "COMPLETED", upcoming: "UPCOMING", held: "HELD", review: "UNDER REVIEW", policy: "POLICY" }
   };
   const colorMap = { live: "live", done: "live", closed: "closed", upcoming: "live", review: "review", held: "done", policy: "done" };

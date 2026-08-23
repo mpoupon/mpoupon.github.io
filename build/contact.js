@@ -4,7 +4,7 @@ function Contact({ lang }) {
   const [status, setStatus] = React.useState("idle");
   const t = lang === "fr" ? {
     kicker: "06 — CONTACT",
-    title: "M'écrire, <em>échanger</em>, collaborer",
+    title: "M’écrire, <em>échanger</em>, collaborer",
     lede: "",
     h1: "AFFILIATION PRINCIPALE",
     h2: "AFFILIATION PRÉCÉDENTE",
@@ -19,7 +19,7 @@ function Contact({ lang }) {
     formHint: "Le bouton ouvrira votre client e-mail avec le message pré-rempli.",
     formSending: "Envoi en cours…",
     formSent: "Message envoyé — merci, je vous réponds dès que possible.",
-    formError: "L'envoi a échoué.",
+    formError: "L’envoi a échoué.",
     formErrorLink: "Écrire directement par e-mail"
   } : {
     kicker: "06 — CONTACT",

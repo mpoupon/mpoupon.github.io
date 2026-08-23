@@ -13,11 +13,11 @@ function BlogPost({ slug, lang, onBack }) {
   const t = lang === "fr" ? {
     kicker: "04 — NOTES",
     back: "← TOUTES LES NOTES",
-    meta: { date: "PUBLIÉ", read: "LECTURE", tags: "TAGS", cite: "CITATION" }
+    meta: { date: "PUBLIÉ", read: "LECTURE" }
   } : {
     kicker: "04 — NOTES",
     back: "← ALL NOTES",
-    meta: { date: "PUBLISHED", read: "READ", tags: "TAGS", cite: "CITE" }
+    meta: { date: "PUBLISHED", read: "READ" }
   };
   const displayDate = (w.date || "").replaceAll("-", "·");
   return React.createElement("main", {
@@ -37,9 +37,7 @@ function BlogPost({ slug, lang, onBack }) {
     style: { color: "var(--ink-grey)", fontWeight: 500, letterSpacing: "0.18em" }
   }, t.meta.date), "   ", displayDate), React.createElement("span", null, React.createElement("span", {
     style: { color: "var(--ink-grey)", fontWeight: 500, letterSpacing: "0.18em" }
-  }, t.meta.read), "   ", w.read), React.createElement("span", null, React.createElement("span", {
-    style: { color: "var(--ink-grey)", fontWeight: 500, letterSpacing: "0.18em" }
-  }, t.meta.cite), "   mathieupoupon.science/notes/", w.slug)), React.createElement("div", {
+  }, t.meta.read), "   ", w.read)), React.createElement("div", {
     className: "article__body",
     dangerouslySetInnerHTML: { __html: w.body[lang] }
   }), React.createElement("button", {

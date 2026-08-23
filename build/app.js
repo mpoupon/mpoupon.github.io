@@ -72,7 +72,7 @@ function App() {
       return;
     }
     const s = document.createElement("script");
-    s.src = "build/tweaks-panel.js?v=86";
+    s.src = "build/tweaks-panel.js?v=87";
     s.onload = () => setPanelReady(true);
     document.head.appendChild(s);
   }, []);
@@ -154,9 +154,10 @@ function App() {
     onNav,
     onLang: setLang,
     heroOverlay: section === "home" && article === null && t.hero === "frontispiece"
-  }), body, React.createElement("footer", {
-    className: "site-copyright"
-  }, "© 2026 Mathieu Poupon · ", lang === "fr" ? "Tous droits réservés" : "All rights reserved"), panelReady && React.createElement(React.Fragment, null, React.createElement(TweaksPanel, {
+  }), body, React.createElement(Footer, {
+    lang,
+    onNav
+  }), panelReady && React.createElement(React.Fragment, null, React.createElement(TweaksPanel, {
     title: "Tweaks"
   }, React.createElement(TweakSection, {
     label: lang === "fr" ? "Affichage" : "Display"
