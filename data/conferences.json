@@ -2,7 +2,6 @@
   {
     "year": 2026,
     "month": 6,
-    "status": "upcoming",
     "format": "TALK",
     "title": {
       "fr": "Uneven Costs, Optimal Regions: A Global Techno-Economic Assessment of Ocean Alkalinity Enhancement",
@@ -15,7 +14,6 @@
   {
     "year": 2026,
     "month": 5,
-    "status": "held",
     "format": "ROUND TABLE",
     "title": {
       "fr": "Decarbonising Maritime Transport in Europe: Innovation, Regulation and Market Incentives for a Net-Zero Shipping Sector",
@@ -28,7 +26,6 @@
   {
     "year": 2026,
     "month": 5,
-    "status": "held",
     "format": "TALK",
     "title": {
       "fr": "Uneven Costs, Optimal Regions: A Global Techno-Economic Assessment of Ocean Alkalinity Enhancement",
@@ -41,7 +38,6 @@
   {
     "year": 2026,
     "month": 2,
-    "status": "held",
     "format": "TALK",
     "title": {
       "fr": "Uneven Costs, Optimal Regions: A Global Techno-Economic Assessment of Ocean Alkalinity Enhancement",
@@ -54,7 +50,6 @@
   {
     "year": 2026,
     "month": 2,
-    "status": "held",
     "format": "TALK",
     "title": {
       "fr": "Unifying framework reveals importance of dissolved fluxes in ocean biological carbon pump",
@@ -67,7 +62,6 @@
   {
     "year": 2025,
     "month": 10,
-    "status": "held",
     "format": "POSTER",
     "title": {
       "fr": "Mapping the cost-efficiency of carbon dioxide removal via ocean alkalinity enhancement",
@@ -80,7 +74,6 @@
   {
     "year": 2025,
     "month": 6,
-    "status": "held",
     "format": "TALK",
     "title": {
       "fr": "Cost-effective ocean alkalinity enhancement confined to coastal regions",
@@ -93,7 +86,6 @@
   {
     "year": 2025,
     "month": 6,
-    "status": "held",
     "format": "ROUND TABLE",
     "title": {
       "fr": "How ECOP Programme nodes help support ECOPs and promote ocean science around the world: real examples, needs and challenges",
@@ -106,7 +98,6 @@
   {
     "year": 2025,
     "month": 5,
-    "status": "held",
     "format": "TALK",
     "title": {
       "fr": "Cost-effective ocean alkalinity enhancement confined to coastal regions",
@@ -119,7 +110,6 @@
   {
     "year": 2025,
     "month": 5,
-    "status": "held",
     "format": "WEBINAR",
     "title": {
       "fr": "Unifying framework reveals importance of dissolved fluxes in ocean biological carbon pump",
@@ -132,7 +122,6 @@
   {
     "year": 2024,
     "month": 2,
-    "status": "held",
     "format": "TALK",
     "title": {
       "fr": "Elucidate the processes controlling the migrating zooplankton carbon pump",
@@ -145,7 +134,6 @@
   {
     "year": 2023,
     "month": 9,
-    "status": "held",
     "format": "TALK",
     "title": {
       "fr": "How could the migrating zooplankton carbon pump evolve in a warmer world?",
@@ -158,7 +146,6 @@
   {
     "year": 2023,
     "month": 9,
-    "status": "held",
     "format": "POSTER",
     "title": {
       "fr": "Exploring the migrant pump variability: a mechanistic model approach to identify its drivers",
@@ -171,7 +158,6 @@
   {
     "year": 2022,
     "month": 8,
-    "status": "held",
     "format": "POSTER",
     "title": {
       "fr": "Extending subducted filament detection to the global scale using Argo floats",
@@ -184,7 +170,6 @@
   {
     "year": 2022,
     "month": 6,
-    "status": "held",
     "format": "POSTER",
     "title": {
       "fr": "Extending subducted filament detection to the global scale using Argo floats",
@@ -197,7 +182,6 @@
   {
     "year": 2022,
     "month": 5,
-    "status": "held",
     "format": "TALK",
     "title": {
       "fr": "Pacific decadal oscillation influences the extension of the tropical Oxygen Minimum Zone and obscures the impacts of anthropogenic changes",
@@ -210,7 +194,6 @@
   {
     "year": 2022,
     "month": 3,
-    "status": "held",
     "format": "TALK",
     "title": {
       "fr": "Response of Tropical Pacific oxygen minimum zone to Pacific natural mode of variability",
