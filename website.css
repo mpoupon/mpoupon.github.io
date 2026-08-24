@@ -197,7 +197,7 @@ a.research-card { cursor: pointer; }
 .research-card__status .status-pip[data-kind="live"] .status-pip__dot,
 .research-card__status .status-pip[data-kind="upcoming"] .status-pip__dot {
   background: var(--status-live);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6), 0 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: none;                /* the plain green disc, no ring around it */
 }
 /* The brand green is too dark to read as a wave over a photograph — on cards
    the ping is drawn in ivory instead, like light leaving the dot. */
