@@ -72,7 +72,7 @@ function App() {
       return;
     }
     const s = document.createElement("script");
-    s.src = "build/tweaks-panel.js?v=89";
+    s.src = "build/tweaks-panel.js?v=90";
     s.onload = () => setPanelReady(true);
     document.head.appendChild(s);
   }, []);
