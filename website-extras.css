@@ -212,7 +212,12 @@ html[data-theme="dark"] .hero-band__motif { filter: invert(0.92) hue-rotate(180d
   color: #FAF8F3;
   transition: color 240ms ease;
 }
-.site-header.is-over-hero .site-nav__link:hover { color: #FAF8F3; }
+/* Over the banner the grey rule would vanish into the photo — use a
+   translucent ivory so the same gesture reads on a dark ground. */
+.site-header.is-over-hero .site-nav__link:hover {
+  color: #FAF8F3;
+  border-bottom-color: rgba(250, 248, 243, 0.45);
+}
 .site-header.is-over-hero .site-nav__link.is-active {
   color: #FAF8F3;
   border-bottom-color: var(--terracotta);

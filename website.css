@@ -18,8 +18,12 @@ html, body { margin: 0; }
   letter-spacing: 0.20em; text-transform: uppercase; color: var(--ink-grey);
   text-decoration: none; padding: 8px 0; border: 0; background: none;
   border-bottom: 1px solid transparent; cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease;
 }
-.site-nav__link:hover { color: var(--prussian); }
+/* Hovering a section draws the hairline rule under it — the same grey as the
+   dividers elsewhere, so it reads as the page's own line, not as a UI accent.
+   The current section keeps the terracotta rule (declared after this one). */
+.site-nav__link:hover { color: var(--prussian); border-bottom-color: var(--rule); }
 .site-nav__link.is-active { color: var(--prussian); border-bottom-color: var(--terracotta); }
 /* ---- Neumorphic FR/EN toggle ----
    Track = inset pill, thumb = raised pill sliding behind buttons.
