@@ -16,19 +16,6 @@
     "year": 2026,
     "status": "review",
     "title": {
-      "fr": "The case against renewed ocean iron fertilization field trials",
-      "en": "The case against renewed ocean iron fertilization field trials"
-    },
-    "authors": "Poupon M. A., Gray P. C., Tagliabue A., Cullen J. J., Lévy M., Boss E.",
-    "venue": "",
-    "doi": null,
-    "pdf": null,
-    "supp": null
-  },
-  {
-    "year": 2026,
-    "status": "review",
-    "title": {
       "fr": "SamudraBGC: Machine Learning Emulation of Regional Mesoscale Ocean Biogeochemistry",
       "en": "SamudraBGC: Machine Learning Emulation of Regional Mesoscale Ocean Biogeochemistry"
     },
@@ -48,6 +35,19 @@
     "authors": "Poupon M. A., Resplandy L., Oppenheimer M.",
     "venue": "",
     "doi": null,
+    "pdf": null,
+    "supp": null
+  },
+  {
+    "year": 2026,
+    "status": "done",
+    "title": {
+      "fr": "The case against renewed ocean iron fertilization field trials",
+      "en": "The case against renewed ocean iron fertilization field trials"
+    },
+    "authors": "Poupon M. A., Gray P. C., Tagliabue A., Cullen J. J., Lévy M., Boss E.",
+    "venue": "Dialogues on Climate Change",
+    "doi": "10.1177/29768659261498319",
     "pdf": null,
     "supp": null
   },
