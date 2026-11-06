@@ -1,6 +1,18 @@
 [
   {
     "year": 2026,
+    "month": 11,
+    "format": "TALK",
+    "title": {
+      "fr": "How much do zooplankton and fine-scale processes matter for the ocean biological pump?",
+      "en": "How much do zooplankton and fine-scale processes matter for the ocean biological pump?"
+    },
+    "event": "OCB 20th Anniversary Virtual Symposium — Biological Carbon Pump session",
+    "city": "Online",
+    "country": null
+  },
+  {
+    "year": 2026,
     "month": 6,
     "format": "TALK",
     "title": {
