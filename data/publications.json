@@ -133,6 +133,24 @@
     "year": 2026,
     "status": "policy",
     "title": {
+      "fr": "The roles of marine biology in helping the ocean store carbon",
+      "en": "The roles of marine biology in helping the ocean store carbon"
+    },
+    "authors": "Gallo N., Poupon M. A., Martin A., Sanders R., et al.",
+    "role": {
+      "fr": "Policy brief pour la COP31 de la CCNUCC — co-auteur",
+      "en": "Policy brief for UNFCCC COP31 — co-author"
+    },
+    "venue": "UNFCCC COP31",
+    "doi": null,
+    "url": null,
+    "pdf": "papers/Gallo2026.pdf",
+    "supp": null
+  },
+  {
+    "year": 2026,
+    "status": "policy",
+    "title": {
       "fr": "Keep Europe at the forefront of responsible novel marine carbon dioxide removal",
       "en": "Keep Europe at the forefront of responsible novel marine carbon dioxide removal"
     },
