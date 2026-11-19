@@ -1,4 +1,14 @@
 [{
+    "year": 2026,
+    "org": "CNRS Terre & Univers",
+    "title": {
+      "fr": "Fertiliser l’océan en fer : l’impasse des essais à grande échelle",
+      "en": "Fertilizing the ocean with iron: why large-scale trials are a dead end"
+    },
+    "kind": { "fr": "Actualité scientifique", "en": "Research news" },
+    "href": "https://www.insu.cnrs.fr/fr/cnrsinfo/fertiliser-locean-en-fer-limpasse-des-essais-grande-echelle"
+  },
+  {
   "year": 2026,
   "org": "UN Ocean Decade · ECOP Programme",
   "title": {
