@@ -18,6 +18,7 @@ function Engagement({ lang }) {
   const [teaching,   setTeaching]   = React.useState([]);
   const [press,      setPress]      = React.useState([]);
   const [confsExpanded, setConfsExpanded] = React.useState(false);
+  const [teachExpanded, setTeachExpanded] = React.useState(false);
   const [pressExpanded, setPressExpanded] = React.useState(false);
 
   React.useEffect(() => {
@@ -53,6 +54,7 @@ function Engagement({ lang }) {
     loc:  c.country ? c.city + ', ' + c.country : c.city,
   }));
   const visibleConfs = confsExpanded ? allConfs : allConfs.slice(0, COLLAPSED_ROWS);
+  const visibleTeach = teachExpanded ? teaching : teaching.slice(0, COLLAPSED_ROWS);
   const visiblePress = pressExpanded ? press : press.slice(0, COLLAPSED_ROWS);
 
   return (
@@ -98,7 +100,7 @@ function Engagement({ lang }) {
           <h2 className="engage-block__title">{t.s1}</h2>
         </header>
         <div className="itemlist">
-          {teaching.map((it, i) => (
+          {visibleTeach.map((it, i) => (
             <div className="itemlist__row itemlist__row--teach" key={i}>
               <div className="itemlist__date">{it.date}</div>
               <div className="itemlist__fmt">{it.role[lang]}</div>
@@ -114,6 +116,17 @@ function Engagement({ lang }) {
             </div>
           ))}
         </div>
+        {teaching.length > COLLAPSED_ROWS && (
+          <button
+            type="button"
+            className="engage-block__toggle"
+            onClick={() => setTeachExpanded(v => !v)}
+            aria-expanded={teachExpanded}
+          >
+            {teachExpanded ? t.showLess : t.showMore}
+            <span className="engage-block__toggle-arr" aria-hidden="true">{teachExpanded ? ' ↑' : ' ↓'}</span>
+          </button>
+        )}
       </section>
 
       {/* Interviews and Blog */}

@@ -9,6 +9,7 @@ function Engagement({ lang }) {
   const [teaching, setTeaching] = React.useState([]);
   const [press, setPress] = React.useState([]);
   const [confsExpanded, setConfsExpanded] = React.useState(false);
+  const [teachExpanded, setTeachExpanded] = React.useState(false);
   const [pressExpanded, setPressExpanded] = React.useState(false);
   React.useEffect(() => {
     fetch("data/conferences.json").then((r) => r.json()).then(setConfsData).catch(() => {});
@@ -41,6 +42,7 @@ function Engagement({ lang }) {
     loc: c.country ? c.city + ", " + c.country : c.city
   }));
   const visibleConfs = confsExpanded ? allConfs : allConfs.slice(0, COLLAPSED_ROWS);
+  const visibleTeach = teachExpanded ? teaching : teaching.slice(0, COLLAPSED_ROWS);
   const visiblePress = pressExpanded ? press : press.slice(0, COLLAPSED_ROWS);
   return React.createElement("main", {
     id: "main",
@@ -92,7 +94,7 @@ function Engagement({ lang }) {
     className: "engage-block__title"
   }, t.s1)), React.createElement("div", {
     className: "itemlist"
-  }, teaching.map((it, i) => React.createElement("div", {
+  }, visibleTeach.map((it, i) => React.createElement("div", {
     className: "itemlist__row itemlist__row--teach",
     key: i
   }, React.createElement("div", {
@@ -109,7 +111,15 @@ function Engagement({ lang }) {
     className: "itemlist__sub"
   }, it.venue[lang]), it.note && React.createElement("div", {
     className: "itemlist__note"
-  }, it.note[lang])))))), React.createElement("section", {
+  }, it.note[lang]))))), teaching.length > COLLAPSED_ROWS && React.createElement("button", {
+    type: "button",
+    className: "engage-block__toggle",
+    onClick: () => setTeachExpanded((v) => !v),
+    "aria-expanded": teachExpanded
+  }, teachExpanded ? t.showLess : t.showMore, React.createElement("span", {
+    className: "engage-block__toggle-arr",
+    "aria-hidden": "true"
+  }, teachExpanded ? " ↑" : " ↓"))), React.createElement("section", {
     className: "engage-block"
   }, React.createElement("header", {
     className: "engage-block__head"
