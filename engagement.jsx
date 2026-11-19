@@ -7,6 +7,9 @@ const FMT_LABELS = {
 };
 const fmtLabel = (fmt, lang) => (FMT_LABELS[lang] && FMT_LABELS[lang][fmt]) || fmt;
 
+// Number of rows shown before the "Show all" toggle in collapsible lists.
+const COLLAPSED_ROWS = 4;
+
 // Teaching, press and conferences are loaded from data/*.json.
 // To add an entry, edit the corresponding JSON file — no code change needed.
 
@@ -15,6 +18,7 @@ function Engagement({ lang }) {
   const [teaching,   setTeaching]   = React.useState([]);
   const [press,      setPress]      = React.useState([]);
   const [confsExpanded, setConfsExpanded] = React.useState(false);
+  const [pressExpanded, setPressExpanded] = React.useState(false);
 
   React.useEffect(() => {
     fetch('data/conferences.json').then(r => r.json()).then(setConfsData).catch(() => {});
@@ -48,7 +52,8 @@ function Engagement({ lang }) {
     fmt:  c.format,
     loc:  c.country ? c.city + ', ' + c.country : c.city,
   }));
-  const visibleConfs = confsExpanded ? allConfs : allConfs.slice(0, 3);
+  const visibleConfs = confsExpanded ? allConfs : allConfs.slice(0, COLLAPSED_ROWS);
+  const visiblePress = pressExpanded ? press : press.slice(0, COLLAPSED_ROWS);
 
   return (
     <main id="main" className="shell">
@@ -74,7 +79,7 @@ function Engagement({ lang }) {
             </div>
           ))}
         </div>
-        {allConfs.length > 3 && (
+        {allConfs.length > COLLAPSED_ROWS && (
           <button
             type="button"
             className="engage-block__toggle"
@@ -117,7 +122,7 @@ function Engagement({ lang }) {
           <h2 className="engage-block__title">{t.s2}</h2>
         </header>
         <div className="itemlist">
-          {press.map((it, i) => (
+          {visiblePress.map((it, i) => (
             <div className="itemlist__row itemlist__row--press" key={i}>
               <div className="itemlist__date">{it.year}</div>
               <div className="itemlist__org">{it.org}</div>
@@ -132,6 +137,17 @@ function Engagement({ lang }) {
             </div>
           ))}
         </div>
+        {press.length > COLLAPSED_ROWS && (
+          <button
+            type="button"
+            className="engage-block__toggle"
+            onClick={() => setPressExpanded(v => !v)}
+            aria-expanded={pressExpanded}
+          >
+            {pressExpanded ? t.showLess : t.showMore}
+            <span className="engage-block__toggle-arr" aria-hidden="true">{pressExpanded ? ' ↑' : ' ↓'}</span>
+          </button>
+        )}
       </section>
     </main>
   );

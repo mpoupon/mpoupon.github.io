@@ -3,11 +3,13 @@ const FMT_LABELS = {
   en: { TALK: "TALK", POSTER: "POSTER", WEBINAR: "WEBINAR", "ROUND TABLE": "ROUND TABLE" }
 };
 const fmtLabel = (fmt, lang) => FMT_LABELS[lang] && FMT_LABELS[lang][fmt] || fmt;
+const COLLAPSED_ROWS = 4;
 function Engagement({ lang }) {
   const [confsData, setConfsData] = React.useState([]);
   const [teaching, setTeaching] = React.useState([]);
   const [press, setPress] = React.useState([]);
   const [confsExpanded, setConfsExpanded] = React.useState(false);
+  const [pressExpanded, setPressExpanded] = React.useState(false);
   React.useEffect(() => {
     fetch("data/conferences.json").then((r) => r.json()).then(setConfsData).catch(() => {});
     fetch("data/teaching.json").then((r) => r.json()).then(setTeaching).catch(() => {});
@@ -38,7 +40,8 @@ function Engagement({ lang }) {
     fmt: c.format,
     loc: c.country ? c.city + ", " + c.country : c.city
   }));
-  const visibleConfs = confsExpanded ? allConfs : allConfs.slice(0, 3);
+  const visibleConfs = confsExpanded ? allConfs : allConfs.slice(0, COLLAPSED_ROWS);
+  const visiblePress = pressExpanded ? press : press.slice(0, COLLAPSED_ROWS);
   return React.createElement("main", {
     id: "main",
     className: "shell"
@@ -73,7 +76,7 @@ function Engagement({ lang }) {
   }, React.createElement(StatusPip, {
     kind: confStatus(c),
     lang
-  }))))), allConfs.length > 3 && React.createElement("button", {
+  }))))), allConfs.length > COLLAPSED_ROWS && React.createElement("button", {
     type: "button",
     className: "engage-block__toggle",
     onClick: () => setConfsExpanded((v) => !v),
@@ -114,7 +117,7 @@ function Engagement({ lang }) {
     className: "engage-block__title"
   }, t.s2)), React.createElement("div", {
     className: "itemlist"
-  }, press.map((it, i) => React.createElement("div", {
+  }, visiblePress.map((it, i) => React.createElement("div", {
     className: "itemlist__row itemlist__row--press",
     key: i
   }, React.createElement("div", {
@@ -129,6 +132,14 @@ function Engagement({ lang }) {
     rel: "noopener noreferrer"
   }, it.title[lang])), React.createElement("div", {
     className: "itemlist__sub"
-  }, it.kind[lang])))))));
+  }, it.kind[lang]))))), press.length > COLLAPSED_ROWS && React.createElement("button", {
+    type: "button",
+    className: "engage-block__toggle",
+    onClick: () => setPressExpanded((v) => !v),
+    "aria-expanded": pressExpanded
+  }, pressExpanded ? t.showLess : t.showMore, React.createElement("span", {
+    className: "engage-block__toggle-arr",
+    "aria-hidden": "true"
+  }, pressExpanded ? " ↑" : " ↓"))));
 }
 Object.assign(window, { Engagement });
