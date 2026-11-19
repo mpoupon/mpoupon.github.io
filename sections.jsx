@@ -548,7 +548,7 @@ function Publications({ lang }) {
               </a>
             )}
             {p.venue && !p.doi && !p.url && (
-              <span className="itemlist__action itemlist__action--venue itemlist__action--static">
+              <span className={`itemlist__action itemlist__action--venue${p.status === 'accepted' ? '' : ' itemlist__action--static'}`}>
                 {p.venue}
               </span>
             )}

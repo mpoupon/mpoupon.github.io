@@ -617,7 +617,7 @@ function Publications({ lang }) {
     target: "_blank",
     rel: "noopener noreferrer"
   }, p.venue), p.venue && !p.doi && !p.url && React.createElement("span", {
-    className: "itemlist__action itemlist__action--venue itemlist__action--static"
+    className: `itemlist__action itemlist__action--venue${p.status === "accepted" ? "" : " itemlist__action--static"}`
   }, p.venue), withActions && p.pdf && React.createElement("a", {
     className: "itemlist__action",
     href: p.pdf,
