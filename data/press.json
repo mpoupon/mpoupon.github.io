@@ -34,7 +34,17 @@
   },
   "href": "https://www.ecopdecade.org/riding-the-wave/"
   },
-  
+  {
+    "year": 2026,
+    "org": "US Ocean Carbon & Biogeochemistry (OCB)",
+    "title": {
+      "fr": "Détecter la pompe à carbone des tourbillons à l’échelle globale : elle est plus petite qu’on ne le pensait",
+      "en": "Detecting the ocean’s eddy carbon pump globally—it’s smaller than we thought"
+    },
+    "kind": { "fr": "Fait marquant scientifique", "en": "Science highlight" },
+    "href": "https://www.us-ocb.org/detecting-the-oceans-eddy-carbon-pump-globally-its-smaller-than-we-thought/"
+  },
+
   {
     "year": 2026,
     "org": "Princeton Geosciences",
