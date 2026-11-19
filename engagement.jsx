@@ -141,7 +141,7 @@ function Engagement({ lang }) {
               <div className="itemlist__org">{it.org}</div>
               <div>
                 <div className="itemlist__title">
-                  <a href={it.href} target="_blank" rel="noopener noreferrer">
+                  <a href={typeof it.href === 'object' ? it.href[lang] : it.href} target="_blank" rel="noopener noreferrer">
                     {it.title[lang]}
                   </a>
                 </div>

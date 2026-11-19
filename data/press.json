@@ -1,5 +1,18 @@
 [{
     "year": 2026,
+    "org": "IPSL",
+    "title": {
+      "fr": "Fertiliser l’océan en fer : l’impasse des essais à grande échelle",
+      "en": "Fertilising the ocean with iron: the impasse of large-scale trials"
+    },
+    "kind": { "fr": "Actualité scientifique", "en": "Research news" },
+    "href": {
+      "fr": "https://www.ipsl.fr/article/fertiliser-locean-en-fer-limpasse-des-essais-a-grande-echelle/",
+      "en": "https://www.ipsl.fr/en/article/fertilising-the-ocean-with-iron-the-impasse-of-large-scale-trials/"
+    }
+  },
+  {
+    "year": 2026,
     "org": "CNRS Terre & Univers",
     "title": {
       "fr": "Fertiliser l’océan en fer : l’impasse des essais à grande échelle",

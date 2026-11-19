@@ -137,7 +137,7 @@ function Engagement({ lang }) {
   }, it.org), React.createElement("div", null, React.createElement("div", {
     className: "itemlist__title"
   }, React.createElement("a", {
-    href: it.href,
+    href: typeof it.href === "object" ? it.href[lang] : it.href,
     target: "_blank",
     rel: "noopener noreferrer"
   }, it.title[lang])), React.createElement("div", {
