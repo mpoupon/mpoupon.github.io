@@ -41,7 +41,7 @@ const RESEARCH = [
 
 // ---- Data: publications — loaded from data/publications.json -------------
 // To add a publication, edit data/publications.json (no code change needed).
-// Fields: year (int), status ("done"|"review"), title {fr,en}, authors,
+// Fields: year (int), status ("done"|"accepted"|"review"|"policy"), title {fr,en}, authors,
 //         venue, doi (string|null), pdf (path|null), supp (path|null)
 
 // ---- Data: conferences — loaded from data/conferences.json ---------------
@@ -457,6 +457,7 @@ function Publications({ lang }) {
     title:'Publications',
     lede:"Articles à comité de lecture, publiés ou en révision, et contributions à des documents d’orientation pour les politiques publiques.",
     s1:'Articles en révision',
+    sAcc:'Articles acceptés',
     s2:'Articles publiés',
     s3:'Politiques publiques',
     article:'PDF',
@@ -466,6 +467,7 @@ function Publications({ lang }) {
     title:'Publications',
     lede:"Peer-reviewed papers, published or under review, and policy-oriented documents I contributed expertise to.",
     s1:'Articles under review',
+    sAcc:'Accepted articles',
     s2:'Published articles',
     s3:'Policy contributions',
     article:'PDF',
@@ -501,6 +503,7 @@ function Publications({ lang }) {
   }, []);
 
   const reviewPubs = pubs.filter(p => p.status === 'review');
+  const acceptedPubs = pubs.filter(p => p.status === 'accepted');
   const donePubs = pubs.filter(p => p.status === 'done');
   const policyPubs = pubs.filter(p => p.status === 'policy');
 
@@ -595,6 +598,17 @@ function Publications({ lang }) {
           </header>
           <div className="itemlist">
             {reviewPubs.map((p,i) => renderRow(p, `r-${i}`, false))}
+          </div>
+        </section>
+      )}
+
+      {acceptedPubs.length > 0 && (
+        <section className="engage-block">
+          <header className="engage-block__head">
+            <h2 className="engage-block__title">{t.sAcc}</h2>
+          </header>
+          <div className="itemlist">
+            {acceptedPubs.map((p,i) => renderRow(p, `a-${i}`, true))}
           </div>
         </section>
       )}

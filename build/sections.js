@@ -498,6 +498,7 @@ function Publications({ lang }) {
     title: "Publications",
     lede: "Articles à comité de lecture, publiés ou en révision, et contributions à des documents d’orientation pour les politiques publiques.",
     s1: "Articles en révision",
+    sAcc: "Articles acceptés",
     s2: "Articles publiés",
     s3: "Politiques publiques",
     article: "PDF",
@@ -507,6 +508,7 @@ function Publications({ lang }) {
     title: "Publications",
     lede: "Peer-reviewed papers, published or under review, and policy-oriented documents I contributed expertise to.",
     s1: "Articles under review",
+    sAcc: "Accepted articles",
     s2: "Published articles",
     s3: "Policy contributions",
     article: "PDF",
@@ -548,6 +550,7 @@ function Publications({ lang }) {
     };
   }, []);
   const reviewPubs = pubs.filter((p) => p.status === "review");
+  const acceptedPubs = pubs.filter((p) => p.status === "accepted");
   const donePubs = pubs.filter((p) => p.status === "done");
   const policyPubs = pubs.filter((p) => p.status === "policy");
   const docIcon = React.createElement("span", {
@@ -658,7 +661,15 @@ function Publications({ lang }) {
     className: "engage-block__title"
   }, t.s1)), React.createElement("div", {
     className: "itemlist"
-  }, reviewPubs.map((p, i) => renderRow(p, `r-${i}`, false)))), donePubs.length > 0 && React.createElement("section", {
+  }, reviewPubs.map((p, i) => renderRow(p, `r-${i}`, false)))), acceptedPubs.length > 0 && React.createElement("section", {
+    className: "engage-block"
+  }, React.createElement("header", {
+    className: "engage-block__head"
+  }, React.createElement("h2", {
+    className: "engage-block__title"
+  }, t.sAcc)), React.createElement("div", {
+    className: "itemlist"
+  }, acceptedPubs.map((p, i) => renderRow(p, `a-${i}`, true)))), donePubs.length > 0 && React.createElement("section", {
     className: "engage-block"
   }, React.createElement("header", {
     className: "engage-block__head"

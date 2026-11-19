@@ -431,10 +431,10 @@ function KickerBlock({ kicker, title, lede }) {
 }
 function StatusPip({ kind, lang }) {
   const labels = {
-    fr: { live: "EN COURS", done: "PUBLIÉ", closed: "TERMINÉ", upcoming: "À VENIR", held: "PASSÉ", review: "EN RÉVISION", policy: "POLICY" },
-    en: { live: "ACTIVE", done: "PUBLISHED", closed: "COMPLETED", upcoming: "UPCOMING", held: "HELD", review: "UNDER REVIEW", policy: "POLICY" }
+    fr: { live: "EN COURS", done: "PUBLIÉ", closed: "TERMINÉ", upcoming: "À VENIR", held: "PASSÉ", review: "EN RÉVISION", accepted: "ACCEPTÉ", policy: "POLICY" },
+    en: { live: "ACTIVE", done: "PUBLISHED", closed: "COMPLETED", upcoming: "UPCOMING", held: "HELD", review: "UNDER REVIEW", accepted: "ACCEPTED", policy: "POLICY" }
   };
-  const colorMap = { live: "live", done: "live", closed: "closed", upcoming: "live", review: "review", held: "done", policy: "done" };
+  const colorMap = { live: "live", done: "live", closed: "closed", upcoming: "live", review: "review", accepted: "live", held: "done", policy: "done" };
   return React.createElement("span", {
     className: `status-pip status-pip--${colorMap[kind]}`,
     "data-kind": kind
