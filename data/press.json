@@ -1,11 +1,30 @@
-[{
+[
+  {
     "year": 2026,
+    "month": 11,
+    "org": "CNRS Terre & Univers",
+    "title": {
+      "fr": "Fertiliser l’océan en fer : l’impasse des essais à grande échelle",
+      "en": "Fertilizing the ocean with iron: why large-scale trials are a dead end"
+    },
+    "kind": {
+      "fr": "Actualité scientifique",
+      "en": "Research news"
+    },
+    "href": "https://www.insu.cnrs.fr/fr/cnrsinfo/fertiliser-locean-en-fer-limpasse-des-essais-grande-echelle"
+  },
+  {
+    "year": 2026,
+    "month": 11,
     "org": "Institut Pierre-Simon Laplace",
     "title": {
       "fr": "Fertiliser l’océan en fer : l’impasse des essais à grande échelle",
       "en": "Fertilising the ocean with iron: the impasse of large-scale trials"
     },
-    "kind": { "fr": "Actualité scientifique", "en": "Research news" },
+    "kind": {
+      "fr": "Actualité scientifique",
+      "en": "Research news"
+    },
     "href": {
       "fr": "https://www.ipsl.fr/article/fertiliser-locean-en-fer-limpasse-des-essais-a-grande-echelle/",
       "en": "https://www.ipsl.fr/en/article/fertilising-the-ocean-with-iron-the-impasse-of-large-scale-trials/"
@@ -13,66 +32,72 @@
   },
   {
     "year": 2026,
-    "org": "CNRS Terre & Univers",
+    "month": 7,
+    "org": "UN Ocean Decade · ECOP Programme",
     "title": {
-      "fr": "Fertiliser l’océan en fer : l’impasse des essais à grande échelle",
-      "en": "Fertilizing the ocean with iron: why large-scale trials are a dead end"
+      "fr": "Surfer sur la vague : réunir science, politiques publiques et innovation pour l’avenir de l’océan",
+      "en": "Riding the Wave: bringing science, policy and innovation together for the future of the ocean"
     },
-    "kind": { "fr": "Actualité scientifique", "en": "Research news" },
-    "href": "https://www.insu.cnrs.fr/fr/cnrsinfo/fertiliser-locean-en-fer-limpasse-des-essais-grande-echelle"
-  },
-  {
-  "year": 2026,
-  "org": "UN Ocean Decade · ECOP Programme",
-  "title": {
-    "fr": "Surfer sur la vague : réunir science, politiques publiques et innovation pour l’avenir de l’océan",
-    "en": "Riding the Wave: bringing science, policy and innovation together for the future of the ocean"
-  },
-  "kind": {
-    "fr": "Article",
-    "en": "Article"
-  },
-  "href": "https://www.ecopdecade.org/riding-the-wave/"
+    "kind": {
+      "fr": "Article",
+      "en": "Article"
+    },
+    "href": "https://www.ecopdecade.org/riding-the-wave/"
   },
   {
     "year": 2026,
+    "month": 6,
     "org": "US Ocean Carbon & Biogeochemistry (OCB)",
     "title": {
       "fr": "Détecter la pompe à carbone des tourbillons à l’échelle globale : elle est plus petite qu’on ne le pensait",
       "en": "Detecting the ocean’s eddy carbon pump globally—it’s smaller than we thought"
     },
-    "kind": { "fr": "Fait marquant scientifique", "en": "Science highlight" },
+    "kind": {
+      "fr": "Fait marquant scientifique",
+      "en": "Science highlight"
+    },
     "href": "https://www.us-ocb.org/detecting-the-oceans-eddy-carbon-pump-globally-its-smaller-than-we-thought/"
   },
-
   {
     "year": 2026,
+    "month": 2,
     "org": "Princeton Geosciences",
     "title": {
       "fr": "Félicitations au Dr Mathieu Poupon pour la soutenance réussie de sa thèse",
       "en": "Congratulations Dr. Mathieu Poupon for successfully defending his PhD thesis"
     },
-    "kind": { "fr": "Billet de blog", "en": "Blog post" },
+    "kind": {
+      "fr": "Billet de blog",
+      "en": "Blog post"
+    },
     "href": "https://geosciences.princeton.edu/news/congratulations-dr-mathieu-poupon-successfully-defending-his-phd-thesis"
   },
   {
     "year": 2025,
+    "month": 6,
     "org": "Resplandy Lab",
     "title": {
       "fr": "Le doctorant Mathieu Poupon présente ses travaux au congrès mondial des sciences de l’océan",
       "en": "Graduate student Mathieu Poupon showcases research at the global Ocean Science Congress"
     },
-    "kind": { "fr": "Billet de blog", "en": "Blog post" },
+    "kind": {
+      "fr": "Billet de blog",
+      "en": "Blog post"
+    },
     "href": "https://resplandy.princeton.edu/news/2025/graduate-student-mathieu-poupon%C2%A0showcases-research-global-ocean-science-congress"
   },
   {
-    "year": 2024,
+    "year": 2020,
+    "month": 12,
     "org": "ENS · PSL",
     "title": {
       "fr": "« Il est nécessaire de transmettre au public les armes pour interroger les savoirs »",
       "en": "“It is necessary to give the public the tools to question knowledge”"
     },
-    "kind": { "fr": "Entretien", "en": "Interview" },
+    "kind": {
+      "fr": "Entretien",
+      "en": "Interview"
+    },
     "href": "https://www.ens.psl.eu/actualites/il-est-necessaire-de-transmettre-au-public-les-armes-pour-interroger-les-savoirs"
   }
 ]

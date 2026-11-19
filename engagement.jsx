@@ -137,7 +137,7 @@ function Engagement({ lang }) {
         <div className="itemlist">
           {visiblePress.map((it, i) => (
             <div className="itemlist__row itemlist__row--press" key={i}>
-              <div className="itemlist__date">{it.year}</div>
+              <div className="itemlist__date">{it.month ? it.year + '·' + String(it.month).padStart(2, '0') : it.year}</div>
               <div className="itemlist__org">{it.org}</div>
               <div>
                 <div className="itemlist__title">

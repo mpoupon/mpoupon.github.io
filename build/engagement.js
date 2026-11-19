@@ -132,7 +132,7 @@ function Engagement({ lang }) {
     key: i
   }, React.createElement("div", {
     className: "itemlist__date"
-  }, it.year), React.createElement("div", {
+  }, it.month ? it.year + "·" + String(it.month).padStart(2, "0") : it.year), React.createElement("div", {
     className: "itemlist__org"
   }, it.org), React.createElement("div", null, React.createElement("div", {
     className: "itemlist__title"
